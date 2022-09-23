@@ -1,0 +1,117 @@
+# Copyright 2022 Huawei Technologies Co., Ltd
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# ============================================================================
+
+# model architecture
+model_name: i3d_rgb
+
+# The dataset sink mode.
+dataset_sink_mode: False
+
+# Context settings.
+context:
+    mode: 0 #0--Graph Mode; 1--Pynative Mode
+    device_target: "GPU"
+
+# Model settings.
+model:
+    type: i3d_rgb 
+    num_classes: 400
+
+
+learning_rate:
+    lr_scheduler: "cosine_annealing"
+    lr: 0.0012
+    lr_epochs: [2, 4]
+    lr_gamma: 0.1
+    eta_min: 0.0
+    t_max: 100
+    max_epoch: 5
+    warmup_epochs: 4
+
+optimizer:
+    type: 'SGD'
+    momentum: 0.9
+    weight_decay: 0.0004
+    loss_scale: 1024
+
+loss:
+    type: SoftmaxCrossEntropyWithLogits
+    sparse: True
+    reduction: "mean"
+
+train:
+    pre_trained: False
+    pretrained_model: ""
+    ckpt_path: "./output/"
+    epochs: 100
+    save_checkpoint_epochs: 5
+    save_checkpoint_steps: 1875
+    keep_checkpoint_max: 10
+    run_distribute: False
+
+eval:
+    pretrained_model: ""
+
+infer:
+    pretrained_model: ""
+    batch_size: 16
+    image_path: ""
+    normalize: True
+    output_dir: "./infer_output"
+
+
+# kinetic dataset config
+data_loader:
+    train:
+        dataset:
+              type: Kinetic400
+              path: "/home/publicfile/kinetics-400"
+              shuffle: True
+              split: 'train'
+              seq: 64
+              num_parallel_workers: 8
+              shuffle: True
+              batch_size: 16
+              
+        map:
+            operations:
+                - type: VideoResize
+                  size: [256, 256]
+                - type: VideoRandomCrop
+                  size: [224, 224]
+                - type: VideoRandomHorizontalFlip
+                  prob: 0.5
+                - type: VideoToTensor
+            input_columns: ["video"]
+
+    eval:
+        dataset:
+            type: Kinetic400
+            path: "/home/publicfile/kinetics-dataset"
+            split: 'val'
+            seq: 64
+            shuffle: Ture
+            num_parallel_workers: 8
+            seq_mode: 'discrete'
+            
+        map:
+            operations:
+                - type: VideoShortEdgeResize
+                  size: 256
+                - type: VideoCenterCrop
+                  size: [224, 224]
+                - type: VideoToTensor
+            input_columns: ["video"]
+    group_size: 1

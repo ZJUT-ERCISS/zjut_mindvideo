@@ -1,0 +1,127 @@
+# Copyright 2022 Huawei Technologies Co., Ltd
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# ============================================================================
+
+# model architecture
+model_name: Swin3D-B
+
+# The dataset sink mode.
+dataset_sink_mode: False
+
+# Context settings.
+context:
+    mode: 0 #0--Graph Mode; 1--Pynative Mode
+    device_target: "GPU"
+
+# Model settings.
+model:
+    type: swin3d_b
+    num_classes: 400
+    patch_size: [2, 4, 4]
+    window_size: [8, 7, 7]
+    embed_dim: 128
+    depths: [2, 2, 18, 2]
+    num_heads: [4, 8, 16, 32]
+    representation_size: 1024
+    droppath_keep_prob: 0.7
+
+learning_rate:
+    lr_scheduler: "warmup_cosine_annealing_lr_v2"
+    lr: 0.0001
+    warmup_epochs: 2.5
+    max_epoch: 30
+    eta_min: 0
+
+optimizer:
+    type: 'AdamWeightDecay'
+    beta1: 0.9
+    beta2: 0.99
+    # L2 regularization.
+    weight_decay: 0.05
+
+loss:
+    type: SoftmaxCrossEntropyWithLogits
+    sparse: True
+    reduction: "mean"
+
+train:
+    pre_trained: True
+    pretrained_model: "pretrianed_models/ms_swin_base_patch244_window877_kinetics400_22k.ckpt"
+    ckpt_path: "./swin3d_b/"
+    epochs: 30
+    save_checkpoint_epochs: 1
+    save_checkpoint_steps: 1875
+    keep_checkpoint_max: 10
+    run_distribute: False
+
+infer:
+    pretrained_model: "pretrianed_models/ms_swin_base_patch244_window877_kinetics400_22k.ckpt"
+
+# kinetic dataset config
+data_loader:
+    train:
+        dataset:
+              type: Kinetic400
+              path: "/home/publicfile/kinetics-400"
+              split: 'train'
+              seq: 32
+              seq_mode: 'interval'
+              num_parallel_workers: 8
+              shuffle: True
+              batch_size: 16
+              frame_interval: 2
+              num_clips: 1
+
+        map:
+            operations:
+                - type: VideoShortEdgeResize
+                  size: 256
+                  interpolation: 'linear'
+                - type: VideoRandomCrop
+                  size: [224, 224]
+                - type: VideoRandomHorizontalFlip
+                  prob: 0.5
+                - type: VideoRescale
+                  shift: 0
+                - type: VideoReOrder
+                  order: [3, 0, 1, 2]
+                - type: VideoNormalize
+                  mean: [0.485, 0.456, 0.406]
+                  std: [0.229, 0.224, 0.225]
+
+    eval:
+        dataset:
+            type: Kinetic400
+            path: "/home/publicfile/kinetics-400"
+            split: 'test'
+            seq: 32
+            seq_mode: 'interval'
+            num_parallel_workers: 8
+            shuffle: False
+            batch_size: 4
+            frame_interval: 2
+            num_clips: 4
+        map:
+            operations:
+                - type: VideoShortEdgeResize
+                  size: 224
+                - type: VideoThreeCrop
+                  size: [224, 224]
+                - type: VideoRescale
+                  shift: 0
+                - type: VideoReOrder
+                  order: [3, 0, 1, 2]
+                - type: VideoNormalize
+                  mean: [0.485, 0.456, 0.406]
+                  std: [0.229, 0.224, 0.225]
