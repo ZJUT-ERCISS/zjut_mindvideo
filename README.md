@@ -1,6 +1,6 @@
 # MindSpore Vision
 
-![LOGO.png](resource/LOGO.png)
+![LOGO.png](LOGO.png)
 
 MindSpore Vision is an open source computer vision research toolbox based on MindSpore.
 
@@ -19,7 +19,7 @@ MindSpore Vision a MindSpore base Python package that provides high-level featur
 - Domain oriented rich dataset interface.
 - Rich visualization and IO(Input/Output) interfaces.
 
-![BaseArchitecture.png](resource/base_architecture.png)
+![BaseArchitecture.png](base_architecture.png)
 
 ## Installation
 
