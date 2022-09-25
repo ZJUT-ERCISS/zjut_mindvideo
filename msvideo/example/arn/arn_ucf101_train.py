@@ -132,7 +132,7 @@ def arn_rgb_train(args_opt):
     # Begin to train.
     print(f"[Start training {args_opt.model_name}]")
     print("=" * 80)
-    model.trgitain(args_opt.epoch_size,
+    model.train(args_opt.epoch_size,
                 dataset_train,
                 callbacks=[ckpt_callback, LossMonitor(),
                            SaveCallback(model, dataset_valid)
