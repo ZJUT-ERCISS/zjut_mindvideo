@@ -96,6 +96,7 @@ class DatasetGenerator:
             num_frame = int(pos_end * frame_len - pos_start * frame_len)
             label = self.label[item][0]
         sample_list = self.__sampler__(num_frame=num_frame, action_start=action_start)
+        sample_list = np.concatenate(sample_list)
         if self.suffix == "picture":
             video = [video[sample_list[i]] for i in range(self.num_clips)]
         if self.suffix == "video":
@@ -139,5 +140,5 @@ class DatasetGenerator:
         sample_map = map(lambda x: list(map(lambda y: action_start + y % num_frame, x)),
                          sample_list)
         sample_list = list(sample_map)
-        sample_list = np.concatenate(sample_list)
+#         sample_list = np.concatenate(sample_list)
         return sample_list
