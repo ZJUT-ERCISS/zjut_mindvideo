@@ -18,8 +18,9 @@ from .adaptiveavgpool3d import *
 from .avgpool3d import *
 # from .bbox import *
 # from .c3d import *
-from .deform_conv import *
-# from .deform_conv2 import *
+# from .deform_conv import *
+from .deform_conv2 import *
+from .dcn.deform_conv import *
 from .dropout_dense import *
 from .drop_path import *
 from .feed_forward import *

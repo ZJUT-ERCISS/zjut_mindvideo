@@ -15,7 +15,7 @@
 """ X3D network."""
 
 import math
-from typing import List, Optional, Tuple, Type
+from typing import Optional, Tuple, Type
 
 import mindspore
 from mindspore import nn, ops, Tensor
@@ -381,7 +381,8 @@ class x3d(nn.Cell):
                  train_crop_size: int,
                  num_classes: int,
                  dropout_rate: float,
-                 bottleneck_factor: float = 2.25):
+                 bottleneck_factor: float = 2.25,
+                 eval_with_clips: bool = False):
         super(x3d, self).__init__()
 
         block_basis = [1, 2, 5, 3]
@@ -396,6 +397,11 @@ class x3d(nn.Cell):
         pool_size = [num_frames, spat_sz, spat_sz]
         input_channel = int(math.ceil(192 * bottleneck_factor))
 
+        self.num_frames = num_frames
+        self.eval_with_clips = eval_with_clips
+        self.softmax = nn.Softmax()
+        self.transpose = ops.Transpose()
+
         self.backbone = ResNetX3D(block=block, layer_nums=layer_nums, stage_channels=stage_channels,
                                   stage_strides=stage_strides, drop_rates=drop_rates)
         self.head = X3DHead(pool_size=pool_size, input_channel=input_channel, out_channel=2048,
@@ -403,8 +409,24 @@ class x3d(nn.Cell):
 
     def construct(self, x):
 
-        x = self.backbone(x)
-        x = self.head(x)
+        if not self.eval_with_clips:
+            x = self.backbone(x)
+            x = self.head(x)
+        else:
+            # use for 10-clip eval
+            b, c, n, h, w = x.shape        
+            if n > self.num_frames:
+                x = x.reshape(b, c, -1, self.num_frames, h, w)
+                x = self.transpose(x, (2, 0, 1, 3, 4, 5))
+                x = x.reshape(-1, c, self.num_frames, h, w)        
+
+            x = self.backbone(x)
+            x = self.head(x)
+
+            if n > self.num_frames:
+                x = self.softmax(x)
+                x = x.reshape(-1, b, 400)
+                x = x.mean(axis=0, keep_dims=False)
 
         return x
 
@@ -414,7 +436,8 @@ def x3d_m(num_classes: int = 400,
           dropout_rate: float = 0.5,
           depth_factor: float = 2.2,
           num_frames: int = 16,
-          train_crop_size: int = 224
+          train_crop_size: int = 224,
+          eval_with_clips: bool = False,
           ):
     """
     X3D middle model.
@@ -461,7 +484,8 @@ def x3d_m(num_classes: int = 400,
             Year      = {2020}
         }
     """
-    return x3d(BlockX3D, depth_factor, num_frames, train_crop_size, num_classes, dropout_rate)
+    return x3d(BlockX3D, depth_factor, num_frames, train_crop_size,
+               num_classes, dropout_rate, eval_with_clips=eval_with_clips)
 
 
 @ClassFactory.register(ModuleType.MODEL)
@@ -469,12 +493,14 @@ def x3d_s(num_classes: int = 400,
           dropout_rate: float = 0.5,
           depth_factor: float = 2.2,
           num_frames: int = 13,
-          train_crop_size: int = 160
+          train_crop_size: int = 160,
+          eval_with_clips: bool = False,
           ):
     """
     X3D small model.
     """
-    return x3d(BlockX3D, depth_factor, num_frames, train_crop_size, num_classes, dropout_rate)
+    return x3d(BlockX3D, depth_factor, num_frames, train_crop_size,
+               num_classes, dropout_rate, eval_with_clips=eval_with_clips)
 
 
 @ClassFactory.register(ModuleType.MODEL)
@@ -482,12 +508,14 @@ def x3d_xs(num_classes: int = 400,
            dropout_rate: float = 0.5,
            depth_factor: float = 2.2,
            num_frames: int = 4,
-           train_crop_size: int = 160
+           train_crop_size: int = 160,
+           eval_with_clips: bool = False,
            ):
     """
     X3D x-small model.
     """
-    return x3d(BlockX3D, depth_factor, num_frames, train_crop_size, num_classes, dropout_rate)
+    return x3d(BlockX3D, depth_factor, num_frames, train_crop_size,
+               num_classes, dropout_rate, eval_with_clips=eval_with_clips)
 
 
 @ClassFactory.register(ModuleType.MODEL)
@@ -495,9 +523,11 @@ def x3d_l(num_classes: int = 400,
           dropout_rate: float = 0.5,
           depth_factor: float = 5.0,
           num_frames: int = 16,
-          train_crop_size: int = 312
+          train_crop_size: int = 312,
+          eval_with_clips: bool = False,
           ):
     """
     X3D large model.
     """
-    return x3d(BlockX3D, depth_factor, num_frames, train_crop_size, num_classes, dropout_rate)
+    return x3d(BlockX3D, depth_factor, num_frames, train_crop_size,
+               num_classes, dropout_rate, eval_with_clips=eval_with_clips)

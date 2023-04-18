@@ -5,10 +5,10 @@ model_name: "fairmot_dla34"   # 模型名
 device_target: "GPU"
 dataset_sink_mode: False
 context:      # 训练环境
-    mode: 1 #0--Graph Mode; 1--Pynative Mode
+    mode: 0 #0--Graph Mode; 1--Pynative Mode
     device_target: "GPU"
     save_graphs: False
-    device_id: 2
+    device_id: 0
 
 # model settings of every parts
 model:
@@ -33,69 +33,65 @@ optimizer:      # optimizer参数
     type: 'Adam'
 
 loss:       # loss 模块
-    type: CenterNetMultiPoseLossCell
+    type: CenterNetMultiPoseLoss
     reg_loss: 'l1'
     hm_weight: 1
     wh_weight: 0.1
     off_weight: 1
     reg_offset: True
     reid_dim: 128
-    nID: 14455
-    batch_size: 4
+    nid: 14455
+    batch_size: 2
     
-train:       # 预训练相关
+train:       # 训练相关
     pre_trained: False
     pretrained_model: ""
     ckpt_path: "./output/"
-    epochs: 30
+    epoch_size: 30
     save_checkpoint_epochs: 5
-    save_checkpoint_steps: 1875
+    save_checkpoint_steps: 2801
     keep_checkpoint_max: 10
     run_distribute: False
-
-eval:
-    pretrained_model: "./"
-
-infer:       # 推理相关
-    pretrained_model: ""
-    batch_size: 1
-    image_path: ""
-    normalize: True
-    output_dir: "./infer_output"
- 
-export:       # 模型导出为其他格式
-    pretrained_model: ""
-    batch_size: 256
-    image_height: 224
-    image_width: 224
-    input_channel: 3
-    file_name: "i3d_rgb"
-    file_formate: "MINDIR"
-
-
-data_loader:
-    train:          # 验证、推理相关，参数与train基本一致
-        dataset:
-              type: MixJDE
-              data_json: "msvideo/example/fairmot/data/data.json"
-              split: 'train'
-              batch_size: 8
-              num_parallel_workers: 1
-              shuffle: True
-        map:
-            operations:
-              - type: JDELoad
-                size: [1088, 608]
-    eval:          # 验证、推理相关，参数与train基本一致
+    data_loader:          # 验证、推理相关，参数与train基本一致
         dataset:
             type: MixJDE
-            data_json: "msvideo/example/fairmot/data/data.json"
-            split: 'val'
-            batch_size: 8
+            data_json: "/home/publicfile/dataset/tracking/datas/data.json"
+            split: 'train'
+            batch_size: 2
             num_parallel_workers: 1
-            shuffle: False
+            shuffle: True
         map:
-            operations:
-              - type: JDELoad
-                size: [1088, 608]
-    group_size: 1
+            - type: JDELoad
+              size: [1088, 608]
+eval:
+    output_dir: "output"
+    ckpt_path: ".vscode/fairmot_dla34-30_886.ckpt"
+    data_seqs: "mot17" # "mot16", "mot17", "mot20" are available
+    data_type: "mot"
+    data_root: "/home/publicfile/dataset/tracking/MOT17/images/train"
+    conf_thres: 0.4
+    track_buffer: 30
+    down_ratio: 4
+    min_box_area: 100
+    max_objs: 500
+    num_classes: 1
+infer:       # 推理相关
+    output_dir: "output"
+    ckpt_path: ".vscode/fairmot_dla34-30_886.ckpt"
+    data_seqs: "mot17" # "mot16", "mot17", "mot20" are available
+    data_type: "mot"
+    data_root: "/home/publicfile/dataset/tracking/MOT17/images/test"
+    conf_thres: 0.4
+    track_buffer: 30
+    down_ratio: 4
+    min_box_area: 100
+    max_objs: 500
+    num_classes: 1
+    save_videos: True
+export:       # 模型导出为其他格式
+    pretrained_model: "/home/publicfile/checkpoint/fairmot/fairmot_dla34-30_886.ckpt"
+    do_export: False
+    include_dataset: False
+    input_shape: [1, 3, 608, 1088]
+    file_name: "fairmot_dla34-30_886"
+    file_format: "MINDIR"

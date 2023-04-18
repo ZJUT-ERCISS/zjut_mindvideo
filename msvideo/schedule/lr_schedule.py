@@ -49,6 +49,7 @@ def warmup_step_lr(lr, lr_epochs, steps_per_epoch, warmup_epochs, max_epoch, gam
 
     return np.array(lr_each_step).astype(np.float32)
 
+
 def warmup_cosine_annealing_lr_v1(lr, steps_per_epoch, warmup_epochs, max_epoch, t_max, eta_min=0):
     """Cosine annealing learning rate."""
     base_lr = lr
@@ -66,6 +67,7 @@ def warmup_cosine_annealing_lr_v1(lr, steps_per_epoch, warmup_epochs, max_epoch,
         lr_each_step.append(lr)
 
     return np.array(lr_each_step).astype(np.float32)
+
 
 def warmup_cosine_annealing_lr_v2(lr, steps_per_epoch, warmup_epochs, max_epoch, t_max, eta_min=0):
     """Cosine annealing learning rate V2."""
@@ -87,17 +89,18 @@ def warmup_cosine_annealing_lr_v2(lr, steps_per_epoch, warmup_epochs, max_epoch,
         else:
             if i < total_steps * (2 / 3):
                 lr = eta_min + (base_lr - eta_min) *\
-                     (1. + math.cos(math.pi * last_epoch / t_max)) / 2
+                    (1. + math.cos(math.pi * last_epoch / t_max)) / 2
                 last_lr = lr
                 last_epoch_v1 = last_epoch
             else:
                 base_lr = last_lr
                 last_epoch = last_epoch - last_epoch_v1
                 lr = eta_min + (base_lr - eta_min) *\
-                     (1. + math.cos(math.pi * last_epoch / t_max_v2)) / 2
+                    (1. + math.cos(math.pi * last_epoch / t_max_v2)) / 2
 
         lr_each_step.append(lr)
     return np.array(lr_each_step).astype(np.float32)
+
 
 def cosine_learning_rate(current_step, base_lr, warmup_steps, decay_steps):
     base = float(current_step - warmup_steps) / float(decay_steps)
@@ -115,5 +118,25 @@ def dynamic_lr(base_lr, steps_per_epoch, warmup_steps, warmup_ratio, epoch_size)
             lr.append(linear_warmup_learning_rate(i, warmup_steps, base_lr, base_lr * warmup_ratio))
         else:
             lr.append(cosine_learning_rate(i, base_lr, warmup_steps, total_steps))
+
+    return lr
+
+
+def piecewise_constant_lr(milestone, learning_rates):
+    if len(milestone) != len(learning_rates):
+        raise ValueError("For 'piecewise_constant_lr', "
+                         "the size of 'milestone' must be same with the size of 'learning_rates', "
+                         "but got 'milestone' size: {}, 'learning_rates' size: {}."
+                         .format(len(milestone), len(learning_rates)))
+    lr = []
+    last_item = 0
+    for i, item in enumerate(milestone):
+        if item < last_item:
+            raise ValueError(f"For 'piecewise_constant_lr', "
+                             f"the value of milestone[{i}] must be greater than milestone[{i - 1}], "
+                             f"but got milestone[{i}]: {milestone[i]}, "
+                             f"milestone[{i - 1}]: {milestone[i - 1]}.")
+        lr += [learning_rates[i]] * (item - last_item)
+        last_item = item
 
     return lr

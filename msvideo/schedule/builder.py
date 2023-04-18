@@ -18,7 +18,7 @@ from msvideo.utils.check_param import Validator
 from msvideo.schedule import warmup_cosine_annealing_lr_v1
 from msvideo.schedule import warmup_cosine_annealing_lr_v2
 from msvideo.schedule import warmup_step_lr
-
+from msvideo.schedule import dynamic_lr
 
 def get_lr(args):
     """generate learning rate."""
@@ -52,5 +52,10 @@ def get_lr(args):
                                            args.max_epoch,
                                            args.t_max,
                                            args.eta_min)
-
+    elif args.lr_scheduler == 'dynamic_lr':
+        lr = dynamic_lr(args.lr,
+                        args.steps_per_epoch,
+                        args.warmup_steps,
+                        args.warmup_ratio,
+                        args.epoch_size)
     return lr

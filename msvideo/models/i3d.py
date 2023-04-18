@@ -16,13 +16,51 @@
 
 from mindspore import nn
 from mindspore import ops
+from typing import Union, List, Tuple
+
 
 from msvideo.models.layers.unit3d import Unit3D
+from msvideo.models.layers.avgpool3d import AvgPool3D
 from msvideo.models.builder import build_layer
+from msvideo.utils.class_factory import ClassFactory, ModuleType
 
 __all__ = ['I3D']
 
+class AvgPooling3D(nn.Cell):
+    """
+    A module of average pooling for 3D video features.
 
+    Args:
+        kernel_size(Union[int, List[int], Tuple[int]]): The size of kernel window used to take the
+            average value, Default: (1, 1, 1).
+        strides(Union[int, List[int], Tuple[int]]): The distance of kernel moving. Default: (1, 1, 1).
+
+    Inputs:
+        x(Tensor): The input Tensor.
+
+    Returns:
+        Tensor, the pooled Tensor.
+    """
+
+    def __init__(self,
+                 kernel_size: Union[int, List[int], Tuple[int]] = (1, 1, 1),
+                 strides: Union[int, List[int], Tuple[int]] = (1, 1, 1),
+                 ) -> None:
+        super(AvgPooling3D, self).__init__()
+        if isinstance(kernel_size, int):
+            kernel_size = (kernel_size, kernel_size, kernel_size)
+        kernel_size = tuple(kernel_size)
+        if isinstance(strides, int):
+            strides = (strides, strides, strides)
+        strides = tuple(strides)
+
+        self.pool = AvgPool3D(kernel_size, strides)
+
+    def construct(self, x):
+        x = self.pool(x)
+        return x
+
+@ClassFactory.register(ModuleType.LAYER)
 class Inception3dModule(nn.Cell):
     """
     Inception3dModule definition.
@@ -78,6 +116,7 @@ class Inception3dModule(nn.Cell):
         return self.cat((b0, b1, b2, b3))
 
 
+@ClassFactory.register(ModuleType.LAYER)
 class InceptionI3d(nn.Cell):
     """
     InceptionI3d architecture. TODO: i3d Inception backbone just in 3d?what about 2d. and two steam.
@@ -193,7 +232,7 @@ class InceptionI3d(nn.Cell):
         x = self.conv3d_1a_7x7(x)
         x = self.maxpool3d_2a_3x3(x)
         x = self.conv3d_2b_1x1(x)
-        x = self.conv3d_2c_3x3(x)
+        x = self.conv3d_2c_3x3(x) 
         x = self.maxpool3d_3a_3x3(x)
         x = self.mixed_3b(x)
         x = self.mixed_3c(x)
@@ -209,6 +248,7 @@ class InceptionI3d(nn.Cell):
         return x
 
 
+@ClassFactory.register(ModuleType.LAYER)
 class I3dHead(nn.Cell):
     """
     I3dHead definition
@@ -246,6 +286,7 @@ class I3dHead(nn.Cell):
         return x
 
 
+@ClassFactory.register(ModuleType.MODEL)
 class I3D(nn.Cell):
     """
     TODO: introduction i3d network.
@@ -295,12 +336,14 @@ class I3D(nn.Cell):
                  in_channel: int = 3,
                  num_classes: int = 400,
                  keep_prob: float = 0.5,
-                 pooling_keep_dim: bool = True,
+                 #pooling_keep_dim: bool = True,
                  backbone_output_channel=1024):
         super(I3D, self).__init__()
 
         self.backbone = InceptionI3d(in_channels=in_channel)
-        self.neck = ops.ReduceMean(keep_dims=pooling_keep_dim)
+        #self.neck = ops.AvgPool3D(kernel_size=(2,7,7),strides=(1,1,1))
+        self.neck = AvgPooling3D(kernel_size=(2,7,7))
+        #self.neck = ops.ReduceMean(keep_dims=pooling_keep_dim)
         self.head = I3dHead(in_channels=backbone_output_channel,
                             num_classes=num_classes,
                             dropout_keep_prob=keep_prob)

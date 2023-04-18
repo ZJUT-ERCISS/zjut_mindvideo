@@ -453,6 +453,7 @@ class NLResInflate3D50(NLInflateResNet3D):
             NLInflateBlock3D, [3, 4, 6, 3], **kwargs)
 
 
+@ClassFactory.register(ModuleType.MODEL)
 class nonlocal3d(nn.Cell):
     """
     nonlocal3d model
@@ -509,6 +510,9 @@ class nonlocal3d(nn.Cell):
                  flatten: Optional[nn.Cell] = nn.Flatten,
                  head: Optional[nn.Cell] = DropoutDense
                  ):
+
+        super(nonlocal3d,self).__init__()
+
         last_d = math.ceil(in_d / 32)
         last_h = math.ceil((math.ceil(in_h / 32) + 1) / 4)
         last_w = math.ceil((math.ceil(in_w / 32) + 1) / 4)
@@ -518,7 +522,7 @@ class nonlocal3d(nn.Cell):
         self.avg_pool = avg_pool((1, 1, 1))
         self.flatten = flatten()
         self.head = head(input_channel=backbone_output_channel,
-                         num_classes=num_classes,
+                         out_channel=num_classes,
                          keep_prob=keep_prob)
 
     def construct(self, x):
@@ -528,18 +532,3 @@ class nonlocal3d(nn.Cell):
         x = self.head(x)
 
         return x
-
-
-@ClassFactory.register(ModuleType.MODEL)
-def nonlocal3d50(
-        in_d: int = 32,
-        in_h: int = 224,
-        in_w: int = 224,
-        num_classes: int = 400,
-        keep_prob: float = 1.0,
-):
-    """
-    nonlocal3d50 model.
-    """
-
-    return nonlocal3d(in_d, in_h, in_w, num_classes, keep_prob)

@@ -134,11 +134,19 @@ class DatasetGenerator:
             sample_list = [[offset[j] + i * interval for i in range(self.seq)]
                            for j in range(self.num_clips)]
         if self.mode == "interval":
-            offset = random.sample(range(abs(num_frame - region_len) + 1), self.num_clips)
+            if self.num_clips == 1:
+                offset = random.sample(range(abs(num_frame - region_len) + 1), self.num_clips)
+            else:
+                # use for num-clips
+                avg_interval = abs(num_frame - region_len) / self.num_clips
+                if avg_interval == 0:
+                    avg_interval = 1
+                base_offsets = np.arange(self.num_clips) * avg_interval
+                offset = (base_offsets + avg_interval / 2.0).astype(np.int)
             sample_list = [[offset[j] + i * self.frame_interval for i in range(self.seq)]
                            for j in range(self.num_clips)]
         sample_map = map(lambda x: list(map(lambda y: action_start + y % num_frame, x)),
                          sample_list)
         sample_list = list(sample_map)
-#         sample_list = np.concatenate(sample_list)
+        # sample_list = np.concatenate(sample_list)
         return sample_list

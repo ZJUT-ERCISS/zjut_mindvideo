@@ -23,4 +23,4 @@ from .i3d import *
 from .r2plus1d import *
 from .fairmot import *
 from .c3d import *
-# from .vistr import *
+from .vistr import *

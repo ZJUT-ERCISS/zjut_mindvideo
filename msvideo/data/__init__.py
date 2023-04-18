@@ -19,3 +19,4 @@ from .builder import *
 from .ucf101 import *
 from .kinetics400 import *
 from .jde import *
+from .ytvos import *
