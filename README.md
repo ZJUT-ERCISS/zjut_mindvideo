@@ -2,8 +2,7 @@
 
 ![LOGO.png](https://gitee.com/yanlq46462828/zjut_mindvideo/raw/master/msvideo/resource/ms_video_logo.png)
 
-[![docs](https://camo.githubusercontent.com/d5d535f53f2cb047c2b4382b8fd3c2913519abad35badcd4f22bd45d174f450a/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f646f63732d6c61746573742d626c7565)](https://msvideo-guidebook.readthedocs.io/en/latest/) [![license](https://camo.githubusercontent.com/d4dc5ba23f0f26ac45a8419e6669afe324f992b413b2006d5f59ac548b1da725/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f6c6963656e73652f6d696e6473706f72652d6c61622f6d696e6463762e737667)](https://gitee.com/yanlq46462828/zjut_mindvideo/blob/master/LICENSE) [![open issues](https://camo.githubusercontent.com/746aed3806dcfd86e6ada45e8f0be5e79c349bcaa5f44317b1feef8dc3498abb/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f6973737565732f6d696e6473706f72652d6c61622f6d696e646376)](https://gitee.com/yanlq46462828/zjut_mindvideo/issues)[![PRs](https://camo.githubusercontent.com/64b454ccdf96dc519c389355e075c9d752f717216743d7cb3270643e27f49d1b/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f5052732d77656c636f6d652d70696e6b2e737667)](https://
-.com/yanlq46462828/zjut_mindvideo/pulls)
+[![docs](https://camo.githubusercontent.com/d5d535f53f2cb047c2b4382b8fd3c2913519abad35badcd4f22bd45d174f450a/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f646f63732d6c61746573742d626c7565)](https://msvideo-guidebook.readthedocs.io/en/latest/) [![license](https://camo.githubusercontent.com/d4dc5ba23f0f26ac45a8419e6669afe324f992b413b2006d5f59ac548b1da725/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f6c6963656e73652f6d696e6473706f72652d6c61622f6d696e6463762e737667)](https://gitee.com/yanlq46462828/zjut_mindvideo/blob/master/LICENSE) [![open issues](https://camo.githubusercontent.com/746aed3806dcfd86e6ada45e8f0be5e79c349bcaa5f44317b1feef8dc3498abb/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f6973737565732f6d696e6473706f72652d6c61622f6d696e646376)](https://gitee.com/yanlq46462828/zjut_mindvideo/issues)[![PRs](https://camo.githubusercontent.com/64b454ccdf96dc519c389355e075c9d752f717216743d7cb3270643e27f49d1b/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f5052732d77656c636f6d652d70696e6b2e737667)](https://gitee.com/yanlq46462828/zjut_mindvideo/pulls)
 
 English|[中文](https://gitee.com/yanlq46462828/zjut_mindvideo/blob/master/README_CN.md)
 
@@ -21,11 +20,11 @@ We decompose the video framework into different components and one can easily co
 
 Currently, MindVideo supports the Action Recognition , Video Tracking, Video segmentation.
 
-![result.gif](https://gitee.com/yanlq46462828/zjut_mindvideo/raw/master/msvideo/resource/result.gif)
+![result.gif](https://github.com/ZJUT-ERCISS/zjut_mindvideo/blob/master/msvideo/resource/result.gif)
 
-![result.png](https://gitee.com/yanlq46462828/zjut_mindvideo/raw/master/msvideo/resource/result.png)
+![result.png](https://github.com/ZJUT-ERCISS/zjut_mindvideo/blob/master/msvideo/resource/result.png)
 
-![MOT17_09_SDP.gif](https://gitee.com/yanlq46462828/zjut_mindvideo/raw/master/msvideo/resource/MOT17_09_SDP.gif)
+![MOT17_09_SDP.gif](https://github.com/ZJUT-ERCISS/zjut_mindvideo/blob/master/msvideo/resource/MOT17_09_SDP.gif)
 
 ### Benchmark Results
 
