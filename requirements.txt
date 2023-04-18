@@ -1,0 +1,8 @@
+numpy
+scipy
+decord
+pycocotools
+opencv-python
+pyyaml
+pillow
+sphinx-markdown-tables

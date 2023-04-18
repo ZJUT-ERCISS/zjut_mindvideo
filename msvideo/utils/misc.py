@@ -17,10 +17,10 @@ misc for VisTR
 """
 import mindspore
 from mindspore import ops
-from typing import List
 
 
 def get_mask(tensor):
+    """get img masks"""
     shape = (tensor.shape[0], tensor.shape[2], tensor.shape[3])
     zeros = ops.Zeros()
     mask = zeros(shape, mindspore.float32)
@@ -28,7 +28,7 @@ def get_mask(tensor):
 
 
 def _max_by_axis(the_list):
-    # type: (List[List[int]]) -> List[int]
+    """type: (List[List[int]]) -> List[int]"""
     maxes = the_list[0]
     maxs = []
     for i in maxes:
@@ -43,26 +43,20 @@ def _max_by_axis(the_list):
 
 
 def nested_tensor_from_tensor_list(tensor_list, split=True):
-    # 规范化输入的图片数据
+    """Normalize the input image data"""
     # TODO make this more general
     zeros = ops.Zeros()
     ones = ops.Ones()
     if split:
-        # split_op = ops.Split(axis=0, output_num=3)
         tensor_list = [tensor for tensor in tensor_list]
-        # tensor_list = [item for sublist in tensor_list for item in sublist]
     if tensor_list[0].ndim == 3:
         # TODO make it support different-sized images
         max_size = _max_by_axis([img.shape for img in tensor_list])
-        # min_size = tuple(min(s) for s in zip(*[img.shape for img in tensor_list]))
         batch_shape = [len(tensor_list)] + max_size
         b, c, h, w = batch_shape
         dtype = tensor_list[0].dtype
         tensor = zeros((b, c, h, w), dtype)
         mask = ones((b, h, w), mindspore.dtype.bool_)
-        # for img, pad_img, m in zip(tensor_list, tensor, mask):
-        #     pad_img[: img.shape[0], : img.shape[1], : img.shape[2]] = img
-        #     m[: img.shape[1], : img.shape[2]] = False
         for i, img in enumerate(tensor_list):
             tensor[i][: img.shape[0], : img.shape[1], : img.shape[2]] = img
             mask[i][: img.shape[1], : img.shape[2]] = False

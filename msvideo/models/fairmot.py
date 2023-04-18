@@ -23,7 +23,8 @@ from mindspore import ops
 
 from msvideo.utils.check_param import Rel, Validator
 from msvideo.utils.class_factory import ClassFactory, ModuleType
-from msvideo.models.layers import DeformConv2d, FairMOTMultiHead
+from msvideo.models.layers import FairMOTMultiHead
+from msvideo.models.layers.deform_conv2 import DeformConv2d
 
 
 class BasicBlock(nn.Cell):
@@ -239,8 +240,8 @@ class DlaDeformConv(nn.Cell):
             nn.BatchNorm2d(cout),
             nn.ReLU()
         ])
-        self.conv = DeformConv2d(cin, cout, kernel_size=3, stride=1, has_bias=True)
-
+        # self.conv = DeformConv2d(cin, cout, kernel_size=3, stride=1, has_bias=True)
+        self.conv = nn.Conv2d(cin, cout, kernel_size=3, has_bias=True)
     def construct(self, x):
         """
         Deformable convolution v2.

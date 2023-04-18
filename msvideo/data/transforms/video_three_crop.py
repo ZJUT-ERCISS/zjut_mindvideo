@@ -18,7 +18,7 @@ import numpy as np
 
 import mindspore.dataset.transforms.py_transforms as trans
 
-from mindvision.engine.class_factory import ClassFactory, ModuleType
+from msvideo.utils.class_factory import ClassFactory, ModuleType
 
 
 @ClassFactory.register(ModuleType.PIPELINE)

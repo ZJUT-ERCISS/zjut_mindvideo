@@ -17,5 +17,6 @@
 from .builder import *
 from .focal_loss import *
 from .centernet_multipose_loss import *
+from .vistr_loss import *
 
 register_loss()

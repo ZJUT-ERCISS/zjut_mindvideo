@@ -160,7 +160,7 @@ class UCF101(VideoDataset):
         split = self.split
         base_path = self.path
         # with open(f"{split}.txt", "r")as f:
-        with open(f"/home/huyt/zjut_mindvideo/msvideo/example/arn/{split}.txt", "r")as f:
+        with open(f"/home/huyt/{split}.txt", "r")as f:
             rows = f.readline()
             content = rows.split(',')
             cls_list = list(map(lambda x: x.strip(), content))
