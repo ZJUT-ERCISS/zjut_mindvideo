@@ -21,8 +21,8 @@ import argparse
 from PIL import Image
 import numpy as np
 import pycocotools.mask as mask_util
-from msvideo.utils import misc
-from msvideo.models.vistr import VistrCom
+from mindvideo.utils import misc
+from mindvideo.models.vistr import VistrCom
 import mindspore
 from mindspore import nn
 from mindspore.dataset.vision import py_transforms as T_p

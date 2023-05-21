@@ -10,7 +10,7 @@ import subprocess
 from subprocess import Popen, PIPE
 import os
 import pytest
-import msvideo
+import mindvideo
 
 check_acc = True
 tests_dir = "./tests"
@@ -18,7 +18,7 @@ tests_dir = "./tests"
 @pytest.mark.parametrize('mode', ['GRAPH', 'PYNATIVE_FUNC'])
 def test_train(mode, device_id=3, model='fairmot_dla34'):
     ''' train on a UCF101 subset dataset '''
-    config_path = 'msvideo/config/fairmot/fairmot_dla34.yaml'
+    config_path = 'mindvideo/config/fairmot/fairmot_dla34.yaml'
     # prepare data
     data_dir = '/home/publicfile/dataset/tracking'
     mode_num = 1
@@ -34,7 +34,7 @@ def test_train(mode, device_id=3, model='fairmot_dla34'):
     batch_size = 4
     temp_config_path = f'{tests_dir}/temp_config.yaml'
 
-    train_file = 'msvideo/engine/tracking/train.py'
+    train_file = 'mindvideo/engine/tracking/train.py'
 
     prepare_cmds = []
     prepare_cmds.append(["cp", config_path, temp_config_path])
@@ -62,7 +62,7 @@ def test_train(mode, device_id=3, model='fairmot_dla34'):
     
     
     # --------- Test running validate.py using the trained model ------------- #
-    valid_file = 'msvideo/engine/tracking/eval.py'
+    valid_file = 'mindvideo/engine/tracking/eval.py'
 
     #begin_ckpt = os.path.join(ckpt_dir, f'{model}-1_1.ckpt')
     # the model ckpt maybe not fully trained and the results will be NaN

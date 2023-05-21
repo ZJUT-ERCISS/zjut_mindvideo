@@ -25,11 +25,11 @@ from mindspore.train import Model
 from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor
 
 
-from msvideo.models.nonlocal3d import nonlocal3d
-from msvideo.data.kinetics400 import Kinetic400
-from msvideo.data.transforms import VideoRandomCrop, VideoRandomHorizontalFlip
-from msvideo.data.transforms import VideoShortEdgeResize, VideoRescale, VideoReOrder, VideoNormalize
-from msvideo.schedule.lr_schedule import warmup_step_lr
+from mindvideo.models.nonlocal3d import nonlocal3d
+from mindvideo.data.kinetics400 import Kinetic400
+from mindvideo.data.transforms import VideoRandomCrop, VideoRandomHorizontalFlip
+from mindvideo.data.transforms import VideoShortEdgeResize, VideoRescale, VideoReOrder, VideoNormalize
+from mindvideo.schedule.lr_schedule import warmup_step_lr
 
 
 

@@ -30,9 +30,9 @@ from mindspore.train.callback import ModelCheckpoint, CheckpointConfig
 
 from mindvision.engine.callback import LossMonitor
 from mindvision.engine.lr_schedule.lr_schedule import warmup_cosine_annealing_lr_v1
-from mindvision.msvideo.dataset import Kinetic400
-from mindvision.msvideo.dataset import transforms
-from mindvision.msvideo.models import swin3d_t, swin3d_s, swin3d_b, swin3d_l
+from mindvision.mindvideo.dataset import Kinetic400
+from mindvision.mindvideo.dataset import transforms
+from mindvision.mindvideo.models import swin3d_t, swin3d_s, swin3d_b, swin3d_l
 
 
 set_seed(42)
@@ -136,7 +136,7 @@ if __name__ == "__main__":
     parser.add_argument("--batch_size", type=int, default=1, help="Number of batch size.")
     parser.add_argument("--ckpt_save_dir", type=str, default="./swin3d_t", help="Location of training outputs.")
     parser.add_argument("--pretrained_model_dir", type=str,
-                        default="/home/yutw/vision/mindvision/msvideo/example/vist/pretrained/ms_swin_tiny_patch244_window877_kinetics400_1k.ckpt",
+                        default="/home/yutw/vision/mindvision/mindvideo/example/vist/pretrained/ms_swin_tiny_patch244_window877_kinetics400_1k.ckpt",
                         help="Location of Pretrained Model.")
     parser.add_argument("--ckpt_max", type=int, default=100, help="Max number of checkpoint files.")
     parser.add_argument("--dataset_sink_mode", default=False, help="The dataset sink mode.")

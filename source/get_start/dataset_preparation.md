@@ -1,6 +1,6 @@
 ## Dataset Preparation
 
-MindSpore Video(msvideo) supported dataset can be downloaded from:
+MindVideo supported dataset can be downloaded from:
 
 - [activitynet](http://activity-net.org/index.html)
 - [Kinetics400](https://www.deepmind.com/open-source/kinetics) 
@@ -31,4 +31,4 @@ Then put all training and evaluation data into one directory and then change `"d
 "data_root": "/home/publicfile/dataset/tracking"
 ```
 
-Within `msvideo`, all data processing methods according to each dataset used can be found under the `data` folder.
+Within `mindvideo`, all data processing methods according to each dataset used can be found under the `data` folder.

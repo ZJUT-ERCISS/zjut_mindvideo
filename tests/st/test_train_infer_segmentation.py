@@ -18,7 +18,7 @@ tests_dir = "./tests"
 @pytest.mark.parametrize('mode', ['PYNATIVE_FUNC'])
 def test_train(mode, device_id=2, model='vistr_r50'):
     ''' train on a ytvos subset dataset '''
-    config_path = './msvideo/config/vistr/vistr.yaml'
+    config_path = './mindvideo/config/vistr/vistr.yaml'
     # prepare data
     data_dir = '/usr/dataset/VOS'
     mode_num = 1
@@ -34,7 +34,7 @@ def test_train(mode, device_id=2, model='vistr_r50'):
     data_len = "1"
     temp_config_path = f'{tests_dir}/temp_config.yaml'
 
-    train_file = './msvideo/engine/segmentation/train.py'
+    train_file = './mindvideo/engine/segmentation/train.py'
 
     prepare_cmds = []
     prepare_cmds.append(["cp", config_path, temp_config_path])
@@ -64,7 +64,7 @@ def test_train(mode, device_id=2, model='vistr_r50'):
     
     
     # --------- Test running infer.py using the trained model ------------- #
-    infer_file = './msvideo/engine/segmentation/infer.py'
+    infer_file = './mindvideo/engine/segmentation/infer.py'
 
     #begin_ckpt = os.path.join(ckpt_dir, f'{model}-1_1.ckpt')
     prepare_cmds = []

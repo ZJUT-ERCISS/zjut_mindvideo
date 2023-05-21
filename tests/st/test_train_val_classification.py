@@ -10,7 +10,7 @@ import subprocess
 from subprocess import Popen, PIPE
 import os
 import pytest
-import msvideo
+import mindvideo
 # from mindcv.utils.download import DownLoad
 
 check_acc = True
@@ -19,7 +19,7 @@ tests_dir = "./tests"
 @pytest.mark.parametrize('mode', ['GRAPH', 'PYNATIVE_FUNC'])
 def test_train(mode, device_id=3, model='c3d'):
     ''' train on a UCF101 subset dataset '''
-    config_path = 'msvideo/config/c3d/c3d.yaml'
+    config_path = 'mindvideo/config/c3d/c3d.yaml'
     # prepare data
     data_dir = '/home/publicfile/UCF101_splits/data'
     # data_dir = './UCF101_splits'
@@ -40,7 +40,7 @@ def test_train(mode, device_id=3, model='c3d'):
     batch_size = 16
     temp_config_path = f'{tests_dir}/temp_config.yaml'
 
-    train_file = 'msvideo/engine/classification/train.py'
+    train_file = 'mindvideo/engine/classification/train.py'
 
     prepare_cmds = []
     prepare_cmds.append(["cp", config_path, temp_config_path])
@@ -68,7 +68,7 @@ def test_train(mode, device_id=3, model='c3d'):
     # end training
     
     # --------- Test running validate.py using the trained model ------------- #
-    valid_file = 'msvideo/engine/classification/eval.py'
+    valid_file = 'mindvideo/engine/classification/eval.py'
 
     #begin_ckpt = os.path.join(ckpt_dir, f'{model}-1_1.ckpt')
     end_ckpt = os.path.join(ckpt_path, f'{model}-{num_epochs}_{num_samples//batch_size}.ckpt')

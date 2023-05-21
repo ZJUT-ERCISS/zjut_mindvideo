@@ -232,7 +232,7 @@ If you find this project useful in your research, please consider citing:
 @misc{arn_mindspore,
     author = {Zhang, Hongguang and Zhang, Li and Qi, Xiaojuan and Li, Hongdong and Torr, Philip HS
                 and Koniusz, Piotr},
-    title = {Mindspore Video Models},
+    title = {MindVideo Models},
     year = {2022},
     publisher = {GitHub},
     journal = {GitHub repository},

@@ -24,12 +24,12 @@ from mindspore.train import Model
 from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor
 from mindspore.nn.loss import SoftmaxCrossEntropyWithLogits
 
-from msvideo.utils.check_param import Validator, Rel
-from msvideo.data import Kinetic400
-from msvideo.schedule import warmup_cosine_annealing_lr_v1
-from msvideo.data.transforms import VideoRandomCrop, VideoNormalize, VideoRandomHorizontalFlip
-from msvideo.data.transforms import VideoResize, VideoRescale, VideoReOrder
-from msvideo.models.r2plus1d import R2Plus1d18, R2Plus1d50
+from mindvideo.utils.check_param import Validator, Rel
+from mindvideo.data import Kinetic400
+from mindvideo.schedule import warmup_cosine_annealing_lr_v1
+from mindvideo.data.transforms import VideoRandomCrop, VideoNormalize, VideoRandomHorizontalFlip
+from mindvideo.data.transforms import VideoResize, VideoRescale, VideoReOrder
+from mindvideo.models.r2plus1d import R2Plus1d18, R2Plus1d50
 
 
 def r2plus1d_kinetics400_train(args_opt):
