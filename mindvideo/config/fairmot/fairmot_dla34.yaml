@@ -77,7 +77,7 @@ eval:
     num_classes: 1
 infer:       # 推理相关
     output_dir: "output"
-    ckpt_path: ".vscode/fairmot_dla34-30_886.ckpt"
+    ckpt_path: ".vscode/fairmot_dla34_conv_6-1_332.ckpt"
     data_seqs: "mot17" # "mot16", "mot17", "mot20" are available
     data_type: "mot"
     data_root: "/home/publicfile/dataset/tracking/MOT17/images/test"
