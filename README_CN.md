@@ -39,7 +39,6 @@ MindVideo 是一个基于MindSpore的计算机视觉研究和开发的开源视�
 使用以下指令来安装依赖:
 
 ```text
-git clone https://github.com/ZJUT-ERCISS/zjut_mindvideo.git
 cd zjut_mindvideo
 
 # If you use vistr, the version of Python should be 3.7
@@ -88,16 +87,25 @@ MindVideo 支持的数据集可以从以下链接下载：
 
 ### 运行
 
-每个`mindvideo`支持的模型都有两种方法用于训练、评估和推理。通过官方网站安装MindSpore后，可以在 `example` 文件夹下运行训练或评估文件，根据每个模型的名称，示例 "文件夹是一个专门为初学者设计的训练和评估的独立模块。另一种是在处理包含每个模型所需参数的`YAML`文件时，使用版本库根文件夹下所有模型的训练和推理接口，因为我们也支持一些参数配置以快速启动。对于这种方法，以I3D为例，只需运行以下命令进行训练。
+每个`mindvideo`支持的模型都有两种方法用于训练、评估和推理。通过官方网站安装MindSpore后，可以在 `tutorials` 文件夹下运行训练或评估文件，根据每个模型的名称，该文件夹专门为初学者设计的训练和评估的独立模块。另一种是在处理包含每个模型所需参数的`YAML`文件时，使用`tools` 文件夹下所有模型的训练和推理接口，因为我们也支持一些参数配置以快速启动。对于这种方法，以I3D为例，只需运行以下命令进行训练：
 
 ```
-python train.py -c zjut_mindvideo/mindvideo/config/i3d/i3d_rgb.yaml
+cd tools/classification
+python train.py -c ../../mindvideo/config/i3d/i3d_rgb.yaml
 ```
 
 使用以下指令来评估:
 
 ```
-python infer.py -c zjut_mindvideo/mindvideo/config/i3d/i3d_rgb.yaml
+cd tools/classification
+python eval.py -c ../../mindvideo/config/i3d/i3d_rgb.yaml
+```
+
+使用以下指令来推理:
+
+```
+cd tools/classification
+python infer.py -c ../../mindvideo/config/i3d/i3d_rgb.yaml
 ```
 
 同时, [paperswithcode](https://paperswithcode.com) 是浏览`mindvideo`模型的良好资源，不同的模型都可以在以下链接找到:
@@ -177,23 +185,23 @@ python infer.py -c zjut_mindvideo/mindvideo/config/i3d/i3d_rgb.yaml
 
 ## Model List
 
-- [x] [C3D](mindvideo/example/arn/README.md) 动作识别
+- [x] [C3D](./tutorials/classification/c3d/README.md) 动作识别
 
-- [x] [I3D](mindvideo/example/i3d/README.md) 动作识别
+- [x] [I3D](./tutorials/classification/i3d/README.md) 动作识别
 
-- [x] [X3D](mindvideo/example/x3d/README.md) 动作识别
+- [x] [X3D](./tutorials/classification/x3d/README.md) 动作识别
 
-- [x] [R(2+1)d](mindvideo/example/r(2+1)d/README.md) 动作识别
+- [x] [R(2+1)d](./tutorials/classification/r(2%2B1)d/README.md) 动作识别
 
-- [x] [NonLocal](mindvideo/example/nonlocal/README.md) 动作识别
+- [x] [NonLocal](./tutorials/classification/nonlocal/README.md) 动作识别
 
-- [x] [ViST](mindvideo/example/vist/README.md) 动作识别
+- [x] [ViST](./tutorials/classification/vist/README.md) 动作识别
 
-- [x] [fairMOT](mindvideo/example/fairmot/README.md) 单次学习跟踪
+- [x] [fairMOT](./tutorials/tracking/fairmot/README.md) 单次学习跟踪
 
-- [x] [VisTR](mindvideo/example/vistr/README.md)实例分割
+- [x] [VisTR](./tutorials/segmentation/vistr/README.md)实例分割
 
-- [x] [ARN](mindvideo/example/arn/README.md) 少样本动作识别
+- [x] [ARN](./tutorials/classification/arn/README.md) 少样本动作识别
 
   主干分支的工作原理是 **MindSpore 1.5+**.
 
@@ -204,7 +212,7 @@ python infer.py -c zjut_mindvideo/mindvideo/config/i3d/i3d_rgb.yaml
 1. 克隆mindvideo
 
 ```bash
-git clone https://github.com/ZJUT-ERCISS/zjut_mindvideo.git
+git clone https://gitee.com/yanlq46462828/zjut_mindvideo.git
 cd zjut_mindvideo
 ```
 
@@ -242,7 +250,7 @@ MindVideo是一个基于MindSpore的Python包，提供以下高级功能:
 
 ### 反馈与联系
 
-动态版本仍在开发中，如果您发现任何问题或对新功能有想法，请不要犹豫，通过 [Gitee Issues](https://github.com/ZJUT-ERCISS/zjut_mindvideo/issues)与我们联系
+动态版本仍在开发中，如果您发现任何问题或对新功能有想法，请不要犹豫，通过 [Gitee Issues](https://gitee.com/yanlq46462828/zjut_mindvideo/issues)与我们联系
 
 ### 贡献
 
@@ -250,7 +258,7 @@ MindVideo是一个基于MindSpore的Python包，提供以下高级功能:
 
 ### 许可证
 
-这个项目是在[Apache 2.0 license]( https://github.com/ZJUT-ERCISS/zjut_mindvideo/LICENSE)下发布的。
+这个项目是在[Apache 2.0 license](LICENSE)下发布的。
 
 ### 致谢
 
@@ -264,7 +272,7 @@ MindSpore 是一个开源项目，欢迎任何贡献和反馈。我们希望这�
 @misc{MindVideo 2022,
     title={{MindVideo}:MindVideo Toolbox and Benchmark},
     author={MindVideo Contributors},
-    howpublished = {\url{https://github.com/ZJUT-ERCISS/zjut_mindvideo}},
+    howpublished = {\url{https://gitee.com/ZJUT-ERCISS/zjut_mindvideo}},
     year={2022}
 }
 ```

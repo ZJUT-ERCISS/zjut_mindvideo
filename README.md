@@ -2,7 +2,7 @@
 
 # MindVideo
 
-[![docs](https://camo.githubusercontent.com/d5d535f53f2cb047c2b4382b8fd3c2913519abad35badcd4f22bd45d174f450a/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f646f63732d6c61746573742d626c7565)](https://mindvideo-guidebook.readthedocs.io/en/latest/) [![license](https://camo.githubusercontent.com/d4dc5ba23f0f26ac45a8419e6669afe324f992b413b2006d5f59ac548b1da725/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f6c6963656e73652f6d696e6473706f72652d6c61622f6d696e6463762e737667)](https://gitee.com/yanlq46462828/zjut_mindvideo/blob/master/LICENSE) [![open issues](https://camo.githubusercontent.com/746aed3806dcfd86e6ada45e8f0be5e79c349bcaa5f44317b1feef8dc3498abb/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f6973737565732f6d696e6473706f72652d6c61622f6d696e646376)](https://gitee.com/yanlq46462828/zjut_mindvideo/issues)[![PRs](https://camo.githubusercontent.com/64b454ccdf96dc519c389355e075c9d752f717216743d7cb3270643e27f49d1b/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f5052732d77656c636f6d652d70696e6b2e737667)](https://gitee.com/yanlq46462828/zjut_mindvideo/pulls)
+[![docs](https://camo.githubusercontent.com/d5d535f53f2cb047c2b4382b8fd3c2913519abad35badcd4f22bd45d174f450a/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f646f63732d6c61746573742d626c7565)](https://mindvideo-guidebook.readthedocs.io/en/latest/) [![license](https://camo.githubusercontent.com/d4dc5ba23f0f26ac45a8419e6669afe324f992b413b2006d5f59ac548b1da725/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f6c6963656e73652f6d696e6473706f72652d6c61622f6d696e6463762e737667)](https://gitee.com/ZJUT-ERCISS/zjut_mindvideo/blob/master/LICENSE) [![open issues](https://camo.githubusercontent.com/746aed3806dcfd86e6ada45e8f0be5e79c349bcaa5f44317b1feef8dc3498abb/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f6973737565732f6d696e6473706f72652d6c61622f6d696e646376)](https://gitee.com/ZJUT-ERCISS/zjut_mindvideo/issues)[![PRs](https://camo.githubusercontent.com/64b454ccdf96dc519c389355e075c9d752f717216743d7cb3270643e27f49d1b/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f5052732d77656c636f6d652d70696e6b2e737667)](https://gitee.com/ZJUT-ERCISS/zjut_mindvideo/pulls)
 
 English|[中文](./README_CN.md)
 
@@ -39,7 +39,7 @@ The performance of the models trained with MindVideo is summarized in [benchmark
 Use the following commands to install dependencies:
 
 ```text
-git clone https://github.com/ZJUT-ERCISS/zjut_mindvideo.git
+git clone https://gitee.com/ZJUT-ERCISS/zjut_mindvideo.git
 cd zjut_mindvideo
 
 # If you use vistr, the version of Python should be 3.7
@@ -88,16 +88,24 @@ Within `mindvideo`, all data processing methods according to each dataset used c
 
 ### Running
 
-There are two approaches provided for training, evaluation and inference within `mindvideo` for each supported model. After installing MindSpore via the official website, one is to run the training or evaluation files under the `example` folder, which is a independent module for training and evaluation specifically designed for starters, according to each model's name. And the other is to use the train and inference interfaces for all models under the root folder of the repository when working with the `YAML` file containing the parameters needed for each model as we also support some parameter configurations for quick start. For this method, take I3D for example, just run following commands for training:
+There are two approaches provided for training, evaluation and inference within `mindvideo` for each supported model. After installing MindSpore via the official website, one is to run the training or evaluation files under the `tutorials` folder, which is a independent module for training and evaluation specifically designed for starters, according to each model's name. And the other is to use the train and inference interfaces for all models under the `tools` folder of the repository when working with the `YAML` file containing the parameters needed for each model as we also support some parameter configurations for quick start. For this method, take I3D for example, just run following commands for training:
 
 ```
-python train.py -c zjut_mindvideo/mindvideo/config/i3d/i3d_rgb.yaml
+cd tools/classification
+python train.py -c ../../mindvideo/config/i3d/i3d_rgb.yaml
 ```
 
 and run following commands for evaluation:
 
 ```
-python infer.py -c zjut_mindvideo/mindvideo/config/i3d/i3d_rgb.yaml
+cd tools/classification
+python eval.py -c ../../mindvideo/config/i3d/i3d_rgb.yaml
+```
+
+and run following commands for inference:
+```
+cd tools/classification
+python infer.py -c ../../mindvideo/config/i3d/i3d_rgb.yaml
 ```
 
 Also, [paperswithcode](https://paperswithcode.com) is a good resource for browsing the models within `mindvideo`, each can be found at:
@@ -176,23 +184,23 @@ The links to download the pre-train models are as follows:
 </table>
 ## Model List
 
-- [x] [C3D](mindvideo/example/arn/README.md) for Action Recognition.
+- [x] [C3D](./tutorials/classification/c3d/README.md) for Action Recognition.
 
-- [x] [I3D](mindvideo/example/i3d/README.md) for Action Recognition.
+- [x] [I3D](./tutorials/classification/i3d/README.md) for Action Recognition.
 
-- [x] [X3D](mindvideo/example/x3d/README.md) for Action Recognition.
+- [x] [X3D](./tutorials/classification/x3d/README.md) for Action Recognition.
 
-- [x] [R(2+1)d](mindvideo/example/r(2+1)d/README.md) for Action Recognition.
+- [x] [R(2+1)d](./tutorials/classification/r(2%2B1)d/README.md) for Action Recognition.
 
-- [x] [NonLocal](mindvideo/example/nonlocal/README.md) for Action Recognition.
+- [x] [NonLocal](./tutorials/classification/nonlocal/README.md) for Action Recognition.
 
-- [x] [ViST](mindvideo/example/vist/README.md) for Action Recognition.
+- [x] [ViST](./tutorials/classification/vist/README.md) for Action Recognition.
 
-- [x] [fairMOT](mindvideo/example/fairmot/README.md) for One-shot Tracking.
+- [x] [fairMOT](./tutorials/tracking/fairmot/README.md) for One-shot Tracking.
 
-- [x] [VisTR](mindvideo/example/vistr/README.md) for Instance Segmentation. 
+- [x] [VisTR](./tutorials/segmentation/vistr/README.md) for Instance Segmentation. 
 
-- [x] [ARN](mindvideo/example/arn/README.md) for Few-shot Action Recognition.
+- [x] [ARN](./tutorials/classification/arn/README.md) for Few-shot Action Recognition.
 
   The master branch works with **MindSpore 1.5+**.
 
@@ -201,7 +209,7 @@ The links to download the pre-train models are as follows:
 1. Clone mindvideo
 
 ```bash
-git clone https://github.com/ZJUT-ERCISS/zjut_mindvideo.git
+git clone https://gitee.com/ZJUT-ERCISS/zjut_mindvideo.git
 cd zjut_mindvideo
 ```
 
@@ -221,7 +229,7 @@ make html
 
 ## License
 
-This project is released under the [Apache 2.0 license]( https://github.com/ZJUT-ERCISS/zjut_mindvideo/LICENSE).
+This project is released under the [Apache 2.0 license](https://gitee.com/moeno_ss/zjut_mindvideo/blob/st2/LICENSE).
 
 ## Supported Algorithms
 
@@ -243,7 +251,7 @@ MindVideo is a MindSpore-based Python package that provides high-level features:
 
 ### Feedbacks and Contact
 
-The dynamic version is still under development, if you find any issue or have an idea on new features, please don't hesitate to contact us via [Gitee Issues](https://gitee.com/yanlq46462828/zjut_mindvideo/issues).
+The dynamic version is still under development, if you find any issue or have an idea on new features, please don't hesitate to contact us via [Gitee Issues](https://gitee.com/ZJUT-ERCISS/zjut_mindvideo/issues).
 
 ### Contributing
 
@@ -265,7 +273,7 @@ If you find this project useful in your research, please consider citing:
 @misc{MindVideo 2022,
     title={{MindVideo}:MindVideo Toolbox and Benchmark},
     author={MindVideo Contributors},
-    howpublished = {\url{https://github.com/ZJUT-ERCISS/zjut_mindvideo},
+    howpublished = {\url{https://gitee.com/ZJUT-ERCISS/zjut_mindvideo}},
     year={2022}
 }
 ```

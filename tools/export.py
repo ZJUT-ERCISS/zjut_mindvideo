@@ -13,61 +13,54 @@
 # limitations under the License.
 # ============================================================================
 """MindSpore Vision Video infer script."""
+
 import os
 import sys
 
 __dir__ = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(os.path.abspath(os.path.join(__dir__, "../../..")))
+sys.path.append(os.path.abspath(os.path.join(__dir__, "..")))
 
+import numpy as np
+import mindspore as ms
 from mindspore import context, nn, load_checkpoint, load_param_into_net
 from mindspore.train import Model
 
 from mindvideo.utils.check_param import Validator, Rel
 from mindvideo.utils.config import parse_args, Config
 from mindvideo.utils.load import load_model
-from mindvideo.loss.builder import build_loss
 from mindvideo.data.builder import build_dataset, build_transforms
 from mindvideo.models import build_model
 
 
-def eval_classification(pargs):
+def export_classification(pargs):
     # set config context
     config = Config(pargs.config)
     context.set_context(**config.context)
 
     # perpare dataset
-    transforms = build_transforms(config.data_loader.eval.map.operations)
-    data_set = build_dataset(config.data_loader.eval.dataset)
-    data_set.transform = transforms
-    dataset_eval = data_set.run()
-    Validator.check_int(dataset_eval.get_dataset_size(), 0, Rel.GT)
-
-    # set loss
-    network_loss = build_loss(config.loss)
+    if config.export.include_dataset:
+        transforms = build_transforms(config.data_loader.eval.map.operations)
+        dataset = build_dataset(config.data_loader.eval.dataset)
+        dataset.transform = transforms
+        dataset = dataset.run()
+        Validator.check_int(dataset.get_dataset_size(), 0, Rel.GT)
 
     # set network and load pretrain model
-    ckpt_path = config.infer.pretrained_model
+    ckpt_path = config.export.pretrained_model
     network = None
     if os.path.splitext(ckpt_path)[-1] == '.ckpt':
         network = build_model(config.model)
     
     network = load_model(ckpt_path, network)
 
-    # Define eval_metrics.
-    eval_metrics = {'Top_1_Accuracy': nn.Top1CategoricalAccuracy(),
-                    'Top_5_Accuracy': nn.Top5CategoricalAccuracy()}
-    # init the whole Model
-    model = Model(network,
-                  network_loss,
-                  metrics=eval_metrics)
 
-    # Begin to eval.
-    result = model.eval(dataset_eval)
-
-    return result
+    input_tensor = ms.Tensor(np.ones(config.export.input_shape), ms.float32)
+    ms.export(network,
+              input_tensor,
+              file_name=config.export.file_name,
+              file_format=config.export.file_format)
 
 
 if __name__ == '__main__':
     args = parse_args()
-    result = eval_classification(args)
-    print(result)
+    export_classification(args)
