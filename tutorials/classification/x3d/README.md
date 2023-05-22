@@ -13,6 +13,7 @@
     - [Distributed Training](#distributed-training)
   - [Evaluation Process](#evaluation-process)
   - [Model Description](#model-description)
+  - [Benchmark with paper](#benchmark-with-paper)
   - [Visualization](#visualization)
   - [Citation](#citation)
 
@@ -471,7 +472,7 @@ If you find this project useful in your research, please consider citing:
 
 ```latex
 @misc{x3d_mindspore,
-    title={Mindspore Video Models},
+    title={MindVideo Models},
     author={ZJUT-ERCISS},
     year={2022},
     publisher = {GitHub},

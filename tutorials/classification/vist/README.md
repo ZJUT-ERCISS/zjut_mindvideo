@@ -1,6 +1,7 @@
 # vist_mindspore/swin3d_mindspore
 
 # Contents
+- [vist\_mindspore/swin3d\_mindspore](#vist_mindsporeswin3d_mindspore)
 - [Contents](#contents)
   - [Description](#description)
   - [Model Architecture](#model-architecture)
@@ -386,7 +387,7 @@ Figure 3 Visualization Result of Swin3D-T</div>
   year={2021}
 }
 @misc{swin3d_mindspore,
-    title={Mindspore Video Models},
+    title={MindVideo Models},
     author={ZJUT-ERCISS},
     year={2022},
     publisher = {GitHub},

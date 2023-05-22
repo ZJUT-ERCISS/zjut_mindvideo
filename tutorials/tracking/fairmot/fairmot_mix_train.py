@@ -21,13 +21,13 @@ from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMoni
 from mindspore.train import Model
 from mindspore.communication.management import init, get_rank, get_group_size
 
-from msvideo.utils.check_param import Validator, Rel
-from msvideo.loss import CenterNetMultiPoseLoss
-from msvideo.schedule import dynamic_lr
-from msvideo.data import MixJDE
-from msvideo.data.transforms.jde_load import JDELoad
-from msvideo.models.fairmot import FairmotDla34
-from msvideo.loss.tracking_losscell import TrackingLossCell
+from mindvideo.utils.check_param import Validator, Rel
+from mindvideo.loss import CenterNetMultiPoseLoss
+from mindvideo.schedule import dynamic_lr
+from mindvideo.data import MixJDE
+from mindvideo.data.transforms.jde_load import JDELoad
+from mindvideo.models.fairmot import FairmotDla34
+from mindvideo.loss.tracking_losscell import TrackingLossCell
 
 
 def fairmot_dla34_train(args_opt):

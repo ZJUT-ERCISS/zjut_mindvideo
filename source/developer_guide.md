@@ -4,22 +4,22 @@
 Use the following commands to install dependencies for each model, taking the non-local model as an example:
 
 ```text
-pip install -r msvideo/example/nonlocal/requirements.txt
+pip install -r mindvideo/example/nonlocal/requirements.txt
 ```
 ### Configuration Files
-The configuration files of each supported model are presented in ./msvideo/config. Each .yaml file contains information about the supported model training, evaluation and inference, for example, model name, model, learning rate, loss, optimizer, etc.
+The configuration files of each supported model are presented in ./mindvideo/config. Each .yaml file contains information about the supported model training, evaluation and inference, for example, model name, model, learning rate, loss, optimizer, etc.
 
 ### Load Model Checkpoints
 All links to download the pre-train models are presented in https://gitee.com/yanlq46462828/zjut_mindvideo/tree/master
 
 ### Dataset Preparation
-The links of MindSpore Video(msvideo) supported dataset are presented in: https://gitee.com/yanlq46462828/zjut_mindvideo/tree/master, including activitynet, Kinetics400, Kinetics600, UCF101, Caltech Pedestrian, CityPersons, CUHK-SYSU, PRW, ETHZ, MOT17, MOT16, charades, Collective Activity, columbia Consumer Video, davis, hmdb51, fbms, msvd, Sports-1M, THUMOS, UBI-Fights, tyvos.
+The links of MindVideo supported dataset are presented in: https://gitee.com/yanlq46462828/zjut_mindvideo/tree/master, including activitynet, Kinetics400, Kinetics600, UCF101, Caltech Pedestrian, CityPersons, CUHK-SYSU, PRW, ETHZ, MOT17, MOT16, charades, Collective Activity, columbia Consumer Video, davis, hmdb51, fbms, msvd, Sports-1M, THUMOS, UBI-Fights, tyvos.
 
 Then put all training and evaluation data into one directory and then change **data_root** to that directory in data.json, like this:
 ```text
 "data_root": "/home/publicfile/dataset/tracking"
 ```
-Within msvideo, all data processing methods according to each dataset used can be found under the data folder.
+Within mindvideo, all data processing methods according to each dataset used can be found under the data folder.
 
 ### Customize a Model
 Here, we present how to use a model, and apply it to the MindSpore.
@@ -151,17 +151,17 @@ group_size: 1
 ### Customize DataLoaders
 Here, we present how to develop a new DataLoader, and apply it into our tool. If we have a model, and there is special requirement for loading the data, then we need to design a new DataLoader.
 
-In this project, here is a abstract dataloaders: builder.py file in ./msvideo/data.
+In this project, here is a abstract dataloaders: builder.py file in ./mindvideo/data.
 
 In general, the new dataloader include four function: build_dataset_sampler, builder_dataset, build_transforms, register_builtin_dataset. The build_dataset_sampler function is used to build sampler, the build_dataset function is used to build dataset, the build_transforms function is used to build data transform pipeline, the register_builtin_dataset function is used to register MindSpore builtin dataset class.
 
 ### Customize Trainers
-There are two approaches provided for training, evaluation and inference within msvideo for each supported model. After installing MindSpore via the official website, one is to run the training or evaluation files under the example folder, which is a independent module for training and evaluation specifically designed for starters, according to each model's name. And the other is to use the train and inference interfaces for all models under the root folder of the repository when working with the YAML file containing the parameters needed for each model as we also support some parameter configurations for quick start. For this method, take I3D for example, just run following commands for training:
+There are two approaches provided for training, evaluation and inference within mindvideo for each supported model. After installing MindSpore via the official website, one is to run the training or evaluation files under the example folder, which is a independent module for training and evaluation specifically designed for starters, according to each model's name. And the other is to use the train and inference interfaces for all models under the root folder of the repository when working with the YAML file containing the parameters needed for each model as we also support some parameter configurations for quick start. For this method, take I3D for example, just run following commands for training:
 ```text
-python train.py -c zjut_mindvideo/msvideo/config/i3d/i3d_rgb.yaml
+python train.py -c zjut_mindvideo/mindvideo/config/i3d/i3d_rgb.yaml
 ```
 and run following commands for inference and evaluation:
 ```text
-python infer.py -c zjut_mindvideo/msvideo/config/i3d/i3d_rgb.yaml
-python eval.py -c zjut_mindvideo/msvideo/config/i3d/i3d_rgb.yaml
+python infer.py -c zjut_mindvideo/mindvideo/config/i3d/i3d_rgb.yaml
+python eval.py -c zjut_mindvideo/mindvideo/config/i3d/i3d_rgb.yaml
 ```

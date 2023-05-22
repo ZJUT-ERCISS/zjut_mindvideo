@@ -21,8 +21,8 @@ import argparse
 from PIL import Image
 import numpy as np
 import pycocotools.mask as mask_util
-from msvideo.utils import misc
-from msvideo.models.vistr import VistrCom
+from mindvideo.utils import misc
+from mindvideo.models.vistr import VistrCom
 import mindspore
 from mindspore import nn
 from mindspore.dataset.vision import py_transforms as T_p
@@ -46,8 +46,8 @@ def vistr_r50_infer(args_opt):
     num_frames = args_opt.num_frames
     num_ins = args_opt.num_ins
 
-    ann_path = os.path.join(args_opt.dataset_path, "annotations/instances_valid_sub.json")
-    folder = os.path.join(args_opt.dataset_path, "valid/valid_all_frames/JPEGImages/")
+    ann_path = os.path.join(args_opt.dataset_path, "annotations/val.json")
+    folder = os.path.join(args_opt.dataset_path, "train/JPEGImages")
     videos = json.load(open(ann_path, 'rb'))['videos']
 
     ms_model = VistrCom(name=args_opt.name,

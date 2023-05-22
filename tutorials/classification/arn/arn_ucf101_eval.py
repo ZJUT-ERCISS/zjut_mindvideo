@@ -20,12 +20,12 @@ from mindspore import context, load_checkpoint, load_param_into_net
 from mindspore.nn import MSELoss
 from mindspore.train import Model
 
-from msvideo.models.arn import ARN
-from msvideo.data.ucf101 import UCF101
-from msvideo.data.transforms.video_to_tensor import VideoToTensor
-from msvideo.data.transforms import VideoResize, VideoReshape, VideoNormalize
+from mindvideo.models.arn import ARN
+from mindvideo.data.ucf101 import UCF101
+from mindvideo.data.transforms.video_to_tensor import VideoToTensor
+from mindvideo.data.transforms import VideoResize, VideoReshape, VideoNormalize
 
-from msvideo.utils.task_acc import TaskAccuracy
+from mindvideo.utils.task_acc import TaskAccuracy
 
 def arn_rgb_eval(args_opt):
     """ARN eval."""

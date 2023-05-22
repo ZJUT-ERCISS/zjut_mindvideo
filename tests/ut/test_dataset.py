@@ -1,11 +1,11 @@
 import sys
 sys.path.append('.')
 
-from msvideo.data import builder
+from mindvideo.data import builder
 import mindspore as ms
 import pytest
 import subprocess
-from msvideo.utils.config import Config
+from mindvideo.utils.config import Config
 
 
 
@@ -18,7 +18,7 @@ def test_create_dataset_ytvos(mode):
     ms.set_context(mode=mode)
 
     # download pass
-    config_path = './msvideo/config/vistr/vistr.yaml'
+    config_path = './mindvideo/config/vistr/vistr.yaml'
     temp_config_path = f'{tests_dir}/temp_config.yaml'
 
     type = 'Ytvos'
@@ -66,7 +66,7 @@ def test_create_dataset_UCF101(mode):
 
     # download dataset pass
 
-    config_path = "./msvideo/config/c3d/c3d.yaml"
+    config_path = "./mindvideo/config/c3d/c3d.yaml"
     temp_config_path = f'{tests_dir}/temp_config.yaml'
 
     type = 'UCF101'
@@ -109,7 +109,7 @@ def test_create_dataset_Kinetic400(mode):
 
     # download dataset pass
 
-    config_path = "./msvideo/config/i3d/i3d_rgb.yaml"
+    config_path = "./mindvideo/config/i3d/i3d_rgb.yaml"
     temp_config_path = f'{tests_dir}/temp_config.yaml'
 
     type = 'Kinetic400'
@@ -148,7 +148,7 @@ def test_create_dataset_MixJDE(mode):
 
     # download dataset pass
 
-    config_path = "./msvideo/config/fairmot/fairmot_dla34.yaml"
+    config_path = "./mindvideo/config/fairmot/fairmot_dla34.yaml"
     temp_config_path = f'{tests_dir}/temp_config.yaml'
 
     type = 'MixJDE'

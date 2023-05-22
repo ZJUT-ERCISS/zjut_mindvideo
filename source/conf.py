@@ -20,7 +20,7 @@ from recommonmark.transform import AutoStructify
 
 # -- Project information -----------------------------------------------------
 
-project = 'MsVideo'
+project = 'mindvideo'
 copyright = '2023, zjut_mindvideo'
 author = 'zjut_mindvideo'
 

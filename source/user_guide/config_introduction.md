@@ -1,6 +1,6 @@
 ## Config Introduction
 
-MindSpore Video is able to config different parameters for controlling the experiment setup (e.g., data processing, data splitting, training and evaluation). The users can select the settings according to their own requirements.
+MindVideo is able to config different parameters for controlling the experiment setup (e.g., data processing, data splitting, training and evaluation). The users can select the settings according to their own requirements.
 
 ### Config Settings
 
@@ -8,4 +8,4 @@ We split all the config settings into four parts: dataloader settings, model set
 
 ### How to set config?
 
-MindSpore Video can set config by changing the parameters via config file
+MindVideo can set config by changing the parameters via config file

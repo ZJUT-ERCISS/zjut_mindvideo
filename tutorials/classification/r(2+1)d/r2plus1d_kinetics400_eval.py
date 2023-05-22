@@ -21,11 +21,11 @@ from mindspore import context, load_checkpoint, load_param_into_net
 from mindspore.train import Model
 from mindspore.nn.loss import SoftmaxCrossEntropyWithLogits
 
-from msvideo.data import Kinetic400
-from msvideo.data.transforms import VideoCenterCrop, VideoNormalize
-from msvideo.data.transforms import VideoResize, VideoRescale, VideoReOrder
-from msvideo.models.r2plus1d import R2Plus1d18, R2Plus1d50
-from msvideo.utils.callbacks import EvalLossMonitor
+from mindvideo.data import Kinetic400
+from mindvideo.data.transforms import VideoCenterCrop, VideoNormalize
+from mindvideo.data.transforms import VideoResize, VideoRescale, VideoReOrder
+from mindvideo.models.r2plus1d import R2Plus1d18, R2Plus1d50
+from mindvideo.utils.callbacks import EvalLossMonitor
 
 def r2plus1d_kinetics400_eval(args_opt):
     """r2plus1d eval"""

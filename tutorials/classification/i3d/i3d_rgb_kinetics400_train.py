@@ -25,10 +25,10 @@ from mindspore.train import Model
 from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor
 
 
-from msvideo.data.kinetics400 import Kinetic400
-from msvideo.models.i3d import I3D
-from msvideo.data.transforms import VideoToTensor, VideoRandomCrop, VideoRandomHorizontalFlip, VideoResize
-from msvideo.schedule.lr_schedule import warmup_step_lr
+from mindvideo.data.kinetics400 import Kinetic400
+from mindvideo.models.i3d import I3D
+from mindvideo.data.transforms import VideoToTensor, VideoRandomCrop, VideoRandomHorizontalFlip, VideoResize
+from mindvideo.schedule.lr_schedule import warmup_step_lr
 
 
 
