@@ -65,7 +65,7 @@ def fairmot_dla34_infer(args_opt):
                              show_image=False)
         if args_opt.save_videos:
             output_video_path = os.path.join(args_opt.output_dir, '{}.mp4'.format(seq))
-            cmd_str = 'ffmpeg -f image2 -i {}/%05d.jpg -c:v copy {}'.format(args_opt.output_dir, output_video_path)
+            cmd_str = f'ffmpeg -f image2 -i {args_opt.output_dir}/{seq}/%05d.jpg {output_video_path}'
             os.system(cmd_str)
     timer_avgs = np.asarray(ta)
     timer_calls = np.asarray(tc)

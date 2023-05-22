@@ -97,25 +97,15 @@ def eval_tracking(pargs):
                              show_image=False)
         evaluator = Evaluator(config.infer.data_root, seq, config.infer.data_type)
         accs.append(evaluator.eval_file(result_filename))
-    if config.infer.save_videos == True:
-        output_video_path = os.path.join(config.infer.output_dir, '{}.mp4'.format(seq))
-        cmd_str = 'ffmpeg -f image2 -i {}/%05d.jpg -c:v copy {}'.format(config.infer.output_dir, output_video_path)
-        os.system(cmd_str)
+        if config.infer.save_videos == True:
+            output_video_path = os.path.join(config.infer.output_dir, '{}.mp4'.format(seq))
+            cmd_str = f'ffmpeg -f image2 -i {config.infer.output_dir}/{seq}/%05d.jpg {output_video_path}'
+            os.system(cmd_str)
     timer_avgs = np.asarray(ta)
     timer_calls = np.asarray(tc)
     all_time = np.dot(timer_avgs, timer_calls)
     avg_time = all_time / np.sum(timer_calls)
     print('Time elapsed: {:.2f} seconds, FPS: {:.2f}'.format(all_time, 1.0 / avg_time))
-
-    metrics = mm.metrics.motchallenge_metrics
-    mh = mm.metrics.create()
-    summary = Evaluator.get_summary(accs, config.infer.data_seqs, metrics)
-    strsummary = mm.io.render_summary(
-        summary,
-        formatters=mh.formatters,
-        namemap=mm.io.motchallenge_metric_names
-    )
-    print(strsummary)
 
 
 if __name__ == '__main__':
