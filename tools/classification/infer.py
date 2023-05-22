@@ -62,9 +62,14 @@ def infer_classification(pargs):
     video_reader = decord.VideoReader(video_path, num_threads=1)
     img_set = []
 
-    for k in range(16):
-        im = video_reader[k].asnumpy()
-        img_set.append(im)
+    if config.model_name in ['Swin3D-T', 'Swin3D-S', 'Swin3D-B']:
+        for k in range(32):
+            im = video_reader[k].asnumpy()
+            img_set.append(im)
+    else:
+        for k in range(16):
+            im = video_reader[k].asnumpy()
+            img_set.append(im)
     video = np.stack(img_set, axis=0)
     for t in transforms:
         video = t(video)

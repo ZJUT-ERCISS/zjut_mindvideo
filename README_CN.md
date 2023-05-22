@@ -2,7 +2,7 @@
 
 # MindVideo
 
-[![docs](https://camo.githubusercontent.com/d5d535f53f2cb047c2b4382b8fd3c2913519abad35badcd4f22bd45d174f450a/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f646f63732d6c61746573742d626c7565)](https://mindvideo-guidebook.readthedocs.io/en/latest/) [![license](https://camo.githubusercontent.com/d4dc5ba23f0f26ac45a8419e6669afe324f992b413b2006d5f59ac548b1da725/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f6c6963656e73652f6d696e6473706f72652d6c61622f6d696e6463762e737667)](https://gitee.com/yanlq46462828/zjut_mindvideo/blob/master/LICENSE) [![open issues](https://camo.githubusercontent.com/746aed3806dcfd86e6ada45e8f0be5e79c349bcaa5f44317b1feef8dc3498abb/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f6973737565732f6d696e6473706f72652d6c61622f6d696e646376)](https://gitee.com/yanlq46462828/zjut_mindvideo/issues)[![PRs](https://camo.githubusercontent.com/64b454ccdf96dc519c389355e075c9d752f717216743d7cb3270643e27f49d1b/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f5052732d77656c636f6d652d70696e6b2e737667)](https://gitee.com/yanlq46462828/zjut_mindvideo/pulls)
+[![docs](https://camo.githubusercontent.com/d5d535f53f2cb047c2b4382b8fd3c2913519abad35badcd4f22bd45d174f450a/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f646f63732d6c61746573742d626c7565)](https://mindvideo-guidebook.readthedocs.io/en/latest/) [![license](https://camo.githubusercontent.com/d4dc5ba23f0f26ac45a8419e6669afe324f992b413b2006d5f59ac548b1da725/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f6c6963656e73652f6d696e6473706f72652d6c61622f6d696e6463762e737667)](https://github.com/ZJUT-ERCISS/zjut_mindvideo/blob/master/LICENSE) [![open issues](https://camo.githubusercontent.com/746aed3806dcfd86e6ada45e8f0be5e79c349bcaa5f44317b1feef8dc3498abb/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f6973737565732f6d696e6473706f72652d6c61622f6d696e646376)](https://github.com/ZJUT-ERCISS/zjut_mindvideo/issues)[![PRs](https://camo.githubusercontent.com/64b454ccdf96dc519c389355e075c9d752f717216743d7cb3270643e27f49d1b/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f5052732d77656c636f6d652d70696e6b2e737667)](https://github.com/ZJUT-ERCISS/zjut_mindvideo/pulls)
 
 [English](./README.md)|中文
 
@@ -39,6 +39,7 @@ MindVideo 是一个基于MindSpore的计算机视觉研究和开发的开源视�
 使用以下指令来安装依赖:
 
 ```text
+git clone https://github.com/ZJUT-ERCISS/zjut_mindvideo.git
 cd zjut_mindvideo
 
 # If you use vistr, the version of Python should be 3.7
@@ -212,7 +213,7 @@ python infer.py -c ../../mindvideo/config/i3d/i3d_rgb.yaml
 1. 克隆mindvideo
 
 ```bash
-git clone https://gitee.com/yanlq46462828/zjut_mindvideo.git
+git clone https://github.com/ZJUT-ERCISS/zjut_mindvideo.git
 cd zjut_mindvideo
 ```
 
@@ -250,7 +251,7 @@ MindVideo是一个基于MindSpore的Python包，提供以下高级功能:
 
 ### 反馈与联系
 
-动态版本仍在开发中，如果您发现任何问题或对新功能有想法，请不要犹豫，通过 [Gitee Issues](https://gitee.com/yanlq46462828/zjut_mindvideo/issues)与我们联系
+动态版本仍在开发中，如果您发现任何问题或对新功能有想法，请不要犹豫，通过 [github Issues](https://github.com/ZJUT-ERCISS/zjut_mindvideo/issues)与我们联系
 
 ### 贡献
 
@@ -272,7 +273,7 @@ MindSpore 是一个开源项目，欢迎任何贡献和反馈。我们希望这�
 @misc{MindVideo 2022,
     title={{MindVideo}:MindVideo Toolbox and Benchmark},
     author={MindVideo Contributors},
-    howpublished = {\url{https://gitee.com/ZJUT-ERCISS/zjut_mindvideo}},
+    howpublished = {\url{https://github.com/ZJUT-ERCISS/zjut_mindvideo}},
     year={2022}
 }
 ```
