@@ -1,15 +1,16 @@
 <div align="center">
 
 # MindVideo
-</div>
-	
-[![docs](https://camo.githubusercontent.com/d5d535f53f2cb047c2b4382b8fd3c2913519abad35badcd4f22bd45d174f450a/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f646f63732d6c61746573742d626c7565)](https://msvideo-guidebook.readthedocs.io/en/latest/) [![license](https://camo.githubusercontent.com/d4dc5ba23f0f26ac45a8419e6669afe324f992b413b2006d5f59ac548b1da725/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f6c6963656e73652f6d696e6473706f72652d6c61622f6d696e6463762e737667)](https://gitee.com/yanlq46462828/zjut_mindvideo/blob/master/LICENSE) [![open issues](https://camo.githubusercontent.com/746aed3806dcfd86e6ada45e8f0be5e79c349bcaa5f44317b1feef8dc3498abb/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f6973737565732f6d696e6473706f72652d6c61622f6d696e646376)](https://gitee.com/yanlq46462828/zjut_mindvideo/issues)[![PRs](https://camo.githubusercontent.com/64b454ccdf96dc519c389355e075c9d752f717216743d7cb3270643e27f49d1b/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f5052732d77656c636f6d652d70696e6b2e737667)](https://gitee.com/yanlq46462828/zjut_mindvideo/pulls)
 
-English|[中文](https://gitee.com/yanlq46462828/zjut_mindvideo/blob/master/README_CN.md)
+[![docs](https://camo.githubusercontent.com/d5d535f53f2cb047c2b4382b8fd3c2913519abad35badcd4f22bd45d174f450a/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f646f63732d6c61746573742d626c7565)](https://mindvideo-guidebook.readthedocs.io/en/latest/) [![license](https://camo.githubusercontent.com/d4dc5ba23f0f26ac45a8419e6669afe324f992b413b2006d5f59ac548b1da725/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f6c6963656e73652f6d696e6473706f72652d6c61622f6d696e6463762e737667)](https://gitee.com/yanlq46462828/zjut_mindvideo/blob/master/LICENSE) [![open issues](https://camo.githubusercontent.com/746aed3806dcfd86e6ada45e8f0be5e79c349bcaa5f44317b1feef8dc3498abb/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f6973737565732f6d696e6473706f72652d6c61622f6d696e646376)](https://gitee.com/yanlq46462828/zjut_mindvideo/issues)[![PRs](https://camo.githubusercontent.com/64b454ccdf96dc519c389355e075c9d752f717216743d7cb3270643e27f49d1b/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f5052732d77656c636f6d652d70696e6b2e737667)](https://gitee.com/yanlq46462828/zjut_mindvideo/pulls)
+
+English|[中文](./README_CN.md)
+
+</div>
 
 ## Introduction
 
-MindSpore Video(msvideo) is an open source Video toolbox  for computer vision research and development based on MindSpore. It collects a series of classic and SoTA vision models, such as C3D and ARN, along with their pre-trained weights and training strategies.. With the decoupled module design, it is easy to apply or adapt msvideo to your own CV tasks.
+MindVideo is an open source Video toolbox  for computer vision research and development based on MindSpore. It collects a series of classic and SoTA vision models, such as C3D and ARN, along with their pre-trained weights and training strategies.. With the decoupled module design, it is easy to apply or adapt mindvideo to your own CV tasks.
 
 ### Major Features
 
@@ -17,19 +18,19 @@ MindSpore Video(msvideo) is an open source Video toolbox  for computer vision re
 
 We decompose the video framework into different components and one can easily construct a customized video framework by combining different modules.
 
-![ModularDesign.png](https://gitee.com/yanlq46462828/zjut_mindvideo/raw/master/msvideo/resource/modular_design.png)
+![ModularDesign.png](./mindvideo/resource/modular_design.png)
 
 Currently, MindVideo supports the Action Recognition , Video Tracking, Video segmentation.
 
-![result.gif](https://github.com/ZJUT-ERCISS/zjut_mindvideo/blob/master/msvideo/resource/result.gif)
+![result.gif](./mindvideo/resource/result.gif)
 
-![result.png](https://github.com/ZJUT-ERCISS/zjut_mindvideo/blob/master/msvideo/resource/result.png)
+![result.png](./mindvideo/resource/result.png)
 
-![MOT17_09_SDP.gif](https://github.com/ZJUT-ERCISS/zjut_mindvideo/blob/master/msvideo/resource/MOT17_09_SDP.gif)
+![MOT17_09_SDP.gif](./mindvideo/resource/MOT17_09_SDP.gif)
 
 ### Benchmark Results
 
-The performance of the models trained with MindVideo is summarized in [benchmark.md](https://gitee.com/yanlq46462828/zjut_mindvideo/blob/master/source/introduction/benchmark.md), where the training recipes and weights are both available.
+The performance of the models trained with MindVideo is summarized in [benchmark.md](./source/introduction/benchmark.md), where the training recipes and weights are both available.
 
 ## Installation
 
@@ -38,9 +39,10 @@ The performance of the models trained with MindVideo is summarized in [benchmark
 Use the following commands to install dependencies:
 
 ```text
-git clone https://gitee.com/yanlq46462828/zjut_mindvideo.git
+git clone https://github.com/ZJUT-ERCISS/zjut_mindvideo.git
 cd zjut_mindvideo
 
+# If you use vistr, the version of Python should be 3.7
 # Please first install mindspore according to instructions on the official website: https://www.mindspore.cn/install
 
 pip install -r requirements.txt
@@ -49,7 +51,7 @@ pip install -e .
 
 ### Dataset Preparation
 
-MindSpore Video(msvideo) supported dataset can be downloaded from:
+MindVideo supported dataset can be downloaded from:
 
 - [activitynet](http://activity-net.org/index.html)
 - [Kinetics400](https://www.deepmind.com/open-source/kinetics) 
@@ -80,25 +82,25 @@ Then put all training and evaluation data into one directory and then change `"d
 "data_root": "/home/publicfile/dataset/tracking"
 ```
 
-Within `msvideo`, all data processing methods according to each dataset used can be found under the `data` folder.
+Within `mindvideo`, all data processing methods according to each dataset used can be found under the `data` folder.
 
 ## Quick Start
 
 ### Running
 
-There are two approaches provided for training, evaluation and inference within `msvideo` for each supported model. After installing MindSpore via the official website, one is to run the training or evaluation files under the `example` folder, which is a independent module for training and evaluation specifically designed for starters, according to each model's name. And the other is to use the train and inference interfaces for all models under the root folder of the repository when working with the `YAML` file containing the parameters needed for each model as we also support some parameter configurations for quick start. For this method, take I3D for example, just run following commands for training:
+There are two approaches provided for training, evaluation and inference within `mindvideo` for each supported model. After installing MindSpore via the official website, one is to run the training or evaluation files under the `example` folder, which is a independent module for training and evaluation specifically designed for starters, according to each model's name. And the other is to use the train and inference interfaces for all models under the root folder of the repository when working with the `YAML` file containing the parameters needed for each model as we also support some parameter configurations for quick start. For this method, take I3D for example, just run following commands for training:
 
 ```
-python train.py -c zjut_mindvideo/msvideo/config/i3d/i3d_rgb.yaml
+python train.py -c zjut_mindvideo/mindvideo/config/i3d/i3d_rgb.yaml
 ```
 
 and run following commands for evaluation:
 
 ```
-python infer.py -c zjut_mindvideo/msvideo/config/i3d/i3d_rgb.yaml
+python infer.py -c zjut_mindvideo/mindvideo/config/i3d/i3d_rgb.yaml
 ```
 
-Also, [paperswithcode](https://paperswithcode.com) is a good resource for browsing the models within `msvideo`, each can be found at:
+Also, [paperswithcode](https://paperswithcode.com) is a good resource for browsing the models within `mindvideo`, each can be found at:
 
 | Model    | Link                                                         |
 | :------- | :----------------------------------------------------------- |
@@ -174,29 +176,29 @@ The links to download the pre-train models are as follows:
 </table>
 ## Model List
 
-- [x] [C3D](msvideo/example/arn/README.md) for Action Recognition.
+- [x] [C3D](mindvideo/example/arn/README.md) for Action Recognition.
 
-- [x] [I3D](msvideo/example/i3d/README.md) for Action Recognition.
+- [x] [I3D](mindvideo/example/i3d/README.md) for Action Recognition.
 
-- [x] [X3D](msvideo/example/x3d/README.md) for Action Recognition.
+- [x] [X3D](mindvideo/example/x3d/README.md) for Action Recognition.
 
-- [x] [R(2+1)d](msvideo/example/r(2+1)d/README.md) for Action Recognition.
+- [x] [R(2+1)d](mindvideo/example/r(2+1)d/README.md) for Action Recognition.
 
-- [x] [NonLocal](msvideo/example/nonlocal/README.md) for Action Recognition.
+- [x] [NonLocal](mindvideo/example/nonlocal/README.md) for Action Recognition.
 
-- [x] [ViST](msvideo/example/vist/README.md) for Action Recognition.
+- [x] [ViST](mindvideo/example/vist/README.md) for Action Recognition.
 
-- [x] [fairMOT](msvideo/example/fairmot/README.md) for One-shot Tracking.
+- [x] [fairMOT](mindvideo/example/fairmot/README.md) for One-shot Tracking.
 
-- [x] [VisTR](msvideo/example/vistr/README.md) for Instance Segmentation. 
+- [x] [VisTR](mindvideo/example/vistr/README.md) for Instance Segmentation. 
 
-- [x] [ARN](msvideo/example/arn/README.md) for Few-shot Action Recognition.
+- [x] [ARN](mindvideo/example/arn/README.md) for Few-shot Action Recognition.
 
   The master branch works with **MindSpore 1.5+**.
 
 ## Build Documentation
 
-1. Clone msvideo
+1. Clone mindvideo
 
 ```bash
 git clone https://github.com/ZJUT-ERCISS/zjut_mindvideo.git
@@ -215,11 +217,11 @@ pip install -r requirements.txt
 make html
 ```
 
-4. Open `_build/html/index.html` with browser
+4. Open `build/html/index.html` with browser
 
 ## License
 
-This project is released under the [Apache 2.0 license](https://gitee.com/moeno_ss/zjut_mindvideo/blob/st2/LICENSE).
+This project is released under the [Apache 2.0 license]( https://github.com/ZJUT-ERCISS/zjut_mindvideo/LICENSE).
 
 ## Supported Algorithms
 
@@ -231,13 +233,13 @@ Supported algorithms:
 
 ## Base Structure
 
-MindSpore Video(msvideo) is a MindSpore-based Python package that provides high-level features:
+MindVideo is a MindSpore-based Python package that provides high-level features:
 
 - Base backbone of models like c3d and resnet series.
 - Domain oriented rich dataset interface.
 - Rich visualization and IO(Input/Output) interfaces.
 
-![BaseArchitecture.png](https://gitee.com/yanlq46462828/zjut_mindvideo/raw/master/msvideo/resource/base_architecture.png)
+![BaseArchitecture.png](./mindvideo/resource/base_architecture.png)
 
 ### Feedbacks and Contact
 
@@ -245,7 +247,7 @@ The dynamic version is still under development, if you find any issue or have an
 
 ### Contributing
 
-We appreciate all contributions to improve MindSpore Video. Please refer to [CONTRIBUTING.md](CONTRIBUTING.md) for the contributing guideline.
+We appreciate all contributions to improve MindVideo. Please refer to [CONTRIBUTING.md](CONTRIBUTING.md) for the contributing guideline.
 
 ### License
 
@@ -260,10 +262,10 @@ MindSpore is an open source project that welcome any contribution and feedback. 
 If you find this project useful in your research, please consider citing:
 
 ```latex
-@misc{MindSpore Video 2022,
-    title={{MindSpore Video}:MindSpore Video Toolbox and Benchmark},
-    author={MindSpore Video Contributors},
-    howpublished = {\url{https://gitee.com/yanlq46462828/zjut_mindvideo}},
+@misc{MindVideo 2022,
+    title={{MindVideo}:MindVideo Toolbox and Benchmark},
+    author={MindVideo Contributors},
+    howpublished = {\url{https://github.com/ZJUT-ERCISS/zjut_mindvideo},
     year={2022}
 }
 ```
