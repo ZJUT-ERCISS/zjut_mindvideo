@@ -1,0 +1,122 @@
+# model architecture
+model_name: "c3d"   # 模型名
+
+#global config
+device_target: "GPU"
+dataset_sink_mode: False
+context:      # 训练环境
+    mode: 0 #0--Graph Mode; 1--Pynative Mode
+    device_target: "GPU"
+    save_graphs: False
+    device_id: 3
+
+# model settings of every parts
+model:
+    type: C3D
+    in_d: 16
+    in_h: 112
+    in_w: 112
+    in_channel: 3
+    kernel_size: [3, 3, 3]
+    head_channel: [4096, 4096]
+    num_classes: 101
+    keep_prob: [0.5, 0.5, 1.0]
+
+# learning rate for training process
+learning_rate:     # learning_rate规划，对应方法在mindvision/engine/lr_schedule中
+    lr_scheduler: "exponential"
+    lr: 0.003
+    lr_epochs: [15, 30, 75]
+    steps_per_epoch: 596
+    warmup_epochs: 1
+    max_epoch: 150
+    lr_gamma: 0.1
+
+# optimizer for training process
+optimizer:      # optimizer参数
+    type: 'SGD'
+    momentum: 0.9
+    weight_decay: 0.0005
+    loss_scale: 1.0
+
+loss:       # loss 模块
+    type: SoftmaxCrossEntropyWithLogits
+    sparse: True
+    reduction: "mean"
+
+train:       # 预训练相关
+    pre_trained: False
+    pretrained_model: ""
+    ckpt_path: "./output/"
+    epochs: 150
+    save_checkpoint_epochs: 5
+    save_checkpoint_steps: 1875
+    keep_checkpoint_max: 30
+    run_distribute: False
+
+eval:
+    pretrained_model: "/home/publicfile/checkpoint/c3d/c3d.ckpt"
+
+infer:       # 推理相关
+    pretrained_model: "/home/publicfile/checkpoint/c3d/c3d.ckpt"
+    batch_size: 1
+    image_path: ""
+    normalize: True
+    output_dir: "./infer_output"
+ 
+export:       # 模型导出为其他格式
+    pretrained_model: "/home/publicfile/checkpoint/c3d/c3d.ckpt"
+    do_export: False
+    include_dataset: False
+    input_shape: [1, 3, 16, 112, 112]
+    file_name: "c3d"
+    file_format: "MINDIR"
+
+
+data_loader:
+    train:
+        dataset:
+            type: UCF101
+            path: "/home/publicfile/UCF101-dataset/data"
+            split: "train"
+            batch_size: 16
+            seq: 16
+            seq_mode: "average"
+            num_parallel_workers: 6
+            shuffle: True
+        map:        # 预处理和数据增强方法
+            operations:
+                - type: VideoResize
+                  size: [128, 171]
+                - type: VideoRescale
+                  shift: "tutorials/classification/c3d/resized_mean_sports1m.npy"
+                - type: VideoRandomCrop
+                  size: [112, 112]
+                - type: VideoRandomHorizontalFlip
+                  prob: 0.5
+                - type: VideoReOrder
+                  order: [3, 0, 1, 2]
+            input_columns: ["video"]
+
+    eval:          # 验证、推理相关，参数与train基本一致
+        dataset:
+            type: UCF101
+            path: "/home/publicfile/UCF101-dataset/data"
+            split: "test"
+            batch_size: 16
+            seq: 16
+            seq_mode: "average"
+            num_parallel_workers: 1
+            shuffle: False
+        map:
+            operations:
+                - type: VideoResize
+                  size: [128, 171]
+                - type: VideoRescale
+                  shift: "tutorials/classification/c3d/resized_mean_sports1m.npy"
+                - type: VideoCenterCrop
+                  size: [112, 112]
+                - type: VideoReOrder
+                  order: [3, 0, 1, 2]
+            input_columns: ["video"]
+    group_size: 1

@@ -24,9 +24,9 @@ from mindspore.nn import SoftmaxCrossEntropyWithLogits
 from mindspore.train import Model
 from mindspore.profiler import Profiler
 
-from msvideo.data import Kinetic400
-from msvideo.data import transforms
-from msvideo.models.swin3d import swin3d_t, swin3d_s, swin3d_b, swin3d_l
+from mindvideo.data import Kinetic400
+from mindvideo.data import transforms
+from mindvideo.models.swin3d import swin3d_t, swin3d_s, swin3d_b, swin3d_l
 
 set_seed(42)
 

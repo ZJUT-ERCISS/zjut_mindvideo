@@ -8,17 +8,17 @@ import mindspore
 import mindspore as ms
 from mindspore import Tensor
 
-from msvideo.models.nonlocal3d import nonlocal3d
-from msvideo.models.x3d import x3d, BlockX3D
-from msvideo.models.c3d import C3D
-from msvideo.models.i3d import I3D
-from msvideo.models.r2plus1d import R2Plus1d18
-from msvideo.models.arn import ARN
-from msvideo.models.swin3d import swin3d_b
-from msvideo.models.vistr import VistrCom
+from mindvideo.models.nonlocal3d import nonlocal3d
+from mindvideo.models.x3d import x3d, BlockX3D
+from mindvideo.models.c3d import C3D
+from mindvideo.models.i3d import I3D
+from mindvideo.models.r2plus1d import R2Plus1d18
+from mindvideo.models.arn import ARN
+from mindvideo.models.swin3d import swin3d_b
+from mindvideo.models.vistr import VistrCom
 
 
-from msvideo.models.fairmot import FairmotDla34
+from mindvideo.models.fairmot import FairmotDla34
 def test_fairmot():
     model = FairmotDla34()
 

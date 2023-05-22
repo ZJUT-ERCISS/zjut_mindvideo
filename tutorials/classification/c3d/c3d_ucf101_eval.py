@@ -18,11 +18,11 @@ import argparse
 from mindspore import nn, context, load_checkpoint, load_param_into_net
 from mindspore.train import Model
 from mindspore.nn.loss import SoftmaxCrossEntropyWithLogits
-from msvideo.utils.check_param import Validator, Rel
-from msvideo.data.transforms import VideoCenterCrop, VideoRescale, VideoResize, VideoReOrder
-from msvideo.models.c3d import C3D
-from msvideo.data import UCF101
-from msvideo.utils.callbacks import EvalLossMonitor
+from mindvideo.utils.check_param import Validator, Rel
+from mindvideo.data.transforms import VideoCenterCrop, VideoRescale, VideoResize, VideoReOrder
+from mindvideo.models.c3d import C3D
+from mindvideo.data import UCF101
+from mindvideo.utils.callbacks import EvalLossMonitor
 
 
 def c3d_ucf101_eval(args_opt):

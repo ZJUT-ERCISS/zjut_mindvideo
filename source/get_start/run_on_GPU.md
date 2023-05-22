@@ -1,6 +1,6 @@
 ## Run on GPU
 
-There are two approaches provided for training, evaluation and inference within `msvideo` for each supported model. After installing MindSpore via the official website, one is to run the training or evaluation files under the `example` folder, which is a independent module for training and evaluation specifically designed for starters, according to each model's name. And the other is to use the train and inference interfaces for all models under the root folder of the repository when working with the `YAML` file containing the parameters needed for each model as we also support some parameter configurations for quick start.
+There are two approaches provided for training, evaluation and inference within `mindvideo` for each supported model. After installing MindSpore via the official website, one is to run the training or evaluation files under the `example` folder, which is a independent module for training and evaluation specifically designed for starters, according to each model's name. And the other is to use the train and inference interfaces for all models under the root folder of the repository when working with the `YAML` file containing the parameters needed for each model as we also support some parameter configurations for quick start.
 
 ### run with example files
 

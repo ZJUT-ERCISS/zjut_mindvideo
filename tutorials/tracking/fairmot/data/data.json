@@ -1,5 +1,5 @@
 {
-    "seq_root":"msvideo/example/fairmot/data",
+    "seq_root":"mindvideo/example/fairmot/data",
     "data_root": "/home/publicfile/dataset/tracking",
     "train":
     {

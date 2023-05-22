@@ -24,12 +24,12 @@ from mindspore.train import Model
 from mindspore.communication.management import init, get_rank, get_group_size
 from mindspore.nn.loss import SoftmaxCrossEntropyWithLogits
 
-from msvideo.data.transforms import VideoRandomCrop, VideoRescale, VideoResize, VideoReOrder, VideoRandomHorizontalFlip, VideoCenterCrop
-from msvideo.models.c3d import C3D
-from msvideo.data import UCF101
-from msvideo.utils.callbacks import ValAccMonitor
-from msvideo.utils.check_param import Validator, Rel
-from msvideo.schedule import warmup_step_lr
+from mindvideo.data.transforms import VideoRandomCrop, VideoRescale, VideoResize, VideoReOrder, VideoRandomHorizontalFlip, VideoCenterCrop
+from mindvideo.models.c3d import C3D
+from mindvideo.data import UCF101
+from mindvideo.utils.callbacks import ValAccMonitor
+from mindvideo.utils.check_param import Validator, Rel
+from mindvideo.schedule import warmup_step_lr
 
 
 def c3d_ucf101_train(args_opt):
@@ -74,7 +74,7 @@ def c3d_ucf101_train(args_opt):
 
     # perpare dataset
     transforms = [VideoResize([128, 171]),
-                  VideoRescale(shift="msvideo/example/c3d/resized_mean_sports1m.npy"),
+                  VideoRescale(shift="mindvideo/example/c3d/resized_mean_sports1m.npy"),
                   VideoRandomCrop([112, 112]),
                   VideoRandomHorizontalFlip(0.5),
                   VideoReOrder([3, 0, 1, 2])]
@@ -95,7 +95,7 @@ def c3d_ucf101_train(args_opt):
 
     # perpare dataset
     transforms = [VideoResize([128, 171]),
-                  VideoRescale(shift="msvideo/example/c3d/resized_mean_sports1m.npy"),
+                  VideoRescale(shift="mindvideo/example/c3d/resized_mean_sports1m.npy"),
                   VideoCenterCrop([112, 112]),
                   VideoReOrder([3, 0, 1, 2])]
     dataset_e.transform = transforms

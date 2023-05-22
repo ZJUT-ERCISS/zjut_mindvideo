@@ -1,8 +1,8 @@
-![](./img/logo.png)
+<!-- ![](./img/logo.png) -->
 
-## What is MsVideo
+## What is mindvideo
 
-MindSpore Video(msvideo) is an open source Video toolbox based on MindSpore.
+MindVideo is an open source Video toolbox based on MindSpore.
 
 Our library includes 9 algorithms, covering 3 major categories:
 

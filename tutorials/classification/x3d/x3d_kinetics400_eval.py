@@ -22,10 +22,10 @@ from mindspore.train import Model
 from mindspore.nn.loss import SoftmaxCrossEntropyWithLogits
 from mindspore.train.callback import Callback
 
-from msvideo.data.kinetics400 import Kinetic400
-from msvideo.data.transforms import VideoReOrder, VideoRescale, VideoNormalize
-from msvideo.data.transforms import VideoCenterCrop, VideoShortEdgeResize
-from msvideo.models.x3d import x3d_m, x3d_l, x3d_s, x3d_xs
+from mindvideo.data.kinetics400 import Kinetic400
+from mindvideo.data.transforms import VideoReOrder, VideoRescale, VideoNormalize
+from mindvideo.data.transforms import VideoCenterCrop, VideoShortEdgeResize
+from mindvideo.models.x3d import x3d_m, x3d_l, x3d_s, x3d_xs
 
 
 class PrintEvalStep(Callback):

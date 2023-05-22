@@ -1,12 +1,9 @@
-.. MsVideo documentation master file, created by
+.. mindvideo documentation master file, created by
    sphinx-quickstart on Thu Mar 23 11:04:44 2023.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-.. image:: ./_static/logo.png
-
-
-Welcome to MsVideo's documentation!
+Welcome to mindvideo's documentation!
 ===================================
 
 .. toctree::
@@ -48,13 +45,13 @@ Welcome to MsVideo's documentation!
    :maxdepth: 1
    :caption: API Reference
 
-   api/msvideo_data.md
-   api/msvideo_data_transforms.md
-   api/msvideo_loss.md
-   api/msvideo_models.md
-   api/msvideo_models_layers.md
-   api/msvideo_schedule.md
-   api/msvideo_utils.md
+   api/mindvideo_data.md
+   api/mindvideo_data_transforms.md
+   api/mindvideo_loss.md
+   api/mindvideo_models.md
+   api/mindvideo_models_layers.md
+   api/mindvideo_schedule.md
+   api/mindvideo_utils.md
 
 
 .. toctree::

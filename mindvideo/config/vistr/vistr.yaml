@@ -1,0 +1,107 @@
+# model architecture
+model_name: "vistr_r50"   # 模型名
+
+#global config
+dataset_sink_mode: False
+context:      # 训练环境
+    mode: 1 #0--Graph Mode; 1--Pynative Mode
+    device_target: "GPU"
+    save_graphs: False
+    device_id: 3
+
+model:
+    type: VistrCom
+    name: 'ResNet50' # 选择用resnet101或者 resnet50提取特征
+    train_embeding: True
+    num_queries: 360
+    num_pos_feats: 64
+    num_frames: 36
+    temperature: 10000
+    normalize: True
+    hidden_dim: 384
+    d_model: 384
+    nhead: 8
+    num_encoder_layers: 6
+    num_decoder_layers: 6
+    dim_feedforward: 2048
+    dropout: 0.1
+    activation: "relu"
+    normalize_before: False
+    return_intermediate_dec: True
+    aux_loss: True
+    num_class: 41
+
+# step_size:61845 lr_drop:12 epochs:18 lr:0.0001 lr_embed:0.00001
+learning_rate:
+    lr_scheduler: "piecewise_constant_lr"
+    milestone: [742140, 1113210]
+    learning_rates: [0.0001, 0.00001]
+
+learning_rate_embed:
+    lr_scheduler: "piecewise_constant_lr"
+    milestone: [742140, 1113210]
+    learning_rates: [0.00001, 0,000001]
+
+optimizer:
+    type: 'AdamWeightDecay'
+
+weight_decay: 0.0001
+loss_scale: 1024.0
+
+loss:
+    type: SetCriterion
+    num_classes: 41
+    eos_coef: 0.1
+    aux_loss: True
+
+
+infer:
+    pretrained_model: "/home/publicfile/checkpoint/vistr/ckpt/vistr_r50_all.ckpt"
+    weights: "/home/publicfile/checkpoint/vistr/ckpt/weights_r50.npy"
+    video_num: 'all'
+    mean: [0.485, 0.456, 0.406]
+    std: [0.229, 0.224, 0.225]
+    num_frames: 36
+    num_ins: 10
+    save_path: "result.json"
+
+
+train:       # 预训练相关
+    pre_trained: False
+    pretrained_model: ""
+    ckpt_path: "./output/"
+    epoch_size: 18
+    save_checkpoint_epochs: 1
+    save_checkpoint_steps: 61845
+    keep_checkpoint_max: 10
+    run_distribute: False
+
+matcher:
+    num_frames: 36
+    cost_class: 1
+    cost_bbox: 1
+    cost_giou: 1
+
+export:       # 模型导出为其他格式
+    pretrained_model: "/home/zgz/vistr3/.vscode/data/model_file/vistr_r50_1-1_26.ckpt"
+    do_export: False
+    include_dataset: False
+    input_shape: [1, 36, 3, 168, 300]
+    file_name: "vistr_r50"
+    file_format: "MINDIR"
+
+# ytvos dataset config
+data_loader:
+    train:
+        dataset:
+              type: Ytvos
+              path: "/usr/dataset/VOS/"
+              split: "train"
+              seq: 36
+              batch_size: 1
+              repeat_num: 1
+              shuffle: False
+              num_parallel_workers: 1
+        map:
+            operations:
+                - type: DeFaultTrans

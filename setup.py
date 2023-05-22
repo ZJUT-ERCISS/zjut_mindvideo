@@ -82,13 +82,13 @@ def parse_requirements(fname='requirements.txt', with_version=True):
 
 if __name__ == '__main__':
     setup(
-        name='msvideo',
+        name='mindvideo',
         version='0.0.1',
         author='zjut',
         author_email='',
         license='Apache License 2.0',
-        packages=['msvideo'],
-        description='MindSpore Video(msvideo) is an open source Video toolbox based on MindSpore.',
+        packages=['mindvideo'],
+        description='MindVideo is an open source Video toolbox based on MindSpore.',
         install_requires=parse_requirements('requirement.txt'),
         keywords='computer vision, video understanding, mindspore',
         url="https://gitee.com/yanlq46462828/zjut_mindvideo"

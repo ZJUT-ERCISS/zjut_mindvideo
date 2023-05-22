@@ -8,10 +8,10 @@ from mindspore import Tensor, nn
 from mindspore.common.initializer import Normal
 from mindspore.nn import TrainOneStepCell, WithLossCell
 
-from msvideo.data.transforms.jde_load import JDELoad
-from msvideo.data import MixJDE
-from msvideo.loss.centernet_multipose_loss import FocalLoss, RegLoss
-from msvideo.loss.vistr_loss import DiceLoss, SigmoidFocalLoss
+from mindvideo.data.transforms.jde_load import JDELoad
+from mindvideo.data import MixJDE
+from mindvideo.loss.centernet_multipose_loss import FocalLoss, RegLoss
+from mindvideo.loss.vistr_loss import DiceLoss, SigmoidFocalLoss
 
 ms.set_seed(1)
 np.random.seed(1)

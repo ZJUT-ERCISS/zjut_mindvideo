@@ -27,13 +27,13 @@ from mindspore.communication import init, get_rank, get_group_size
 from mindspore.profiler import Profiler
 from mindspore.train import Model
 from mindspore.train.callback import ModelCheckpoint, CheckpointConfig
-from msvideo.utils.callbacks import LossMonitor
+from mindvideo.utils.callbacks import LossMonitor
 
-from msvideo.data import ytvos
-from msvideo.models.vistr import VistrCom
-from msvideo.loss.vistr_loss import SetCriterion
-from msvideo.models.layers.instance_sequence_match import HungarianMatcher
-from msvideo.schedule.lr_schedule import piecewise_constant_lr
+from mindvideo.data import ytvos
+from mindvideo.models.vistr import VistrCom
+from mindvideo.loss.vistr_loss import SetCriterion
+from mindvideo.models.layers.instance_sequence_match import HungarianMatcher
+from mindvideo.schedule.lr_schedule import piecewise_constant_lr
 
 set_seed(10)
 ds.config.set_prefetch_size(1)

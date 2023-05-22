@@ -23,13 +23,13 @@ from mindspore.nn import MSELoss
 from mindspore.train import Model
 from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor
 
-from msvideo.models.arn import ARN
-from msvideo.data.ucf101 import UCF101
-from msvideo.data.transforms.video_to_tensor import VideoToTensor
-from msvideo.data.transforms import VideoResize, VideoReshape, VideoNormalize
+from mindvideo.models.arn import ARN
+from mindvideo.data.ucf101 import UCF101
+from mindvideo.data.transforms.video_to_tensor import VideoToTensor
+from mindvideo.data.transforms import VideoResize, VideoReshape, VideoNormalize
 
-from msvideo.utils.callbacks import SaveCallback
-from msvideo.utils.task_acc import TaskAccuracy
+from mindvideo.utils.callbacks import SaveCallback
+from mindvideo.utils.task_acc import TaskAccuracy
 
 
 def arn_rgb_train(args_opt):

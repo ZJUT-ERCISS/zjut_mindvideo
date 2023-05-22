@@ -22,12 +22,12 @@ import numpy as np
 from mindspore import context, load_checkpoint, load_param_into_net
 import motmetrics as mm
 
-from msvideo.models.fairmot import FairmotDla34
-from msvideo.utils.post_process.eval_utils.eval_seq import eval_seq
-from msvideo.utils.post_process.eval_utils.load_images import LoadImages
-from msvideo.utils.post_process.tracker.multitracker import JDETracker
-from msvideo.utils.post_process.tracking_utils.evaluation import Evaluator
-from msvideo.utils.post_process.infer_net import InferNet, WithInferNetCell
+from mindvideo.models.fairmot import FairmotDla34
+from mindvideo.utils.post_process.eval_utils.eval_seq import eval_seq
+from mindvideo.utils.post_process.eval_utils.load_images import LoadImages
+from mindvideo.utils.post_process.tracker.multitracker import JDETracker
+from mindvideo.utils.post_process.tracking_utils.evaluation import Evaluator
+from mindvideo.utils.post_process.infer_net import InferNet, WithInferNetCell
 
 
 def fairmot_dla34_eval(args_opt):

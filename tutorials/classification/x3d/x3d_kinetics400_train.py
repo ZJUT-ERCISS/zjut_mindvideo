@@ -24,12 +24,12 @@ from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMoni
 from mindspore.nn.loss import SoftmaxCrossEntropyWithLogits
 from mindspore.nn.metrics import Accuracy
 
-from msvideo.utils.check_param import Validator, Rel
-from msvideo.data.kinetics400 import Kinetic400
-from msvideo.data.transforms import VideoRandomCrop, VideoRandomHorizontalFlip, VideoRescale
-from msvideo.data.transforms import VideoNormalize, VideoShortEdgeResize, VideoReOrder
-from msvideo.schedule.lr_schedule import warmup_cosine_annealing_lr_v1
-from msvideo.models.x3d import x3d_m, x3d_l, x3d_s, x3d_xs
+from mindvideo.utils.check_param import Validator, Rel
+from mindvideo.data.kinetics400 import Kinetic400
+from mindvideo.data.transforms import VideoRandomCrop, VideoRandomHorizontalFlip, VideoRescale
+from mindvideo.data.transforms import VideoNormalize, VideoShortEdgeResize, VideoReOrder
+from mindvideo.schedule.lr_schedule import warmup_cosine_annealing_lr_v1
+from mindvideo.models.x3d import x3d_m, x3d_l, x3d_s, x3d_xs
 
 
 def x3d_kinetics400_train(args_opt):
