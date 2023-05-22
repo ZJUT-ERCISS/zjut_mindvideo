@@ -19,6 +19,7 @@ import sys
 __dir__ = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.abspath(os.path.join(__dir__, "../..")))
 
+import cv2
 import torch
 import json
 import math
@@ -33,6 +34,19 @@ from mindspore import context, Tensor, load_checkpoint, load_param_into_net, ops
 from mindvideo.utils.config import parse_args, Config
 from mindvideo.models import build_model
 
+palette_data1 = [0, 0, 0, 0, 0, 255]
+palette_data2 = [0, 0, 0, 255, 0, 0]
+palette_data3 = [0, 0, 0, 255, 0, 255]
+palette_data4 = [0, 0, 0, 255, 255, 255]
+palette_data5 = [0, 0, 0, 0, 255, 255, 0]
+palette_data6 = [0, 0, 0, 0, 255, 0]
+palette_data7 = [0, 0, 0, 0, 255, 255]
+palette_data8 = [0, 0, 0, 0, 0, 100]
+palette_data9 = [0, 0, 0, 0, 100, 255]
+palette_data10 = [0, 0, 0, 100, 100, 255]
+
+palette_data = [palette_data1, palette_data2, palette_data3, palette_data4, palette_data5,
+                palette_data6, palette_data7, palette_data8, palette_data9, palette_data10]
 
 def main(pargs):
     """
@@ -80,6 +94,11 @@ def main(pargs):
         length = videos[i]['length']
         file_names = videos[i]['file_names']
 
+        v_name, _ = os.path.split(file_names[0])
+        path = os.path.join("./output", v_name)
+        if not os.path.exists(path):
+            os.makedirs(path)
+
         img_set = []
         if length < num_frames:
             clip_names = file_names*(math.ceil(num_frames/length))
@@ -90,8 +109,11 @@ def main(pargs):
             continue
         if len(clip_names) < num_frames:
             clip_names.extend(file_names[:num_frames-len(clip_names)])
+        path_im = []
         for k in range(num_frames):
             im = Image.open(os.path.join(folder, clip_names[k]))
+            _, im_name = os.path.split(clip_names[k])
+            path_im.append(os.path.join(path, im_name))
             h = im.size[1]
             w = im.size[0]
             width = int((im.size[0]*300) / im.size[1])
@@ -135,10 +157,15 @@ def main(pargs):
                     if pred_scores[n, m] < 0.001:
                         segmentation.append(None)
                     else:
+                        if os.path.exists(path_im[n]):
+                            img = cv2.imread(path_im[n])
+                        else:
+                            img = cv2.imread(os.path.join(folder, clip_names[n]))
                         mask = (pred_masks[n, m]).astype('uint8')
-                        out_mask = mask_util.encode(np.array(mask[:, :, np.newaxis], order='F'))[0]
-                        out_mask["counts"] = out_mask["counts"].decode("utf-8")
-                        segmentation.append(out_mask)
+                        get_mask_out(img, mask, path_im[n], m)
+                        rle = mask_util.encode(np.array(mask[:, :, np.newaxis], order='F'))[0]
+                        rle["counts"] = rle["counts"].decode("utf-8")
+                        segmentation.append(rle)
                 out_instance['segmentations'] = segmentation
                 result.append(out_instance)
     # out_file = open(config.infer.save_path, 'w', encoding='utf-8')
@@ -146,6 +173,15 @@ def main(pargs):
     # out_file.close()
     with open(config.infer.save_path, 'w', encoding='utf-8') as f:
         json.dump(result, f)
+
+def get_mask_out(img, mask, path_im, m):
+    mask_p = Image.fromarray(mask, "P")
+
+    mask_p.putpalette(palette_data[m])
+    mask_p.save("./output/1.png")
+    mask_p = cv2.imread("./output/1.png")
+    masked_img = cv2.addWeighted(img, 0.5, mask_p, 0.5, 0)
+    cv2.imwrite(path_im, masked_img)
 
 
 if __name__ == "__main__":
