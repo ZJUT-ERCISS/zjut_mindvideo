@@ -15,19 +15,33 @@
 """VisTR infer"""
 import torch
 import os
+import cv2
 import json
 import math
 import argparse
 from PIL import Image
 import numpy as np
 import pycocotools.mask as mask_util
-from mindvideo.utils import misc
-from mindvideo.models.vistr import VistrCom
+from msvideo.utils import misc
+from msvideo.models.vistr import VistrCom
 import mindspore
 from mindspore import nn
 from mindspore.dataset.vision import py_transforms as T_p
 from mindspore import context, Tensor, load_checkpoint, load_param_into_net, ops
 
+palette_data1 = [0, 0, 0, 0, 0, 255]
+palette_data2 = [0, 0, 0, 255, 0, 0]
+palette_data3 = [0, 0, 0, 255, 0, 255]
+palette_data4 = [0, 0, 0, 255, 255, 255]
+palette_data5 = [0, 0, 0, 0, 255, 255, 0]
+palette_data6 = [0, 0, 0, 0, 255, 0]
+palette_data7 = [0, 0, 0, 0, 255, 255]
+palette_data8 = [0, 0, 0, 0, 0, 100]
+palette_data9 = [0, 0, 0, 0, 100, 255]
+palette_data10 = [0, 0, 0, 100, 100, 255]
+
+palette_data = [palette_data1, palette_data2, palette_data3, palette_data4, palette_data5,
+                palette_data6, palette_data7, palette_data8, palette_data9, palette_data10]
 
 def vistr_r50_infer(args_opt):
     """
@@ -47,7 +61,7 @@ def vistr_r50_infer(args_opt):
     num_ins = args_opt.num_ins
 
     ann_path = os.path.join(args_opt.dataset_path, "annotations/val.json")
-    folder = os.path.join(args_opt.dataset_path, "train/JPEGImages")
+    folder = os.path.join(args_opt.dataset_path, "train/JPEGImages/")
     videos = json.load(open(ann_path, 'rb'))['videos']
 
     ms_model = VistrCom(name=args_opt.name,
@@ -56,7 +70,7 @@ def vistr_r50_infer(args_opt):
 
     param_dict = load_checkpoint(args_opt.ckpt_file)
     load_param_into_net(ms_model, param_dict)
-    weight = np.load("/home/zgz/vistr_mindspore/pretrained_model/weights_r50.npy")
+    weight = np.load(args_opt.weight)
     weight = mindspore.Tensor(weight, mindspore.float32)
     ms_model.mask_head.dcn.conv_weight = weight
 
@@ -69,11 +83,18 @@ def vistr_r50_infer(args_opt):
     expand_dims = ops.ExpandDims()
 
     result = []
+
     for i in range(vis_num):
         print("Process video: ", i)
         id_ = videos[i]['id']
         length = videos[i]['length']
         file_names = videos[i]['file_names']
+
+        # 对当前视频进行分割结果文件夹的创建
+        v_name, _ = os.path.split(file_names[0])
+        path = os.path.join("./output", v_name)
+        if not os.path.exists(path):
+            os.makedirs(path)
 
         img_set = []
         if length < num_frames:
@@ -85,8 +106,11 @@ def vistr_r50_infer(args_opt):
             continue
         if len(clip_names) < num_frames:
             clip_names.extend(file_names[:num_frames-len(clip_names)])
+        path_im = []
         for k in range(num_frames):
             im = Image.open(os.path.join(folder, clip_names[k]))
+            _, im_name = os.path.split(clip_names[k])
+            path_im.append(os.path.join(path, im_name))
             h = im.size[1]
             w = im.size[0]
             width = int((im.size[0]*300) / im.size[1])
@@ -130,22 +154,37 @@ def vistr_r50_infer(args_opt):
                     if pred_scores[n, m] < 0.001:
                         segmentation.append(None)
                     else:
+                        if os.path.exists(path_im[n]):
+                            img = cv2.imread(path_im[n])
+                        else:
+                            img = cv2.imread(os.path.join(folder, clip_names[n]))
                         mask = (pred_masks[n, m]).astype('uint8')
+                        get_mask_out(img, mask, path_im[n], m)
                         rle = mask_util.encode(np.array(mask[:, :, np.newaxis], order='F'))[0]
                         rle["counts"] = rle["counts"].decode("utf-8")
                         segmentation.append(rle)
                 instance['segmentations'] = segmentation
                 result.append(instance)
-    with open("results/results.json", 'w', encoding='utf-8') as f:
+    with open("results.json", 'w', encoding='utf-8') as f:
         json.dump(result, f)
+
+def get_mask_out(img, mask, path_im, m):
+    mask_p = Image.fromarray(mask, "P")
+
+    mask_p.putpalette(palette_data[m])
+    mask_p.save("./output/1.png")
+    mask_p = cv2.imread("./output/1.png")
+    masked_img = cv2.addWeighted(img, 0.5, mask_p, 0.5, 0)
+    cv2.imwrite(path_im, masked_img)
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="VisTR_r50 Train.")
     # dataset
-    parser.add_argument("--dataset_path", type=str, default="/home/publicfile/VOS")
-    parser.add_argument("--ckpt_file", type=str, default="./vistr_r50_all.ckpt")
-    parser.add_argument("--device_target", type=int, default=3)
+    parser.add_argument("--dataset_path", type=str, default="/usr/dataset/VOS")
+    parser.add_argument("--ckpt_file", type=str, default="./ckpt/vistr_r50_all.ckpt")
+    parser.add_argument("--weight", type=str, default="./ckpt/weights_r50.npy")
+    parser.add_argument("--device_target", type=int, default=2)
     parser.add_argument("--mean", type=list, default=[0.485, 0.456, 0.406], help='use for img normalize')
     parser.add_argument("--std", type=list, default=[0.229, 0.224, 0.225], help='usr for img normalize')
     parser.add_argument("--num_frames", type=int, default=36, help='number of frame')
