@@ -141,7 +141,7 @@ The links to download the pre-train models are as follows:
 	</tr>
 	<tr>
        <td>Fairmot</td>
-	   <td><a href="https://zjuteducn-my.sharepoint.com/:u:/g/personal/201906010313_zjut_edu_cn/EdU2TA3NrqVFpj-Adkh2RiEB_UZoxLHiNFj6tcuMDylQVA?e=YIWTiH">fairmot_dla34-30_886.ckpt</a></td>
+	   <td><a href="https://zjuteducn-my.sharepoint.com/:u:/g/personal/201906010313_zjut_edu_cn/EZajlroZ3chMqUZAYMBtS0cBE3UEgd9sBEWPVmvxUHuwmA?e=kBWeRu">fairmot_dla34-30_886.ckpt</a></td>
 	</tr>
     <tr>
        <td>I3D</td>
@@ -154,6 +154,10 @@ The links to download the pre-train models are as follows:
     <tr>
        <td>R(2+1)D</td>
 	   <td><a href="https://zjuteducn-my.sharepoint.com/:u:/g/personal/201906010313_zjut_edu_cn/EXT6cCmxV59Gp4U9VChcmuUB2Fmuhfg7SRkfuxGsOiyBUA?e=qJ9Wc1">r2plus1d18_kinetic400.ckpt</a></td>
+	</tr>
+    <tr>
+       <td>Vistr</td>
+	   <td><a href="https://zjuteducn-my.sharepoint.com/:u:/g/personal/201906010313_zjut_edu_cn/Eaqsyw4jizlBiKRmykHXwgcBUKEfu19iF0mNrQTUXYCONA?e=e3DuQL">vistr_r50_all.ckpt</a></td>
 	</tr>
     <tr>
        <td rowspan="4">X3D</td>
@@ -169,7 +173,7 @@ The links to download the pre-train models are as follows:
         <td><a href="https://zjuteducn-my.sharepoint.com/:u:/g/personal/201906010313_zjut_edu_cn/EYwLbhrIcCdIor3J_Dxj3foBMx2bFb7zcw9QRVBkamZE_A?e=p4tDBt">x3d_xs_kinetics400.ckpt</a></td>
     </tr>
     <tr>
-       <td rowspan="3">Swin3D</td>
+       <td rowspan="3">Vist</td>
 	   <td><a href="https://zjuteducn-my.sharepoint.com/:u:/g/personal/201906010313_zjut_edu_cn/EXrE7hbSqCtJoSourHbcUIABmnskD5qO0o9c_hpJ-x86PA?e=zdQ02f">ms_swin_base_patch244_window877_kinetics400_22k.ckpt
        </a></td>
 	</tr>
@@ -229,7 +233,7 @@ make html
 
 ## License
 
-This project is released under the [Apache 2.0 license](https://github.com/ZJUT-ERCISS/zjut_mindvideo/blob/master/LICENSE).
+This project is released under the [Apache 2.0 license](LICENSE).
 
 ## Supported Algorithms
 
@@ -273,7 +277,7 @@ If you find this project useful in your research, please consider citing:
 @misc{MindVideo 2022,
     title={{MindVideo}:MindVideo Toolbox and Benchmark},
     author={MindVideo Contributors},
-    howpublished = {\url{https://github.com/ZJUT-ERCISS/zjut_mindvideo/blob/master/LICENSE/zjut_mindvideo}},
+    howpublished = {\url{https://github.com/ZJUT-ERCISS/zjut_mindvideo}},
     year={2022}
 }
 ```

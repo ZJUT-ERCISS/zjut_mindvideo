@@ -15,7 +15,7 @@
 """Init Video models."""
 
 from .builder import *
-from .swin3d import *
+from .vist import *
 from .x3d import *
 from .nonlocal3d import *
 from .arn import *

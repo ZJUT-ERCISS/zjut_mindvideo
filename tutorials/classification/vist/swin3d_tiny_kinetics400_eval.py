@@ -26,7 +26,7 @@ from mindspore.profiler import Profiler
 
 from mindvideo.data import Kinetic400
 from mindvideo.data import transforms
-from mindvideo.models.swin3d import swin3d_t, swin3d_s, swin3d_b, swin3d_l
+from mindvideo.models.vist import swin3d_t, swin3d_s, swin3d_b, swin3d_l
 
 set_seed(42)
 

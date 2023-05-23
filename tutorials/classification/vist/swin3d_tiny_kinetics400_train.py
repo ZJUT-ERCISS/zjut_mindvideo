@@ -28,11 +28,11 @@ from mindspore.profiler import Profiler
 from mindspore.train import Model
 from mindspore.train.callback import ModelCheckpoint, CheckpointConfig
 
-from mindvision.engine.callback import LossMonitor
-from mindvision.engine.lr_schedule.lr_schedule import warmup_cosine_annealing_lr_v1
-from mindvision.mindvideo.dataset import Kinetic400
-from mindvision.mindvideo.dataset import transforms
-from mindvision.mindvideo.models import swin3d_t, swin3d_s, swin3d_b, swin3d_l
+from mindvideo.utils.callbacks import LossMonitor
+from mindvideo.schedule.lr_schedule import warmup_cosine_annealing_lr_v1
+from mindvideo.data import Kinetic400
+from mindvideo.data import transforms
+from mindvideo.models import swin3d_t, swin3d_s, swin3d_b, swin3d_l
 
 
 set_seed(42)

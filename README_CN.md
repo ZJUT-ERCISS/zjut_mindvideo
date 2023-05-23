@@ -2,7 +2,7 @@
 
 # MindVideo
 
-[![docs](https://camo.githubusercontent.com/d5d535f53f2cb047c2b4382b8fd3c2913519abad35badcd4f22bd45d174f450a/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f646f63732d6c61746573742d626c7565)](https://mindvideo-guidebook.readthedocs.io/en/latest/) [![license](https://camo.githubusercontent.com/d4dc5ba23f0f26ac45a8419e6669afe324f992b413b2006d5f59ac548b1da725/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f6c6963656e73652f6d696e6473706f72652d6c61622f6d696e6463762e737667)](https://github.com/ZJUT-ERCISS/zjut_mindvideo/blob/master/LICENSE) [![open issues](https://camo.githubusercontent.com/746aed3806dcfd86e6ada45e8f0be5e79c349bcaa5f44317b1feef8dc3498abb/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f6973737565732f6d696e6473706f72652d6c61622f6d696e646376)](https://github.com/ZJUT-ERCISS/zjut_mindvideo/issues)[![PRs](https://camo.githubusercontent.com/64b454ccdf96dc519c389355e075c9d752f717216743d7cb3270643e27f49d1b/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f5052732d77656c636f6d652d70696e6b2e737667)](https://github.com/ZJUT-ERCISS/zjut_mindvideo/pulls)
+[![docs](https://camo.githubusercontent.com/d5d535f53f2cb047c2b4382b8fd3c2913519abad35badcd4f22bd45d174f450a/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f646f63732d6c61746573742d626c7565)](https://mindvideo-guidebook.readthedocs.io/en/latest/) [![license](https://camo.githubusercontent.com/d4dc5ba23f0f26ac45a8419e6669afe324f992b413b2006d5f59ac548b1da725/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f6c6963656e73652f6d696e6473706f72652d6c61622f6d696e6463762e737667)](LICENSE) [![open issues](https://camo.githubusercontent.com/746aed3806dcfd86e6ada45e8f0be5e79c349bcaa5f44317b1feef8dc3498abb/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f6973737565732f6d696e6473706f72652d6c61622f6d696e646376)](https://github.com/ZJUT-ERCISS/zjut_mindvideo/issues)[![PRs](https://camo.githubusercontent.com/64b454ccdf96dc519c389355e075c9d752f717216743d7cb3270643e27f49d1b/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f5052732d77656c636f6d652d70696e6b2e737667)](https://github.com/ZJUT-ERCISS/zjut_mindvideo/pulls)
 
 [English](./README.md)|中文
 
@@ -142,7 +142,7 @@ python infer.py -c ../../mindvideo/config/i3d/i3d_rgb.yaml
 	</tr>
 	<tr>
        <td>Fairmot</td>
-	   <td><a href="https://zjuteducn-my.sharepoint.com/:u:/g/personal/201906010313_zjut_edu_cn/EdU2TA3NrqVFpj-Adkh2RiEB_UZoxLHiNFj6tcuMDylQVA?e=YIWTiH">fairmot_dla34-30_886.ckpt</a></td>
+	   <td><a href="https://zjuteducn-my.sharepoint.com/:u:/g/personal/201906010313_zjut_edu_cn/EZajlroZ3chMqUZAYMBtS0cBE3UEgd9sBEWPVmvxUHuwmA?e=kBWeRu">fairmot_dla34-30_886.ckpt</a></td>
 	</tr>
     <tr>
        <td>I3D</td>
@@ -155,6 +155,10 @@ python infer.py -c ../../mindvideo/config/i3d/i3d_rgb.yaml
     <tr>
        <td>R(2+1)D</td>
 	   <td><a href="https://zjuteducn-my.sharepoint.com/:u:/g/personal/201906010313_zjut_edu_cn/EXT6cCmxV59Gp4U9VChcmuUB2Fmuhfg7SRkfuxGsOiyBUA?e=qJ9Wc1">r2plus1d18_kinetic400.ckpt</a></td>
+	</tr>
+    <tr>
+       <td>Vistr</td>
+	   <td><a href="https://zjuteducn-my.sharepoint.com/:u:/g/personal/201906010313_zjut_edu_cn/Eaqsyw4jizlBiKRmykHXwgcBUKEfu19iF0mNrQTUXYCONA?e=e3DuQL">vistr_r50_all.ckpt</a></td>
 	</tr>
     <tr>
        <td rowspan="4">X3D</td>
@@ -170,7 +174,7 @@ python infer.py -c ../../mindvideo/config/i3d/i3d_rgb.yaml
         <td><a href="https://zjuteducn-my.sharepoint.com/:u:/g/personal/201906010313_zjut_edu_cn/EYwLbhrIcCdIor3J_Dxj3foBMx2bFb7zcw9QRVBkamZE_A?e=p4tDBt">x3d_xs_kinetics400.ckpt</a></td>
     </tr>
     <tr>
-       <td rowspan="3">Swin3D</td>
+       <td rowspan="3">Vist</td>
 	   <td><a href="https://zjuteducn-my.sharepoint.com/:u:/g/personal/201906010313_zjut_edu_cn/EXrE7hbSqCtJoSourHbcUIABmnskD5qO0o9c_hpJ-x86PA?e=zdQ02f">ms_swin_base_patch244_window877_kinetics400_22k.ckpt
        </a></td>
 	</tr>
