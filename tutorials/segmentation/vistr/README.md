@@ -1,18 +1,23 @@
 # VisTR_mindspore
-- [Description](#description)
+- [VisTR\_mindspore](#vistr_mindspore)
+  - [Description](#description)
 - [Model Architecture](#model-architecture)
 - [Dataset](#dataset)
 - [Environment Requirements](#environment-requirements)
 - [Quick Start](#quick-start)
-    - [Requirements Installation](#requirements-installation)
-    - [Dataset Preparation](#dataset-preparation)
-    - [Model Checkpoints](#model-checkpoints)
-    - [Running](#running)
-- [Examples](#examples)
+  - [Requirements Installation](#requirements-installation)
+  - [Dataset Preparation](#dataset-preparation)
+  - [Model Checkpoints](#model-checkpoints)
+  - [Running](#running)
+  - [Example](#example)
     - [Training](#training)
-    - [Infer Process](#infer-process)
-- [Model Description](#model-description)
-    - [Performance](#performance)
+    - [infer](#infer)
+- [Model Desrcription](#model-desrcription)
+  - [Perfermance](#perfermance)
+    - [VisTR on YouTube-VIS dataset](#vistr-on-youtube-vis-dataset)
+      - [Perfirmance parameters](#perfirmance-parameters)
+      - [Benchmark](#benchmark)
+      - [Segmentation Result](#segmentation-result)
 - [Citation](#citation)
 
 ## [Description](#contents)
@@ -25,7 +30,7 @@ This repository contains a Mindspore implementation of VisTR based upon original
 
 # [Model Architecture](#contents)
 
-The overall network architecture of FairMOT is shown below:
+The overall network architecture of VisTR is shown below:
 
 [Link](https://arxiv.org/abs/2011.14503)
 
@@ -65,14 +70,12 @@ To run the python scripts in the repository, you need to prepare the environment
 
 ## [Requirements Installation](#contents)
 
-Some packages in `requirements.txt` need Cython package to be installed first.And you also need to install youtubevos coco api, which is mainly used for YouTubeVIS data loading and evaluation. For this reason, you should use the following commands to install dependencies:
+Some packages in `requirements.txt` need Cython package to be installed first. For this reason, you should use the following commands to install dependencies:
 
 ```shell
 pip install Cython && pip install -r requirements.txt
 ```
-```shell
-pip install git+https://github.com/youtubevos/cocoapi.git#"egg=pycocotools&subdirectory=PythonAPI"
-```
+
 
 ## [Dataset Preparation](#contents)
 
@@ -81,10 +84,10 @@ VisTR model uses YouTubeVIS as dataset and we call it "ytvos".
 After download dataset, then put all training and evaluation data into one directory and then change `"data_root"` to that directory in [data.json](datas/data.json) , like this:
 ```
 "data_root": "/home/publicfile/dataset/VOS",
-``` 
+```
 
 ## [Model Checkpoints](#contents)
-The pretrain model(vistr_r50, vistr_r101) is trained on the youtubevos dataset for 18 epochs. It can be downloaded here: [vistr_r50.ckpt](),[vistr_r101.ckpt]()
+The pretrain model(vistr_r50) is trained on the youtubevos dataset for 18 epochs. It can be downloaded here: [vistr_r50_all.ckpt](https://zjuteducn-my.sharepoint.com/:u:/g/personal/201906010313_zjut_edu_cn/Eaqsyw4jizlBiKRmykHXwgcBUKEfu19iF0mNrQTUXYCONA?e=e3DuQL)
 
 ## [Running](#contents)
 

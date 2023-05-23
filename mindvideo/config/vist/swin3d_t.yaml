@@ -14,7 +14,7 @@
 # ============================================================================
 
 # model architecture
-model_name: Swin3D-S
+model_name: Swin3D-T
 
 # The dataset sink mode.
 dataset_sink_mode: False
@@ -26,12 +26,12 @@ context:
 
 # Model settings.
 model:
-    type: swin3d_s
+    type: swin3d_t
     num_classes: 400
     patch_size: [2, 4, 4]
     window_size: [8, 7, 7]
     embed_dim: 96
-    depths: [2, 2, 18, 2]
+    depths: [2, 2, 6, 2]
     num_heads: [3, 6, 12, 24]
     representation_size: 768
     droppath_keep_prob: 0.9
@@ -58,8 +58,8 @@ loss:
 
 train:
     pre_trained: True
-    pretrained_model: "pretrianed_models/ms_swin_small_patch244_window877_kinetics400_1k.ckpt"
-    ckpt_path: "./swin3d_s/"
+    pretrained_model: "pretrained_models/ms_swin_tiny_patch244_window877_kinetics400_1k.ckpt"
+    ckpt_path: "./swin3d_t/"
     epochs: 30
     save_checkpoint_epochs: 1
     save_checkpoint_steps: 1875
@@ -67,14 +67,14 @@ train:
     run_distribute: False
 
 infer:
-    pretrained_model: "pretrianed_models/ms_swin_small_patch244_window877_kinetics400_1k.ckpt"
+    pretrained_model: "pretrained_models/ms_swin_tiny_patch244_window877_kinetics400_1k.ckpt"
 
 export:       # 模型导出为其他格式
-    pretrained_model: "/home/publicfile/checkpoint/swin3d/ms_swin_small_patch244_window877_kinetics400_1k.ckpt"
+    pretrained_model: "/home/publicfile/checkpoint/swin3d/ms_swin_tiny_patch244_window877_kinetics400_1k.ckpt"
     do_export: False
     include_dataset: False
     input_shape: [1, 3, 32, 224, 224]
-    file_name: "ms_swin_small_patch244_window877_kinetics400_1k"
+    file_name: "ms_swin_tiny_patch244_window877_kinetics400_1k"
     file_format: "MINDIR"
 
 # kinetic dataset config

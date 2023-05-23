@@ -14,7 +14,7 @@ from mindvideo.models.c3d import C3D
 from mindvideo.models.i3d import I3D
 from mindvideo.models.r2plus1d import R2Plus1d18
 from mindvideo.models.arn import ARN
-from mindvideo.models.swin3d import swin3d_b
+from mindvideo.models.vist import swin3d_b
 from mindvideo.models.vistr import VistrCom
 
 
