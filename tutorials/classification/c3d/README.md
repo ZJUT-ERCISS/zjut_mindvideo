@@ -1,31 +1,22 @@
 # Contents
 
 - [Contents](#contents)
-    - [C3D Description](#c3d-description)
-    - [Model Architecture](#model-architecture)
-    - [Dataset](#dataset)
-    - [Environment Requirements](#environment-requirements)
-    - [Quick Start](#quick-start)
-    - [Script Description](#script-description)
-        - [Script and Sample Code](#script-and-sample-code)
-        - [Script Parameters](#script-parameters)
-    - [Training Process](#training-process)
-        - [Training](#training)
-            - [Training on Ascend](#training-on-ascend)
-        - [Distributed Training](#distributed-training)
-            - [Distributed training on Ascend](#distributed-training-on-ascend)
-    - [Evaluation Process](#evaluation-process)
-        - [Evaluation](#evaluation)
-            - [Evaluating on Ascend](#training-on-ascend)
-    - [Inference Process](#inference-process)
-        - [Export MindIR](#export-mindir)
-        - [Infer on Ascend310](#infer-on-ascend310)
-        - [result](#result)
-    - [Model Description](#model-description)
-        - [Performance](#performance)
-            - [Evaluation Performance](#evaluation-performance)
-    - [Description of Random Situation](#description-of-random-situation)
-    - [ModelZoo Homepage](#modelzoo-homepage)
+  - [C3D Description](#c3d-description)
+  - [Model Architecture](#model-architecture)
+  - [Dataset](#dataset)
+  - [Environment Requirements](#environment-requirements)
+  - [Quick Start](#quick-start)
+  - [Script Parameters](#script-parameters)
+  - [Training Process](#training-process)
+    - [Training](#training)
+  - [Evaluation Process](#evaluation-process)
+    - [Evaluation](#evaluation)
+  - [visulization](#visulization)
+  - [Model Description](#model-description)
+    - [Performance](#performance)
+      - [Evaluation Performance](#evaluation-performance)
+- [Description of Random Situation](#description-of-random-situation)
+  - [ModelZoo Homepage](#modelzoo-homepage)
 
 ## [C3D Description](#contents)
 
@@ -94,77 +85,22 @@ bash run_dataset_preprocess.sh UCF101 [RAR_FILE_PATH] 1
 
 Refer to `c3d.yaml`. We support some parameter configurations for quick start.
 
-- Run on Ascend
-
 ```bash
-cd scripts
-# run training example
-bash run_standalone_train_ascend.sh
-# run distributed training example
-bash run_distribute_train_ascend.sh [RANK_TABLE_FILE]
-# run evaluation example
-bash run_standalone_eval_ascend.sh [CKPT_FILE_PATH]
+cd tools/classification
+
+# run the following command for trainning
+python train.py -c ../../mindvideo/config/c3d/c3d.yaml
+
+# run the following command for evaluation
+python eval.py -c ../../mindvideo/config/c3d/c3d.yaml
+
+# run the following command for inference
+python infer.py -c ../../mindvideo/config/c3d/c3d.yaml
 ```
 
-- Run on GPU
-
-```bash
-cd scripts
-# run training example
-bash run_standalone_train_gpu.sh [CONFIG_PATH] [DEVICE_ID]
-# run distributed training example
-bash run_distribute_train_gpu.sh [CONFIG_PATH]
-# run evaluation example
-bash run_standalone_eval_gpu.sh [CKPT_FILE_PATH] [CONFIG_PATH]
-```
-
-## [Script Description](#contents)
-
-### [Script and Sample Code](#contents)
-
-```text
-.
-└─c3d_mindspore
-  ├── README.md                           // descriptions about C3D
-  ├── scripts
-  │   ├──run_dataset_preprocess.sh       // shell script for preprocessing dataset
-  │   ├──run_ckpt_convert.sh             // shell script for converting pytorch ckpt file to pickle file on GPU
-  │   ├──run_distribute_train_ascend.sh  // shell script for distributed training on Ascend
-  │   ├──run_distribute_train_gpu.sh  // shell script for distributed training on GPU
-  │   ├──run_infer_310.sh                // shell script for inference on 310
-  │   ├──run_standalone_train_ascend.sh  // shell script for training on Ascend
-  │   ├──run_standalone_train_gpu.sh  // shell script for training on GPU
-  │   ├──run_standalone_eval_ascend.sh   // shell script for testing on Ascend
-  │   ├──run_standalone_eval_gpu.sh   // shell script for testing on GPU
-  ├── src
-  │
-  │   ├──dataset.py                    // creating dataset
-  │   ├──evalcallback.py               // evalcallback
-  │   ├──lr_schedule.py                // learning rate scheduler
-  │   ├──transform.py                  // handle dataset
-  │   ├──loss.py                       // loss
-  │   ├──utils.py                      // General components (callback function)
-  │   ├──c3d_model.py                  // Unet3D model
-          ├── utils
-          │   ├──config.py             // parameter configuration
-          │   ├──resized_mean.py     // device adapter
-          |   |--dataset_preprocess.py
-          │   ...
-          ├── tools
-          │   ├──ckpt_convert.py       // convert pytorch ckpt file to pickle file
-          │   ├── // preprocess dataset
-  ├── requirements.txt                 // requirements configuration
-  ├── export.py                        // convert mindspore ckpt file to MINDIR file
-  ├── train.py                         // evaluation script
-  ├── infer.py                         // training script
-```
-
-### [Script Parameters](#contents)
+## [Script Parameters](#contents)
 
 Parameters for both training and evaluation can be set in c3d.yaml
-
-
-Parameters for both training and evaluation can be set in c3d_gpu.yaml
 
 - config for C3D, UCF101 dataset
 
@@ -306,67 +242,6 @@ data_loader:
 
 ### Training
 
-#### Training on Ascend
-
-```text
-# enter scripts directory
-cd scripts
-# training
-bash run_standalone_train_ascend.sh
-```
-
-The python command above will run in the background, you can view the results through the file `eval.log`.
-
-After training, you'll get some checkpoint files under the script folder by default. The loss value will be achieved as follows:
-
-- train.log for HMDB51
-
-```shell
-epoch: 1 step: 223, loss is 2.8705792
-epoch time: 74139.530 ms, per step time: 332.464 ms
-epoch: 2 step: 223, loss is 1.8403366
-epoch time: 60084.907 ms, per step time: 269.439 ms
-epoch: 3 step: 223, loss is 1.4866445
-epoch time: 61095.684 ms, per step time: 273.972 ms
-...
-epoch: 29 step: 223, loss is 0.3037338
-epoch time: 60436.915 ms, per step time: 271.018 ms
-epoch: 30 step: 223, loss is 0.2176594
-epoch time: 60130.695 ms, per step time: 269.644 ms
-```
-
-- train.log for UCF101
-
-```shell
-epoch: 1 step: 596, loss is 0.53118783
-epoch time: 170693.634 ms, per step time: 286.399 ms
-epoch: 2 step: 596, loss is 0.51934457
-epoch time: 150388.783 ms, per step time: 252.330 ms
-epoch: 3 step: 596, loss is 0.07241724
-epoch time: 151548.857 ms, per step time: 254.277 ms
-...
-epoch: 29 step: 596, loss is 0.034661677
-epoch time: 150932.542 ms, per step time: 253.243 ms
-epoch: 30 step: 596, loss is 0.0048465515
-epoch time: 150760.797 ms, per step time: 252.954 ms
-```
-
-#### Training on GPU
-
-> Notes:If you occur a problem with the information:
-> “Bad performance attention, it takes more than 25 seconds to fetch and send a batch of data into device, which might result `GetNext` timeout problem.“
-> Please change the Parameter "dataset_sink_mode" to False
-
-```text
-# enter scripts directory
-cd scripts
-# training
-bash run_standalone_train_gpu.sh [CONFIG_PATH] [DEVICE_ID]
-```
-
-The above shell script will run distribute training in the background. You can view the results through the file `./train[X].log`. The loss value will be achieved as follows:
-
-
 - train.log for UCF101
 
 ```shell
@@ -382,139 +257,9 @@ epoch time: 573493.252 ms, per step time: 225.237 ms
 epoch: 100 step: 1192, loss is 4.852382e-05
 epoch time: 575237.743 ms, per step time: 229.164 ms
 ```
-
-### Distributed Training
-
-#### Distributed training on Ascend
-
-> Notes:
-> RANK_TABLE_FILE can refer to [Link](https://www.mindspore.cn/tutorials/experts/en/master/parallel/train_ascend.html) , and the device_ip can be got as [Link](https://gitee.com/mindspore/models/tree/master/utils/hccl_tools). For large models like InceptionV4, it's better to export an external environment variable `export HCCL_CONNECT_TIMEOUT=600` to extend hccl connection checking time from the default 120 seconds to 600 seconds. Otherwise, the connection could be timeout since compiling time increases with the growth of model size.
->
-
-```text
-# enter scripts directory
-cd scripts
-# distributed training
-bash run_distribute_train_ascend.sh [RANK_TABLE_FILE]
-```
-
-The above shell script will run distribute training in the background. You can view the results through the file `./train[X].log`. The loss value will be achieved as follows:
-
-- train0.log for UCF101
-
-```shell
-epoch: 1 step: 596, loss is 0.51830626
-epoch time: 82401.300 ms, per step time: 138.257 ms
-epoch: 2 step: 596, loss is 0.5527372
-epoch time: 30820.129 ms, per step time: 51.712 ms
-epoch: 3 step: 596, loss is 0.007791209
-epoch time: 30809.803 ms, per step time: 51.694 ms
-...
-epoch: 29 step: 596, loss is 7.510604e-05
-epoch time: 30809.334 ms, per step time: 51.694 ms
-epoch: 30 step: 596, loss is 0.13138217
-epoch time: 30819.966 ms, per step time: 51.711 ms
-```
-
-#### Distributed training on GPU
-
-```text
-# enter scripts directory
-cd scripts
-# distributed training
-vim run_distribute_train_gpu.sh to set start_device_id
-bash run_distribute_train_gpu.sh [CONFIG_PATH]
-```
-
-- train_distributed.log for UCF101
-
-```shell
-epoch: 1 step: 149, loss is 0.97137051820755
-epoch: 1 step: 149, loss is 1.1462825536727905
-epoch: 1 step: 149, loss is 1.484191656112671
-epoch: 1 step: 149, loss is 0.639738142490387
-epoch: 1 step: 149, loss is 1.1133722066879272
-epoch: 1 step: 149, loss is 1.5043989419937134
-epoch: 1 step: 149, loss is 1.2063453197479248
-epoch: 1 step: 149, loss is 1.3174564838409424
-epoch time: 183002.444 ms, per step time: 1228.204 ms
-epoch time: 183388.214 ms, per step time: 1230.793 ms
-epoch time: 183560.571 ms, per step time: 1231.950 ms
-epoch time: 183881.357 ms, per step time: 1234.103 ms
-epoch time: 184225.004 ms, per step time: 1236.409 ms
-epoch time: 184383.710 ms, per step time: 1237.475 ms
-epoch time: 184501.011 ms, per step time: 1238.262 ms
-epoch time: 184885.520 ms, per step time: 1240.842 ms
-epoch: 2 step: 149, loss is 0.10039880871772766
-epoch: 2 step: 149, loss is 0.5981963276863098
-epoch: 2 step: 149, loss is 0.4604840576648712
-epoch: 2 step: 149, loss is 0.215419739484787
-epoch: 2 step: 149, loss is 0.2556331753730774
-epoch: 2 step: 149, loss is 0.03653889149427414
-epoch: 2 step: 149, loss is 1.4467300176620483
-epoch: 2 step: 149, loss is 1.0422033071517944
-epoch time: 53143.686 ms, per step time: 356.669 ms
-epoch time: 52175.739 ms, per step time: 350.173 ms
-epoch time: 54300.036 ms, per step time: 364.430 ms
-epoch time: 53026.808 ms, per step time: 355.885 ms
-epoch time: 52941.203 ms, per step time: 355.310 ms
-epoch time: 53144.090 ms, per step time: 356.672 ms
-epoch time: 53896.009 ms, per step time: 361.718 ms
-epoch time: 53584.895 ms, per step time: 359.630 ms
-...
-```
-
 ## [Evaluation Process](#contents)
 
 ### Evaluation
-
-#### Evaluating on Ascend
-
-- evaluation on dataset when running on Ascend
-
-Before running the command below, please check the checkpoint path used for evaluation. Please set the checkpoint path to be the absolute full path, e.g., "username/ckpt_0/c3d-hmdb51-0-30_223.ckpt".
-
-```text
-# enter scripts directory
-cd scripts
-# eval
-bash run_standalone_eval_ascend.sh [CKPT_FILE_PATH]
-```
-
-The above python command will run in the background. You can view the results through the file "eval.log". The accuracy of the test dataset will be as follows:
-
-- eval.log for UCF101
-
-```text
-start create network
-pre_trained model: username/ckpt_0/c3d-ucf101-0-30_596.ckpt
-setep: 1/237, acc: 0.625
-setep: 21/237, acc: 1.0
-setep: 41/237, acc: 0.5625
-setep: 61/237, acc: 1.0
-setep: 81/237, acc: 0.6875
-setep: 101/237, acc: 1.0
-setep: 121/237, acc: 0.5625
-setep: 141/237, acc: 0.5
-setep: 161/237, acc: 1.0
-setep: 181/237, acc: 1.0
-setep: 201/237, acc: 0.75
-setep: 221/237, acc: 1.0
-eval result: top_1 79.381%
-```
-
-#### Evaluating on GPU
-
-- evaluation on dataset when running on GPU
-
-Before running the command below, please check the checkpoint path used for evaluation. Please set the checkpoint path to be the absolute full path, e.g., "./results/xxxx-xx-xx_time_xx_xx_xx/ckpt_0/0-30_223.ckpt".
-
-```text
-# enter scripts directory
-cd scripts
-# eval
-bash run_standalone_eval_gpu.sh [CKPT_FILE_PATH] [CONFIG_PATH]
-```
 
 - eval.log for UCF101
 
@@ -535,39 +280,8 @@ setep: 201/237, acc: 0.5625
 setep: 221/237, acc: 1.0
 eval result: top_1 80.412%
 ```
-
-## Inference Process
-
-### [Export MindIR](#contents)
-
-```shell
-python export.py --ckpt_file [CKPT_PATH] --mindir_file_name [FILE_NAME] --file_format [FILE_FORMAT] --num_classes [NUM_CLASSES] --batch_size [BATCH_SIZE]
-```
-
-- `ckpt_file` parameter is mandotory.
-- `file_format` should be in ["AIR", "MINDIR"].
-- `NUM_CLASSES` Number of total classes in the dataset, 51 for HMDB51 and 101 for UCF101.
-- `BATCH_SIZE` Since currently mindir does not support dynamic shapes, this network only supports inference with batch_size of 1.
-
-### Infer on Ascend310
-
-Before performing inference, the mindir file must be exported by `export.py` script. We only provide an example of inference using MINDIR model.
-
-```shell
-# Ascend310 inference
-bash run_infer_310.sh [MINDIR_PATH] [DATASET] [NEED_PREPROCESS] [DEVICE_ID]
-```
-
-- `DATASET` must be 'HMDB51' or 'UCF101'.
-- `NEED_PREPROCESS` means weather need preprocess or not, it's value is 'y' or 'n'.
-- `DEVICE_ID` is optional, default value is 0.
-
-### result
-
-Inference result is saved in current path, you can find result like this in acc.log file.
-
-### visulization
-![result.gif](https://gitee.com/yanlq46462828/zjut_mindvideo/raw/master/tutorials/classification/c3d/pics/result.gif)
+## visulization
+![result.gif](./pics/result.gif)
 
 
 ## [Model Description](#contents)

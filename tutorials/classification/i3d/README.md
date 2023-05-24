@@ -1,34 +1,34 @@
 # I3D_mindspore
-- [Description](https://github.com/ZJUT-ERCISS/fairmot_mindspore#description)
-- [Model Architecture](https://github.com/ZJUT-ERCISS/fairmot_mindspore#model-architecture)
-- [Dataset](https://github.com/ZJUT-ERCISS/fairmot_mindspore#dataset)
-- [Environment Requirements](https://github.com/ZJUT-ERCISS/fairmot_mindspore#environment-requirements)
-- Quick Start
-  - [Requirements Installation](https://github.com/ZJUT-ERCISS/fairmot_mindspore#requirements-installation)
-  - [Dataset Preparation](https://github.com/ZJUT-ERCISS/fairmot_mindspore#dataset-preparation)
-  - [Model Checkpoints](https://github.com/ZJUT-ERCISS/fairmot_mindspore#model-checkpoints)
-  - [Running](https://github.com/ZJUT-ERCISS/fairmot_mindspore#running)
-- Script Description
-  - Training Process
-    - [Training](https://github.com/ZJUT-ERCISS/fairmot_mindspore#training)
-    - [Distributed Training](https://github.com/ZJUT-ERCISS/fairmot_mindspore#distributed-training)
-  - [Evaluation Process](https://github.com/ZJUT-ERCISS/fairmot_mindspore#evaluation-process)
-- Model Description
-  - [Performance](https://github.com/ZJUT-ERCISS/fairmot_mindspore#performance)
-- [Citation](#Citation)
+- [I3D\_mindspore](#i3d_mindspore)
+- [Description](#description)
+- [Model Architecture](#model-architecture)
+- [Dataset](#dataset)
+- [Environment Requirements](#environment-requirements)
+- [Quick Start](#quick-start)
+  - [Requirements Installation](#requirements-installation)
+  - [Dataset Preparation](#dataset-preparation)
+  - [Model Checkpoints](#model-checkpoints)
+  - [Running](#running)
+- [Model Description](#model-description)
+  - [Performance](#performance)
+    - [I3D on Kinetics400 dataset with detector](#i3d-on-kinetics400-dataset-with-detector)
+      - [Benchmark with paper](#benchmark-with-paper)
+      - [Performance parameters](#performance-parameters)
+      - [Visual Result](#visual-result)
+- [Citation](#citation)
 
-# Description
+# [Description](#contents)
 
 Inflated 3D ConvNet (I3D) that is based on 2D ConvNet inflation: filters and pooling kernels of very deep image classification ConvNets are expanded into 3D, making it possible to leI3D seamless spatio-temporal feature extractors from video while leveraging successful ImageNet architecture designs and even their parameters. We show that, after pre-training on Kinetics, I3D models considerably improve upon the state-of-the-art in action classification, reaching 80.9% on HMDB-51 and 98.0% on UCF-101
 
 
-# Model Architecture
+# [Model Architecture](#contents)
 
 The overall network architecture of I3D is shown below:
 
 [link]([1705.07750.pdf (arxiv.org)](https://arxiv.org/pdf/1705.07750.pdf))
 
-# Dataset
+# [Dataset](#contents)
 
 Dataset used: [Kinetics400](https://www.deepmind.com/open-source/kinetics)
 
@@ -64,7 +64,7 @@ The directory structure of Kinetic-400 dataset looks like:
         ...
 ```
 
-# Environment Requirements
+# [Environment Requirements](#contents)
 
 - Framework
   - [MindSpore](https://www.mindspore.cn/install/en)
@@ -92,114 +92,52 @@ Python and dependencies
   - [MindSpore Tutorials](https://www.mindspore.cn/tutorials/en/master/index.html)
   - [MindSpore Python API](https://www.mindspore.cn/docs/en/master/index.html)
 
-# Quick Start
+# [Quick Start](#contents)
 
-## Requirements Installation
+## [Requirements Installation](#contents)
 
 ```text
 pip install -r requirements.txt
 ```
 
-## Dataset Preparation
+## [Dataset Preparation](#contents)
 
 I3D model uses [Kinetics400](https://www.deepmind.com/open-source/kinetics) dataset to train and validate in this repository.
 
 **Configure path to dataset root** in `data/data.json` file.
 
-## Model Checkpoints
+## [Model Checkpoints](#contents)
 
 The pretrain model is trained on the the Kinetics400 dataset. It can be downloaded here:[i3d_rgb_kinetics400.ckpt](https://zjuteducn-my.sharepoint.com/:u:/g/personal/201906010313_zjut_edu_cn/EeqkpDHObpBNj5ibeawTY0gBWd84YvFrhmbdGeu8qm5SDw?e=E3j8vM)
 
-## Running
+## [Running](#contents)
 
-- Run on GPU
+```bash
+cd tools/classification
 
-```text
-cd scripts/
+# run the following command for trainning
+python train.py -c ../../mindvideo/config/i3d/i3d_rgb.yaml
 
-# run training example
-bash run_standalone_train.sh [PROJECT_PATH] [DATA_PATH]
+# run the following command for evaluation
+python eval.py -c ../../mindvideo/config/i3d/i3d_rgb.yaml
 
-# run distributed training example
-bash run_distribute_train.sh [PROJECT_PATH] [DATA_PATH]
-
-# run evaluation example
-bash run_standalone_eval.sh [PROJECT_PATH] [DATA_PATH]
+# run the following command for inference
+python infer.py -c ../../mindvideo/config/i3d/i3d_rgb.yaml
 ```
 
-# Script Description
+# [Model Description](#contents)
 
-## Training Process
+## [Performance](#contents)
 
-### Training Alone
+### [I3D on Kinetics400 dataset with detector](#contents)
 
-Run `scripts/run_standalone_train.sh` to train the model standalone. The usage of the script is:
-
-#### Running on GPU
-
-```
-bash scripts/run_standalone_train.sh [config_file] [pretrained_model]
-```
-
-For example, you can run the shell command below to launch the training procedure:
-
-```
-bash scripts/run_standalone_train.sh ./config/i3d_rgb.yaml ./i3d_rgb_kinetics400.ckpt
-```
-
-The model checkpoint will be saved into `./output`.
-
-### Distributed Training
-
-Run `scripts/run_distribute_train.sh` to train the model distributed. The usage of the script is:
-
-#### Running on GPU
-
-```
-bash scripts/run_distribute_train.sh [DEVICE_NUM] [VISIBLE_DEVICES(0,1,2,3,4,5,6,7)] [config_file] [pretrained_model]
-```
-
-For example, you can run the shell command below to launch the distributed training procedure:
-
-```
-bash scripts/run_distribute_train.sh 8 0,1,2,3,4,5,6,7 ./config/i3d_rgb.yaml ./i3d_rgb_kinetics400.ckpt
-```
-
-The above shell script will run distribute training in the background. You can view the results through the file `train/tran.log`.
-
-The model checkpoint will be saved into `train/ckpt`.
-
-## Evaluation Process
-
-The evaluation data set was [Kinetics400](https://www.deepmind.com/open-source/kinetics) 
-
-Run `scripts/run_eval.sh` to evaluate the model. The usage of the script is:
-
-```
-bash scripts/run_standalone_eval.sh [device] [config] [load_ckpt] [dataset_dir]
-```
-
-For example, you can run the shell command below to launch the validation procedure.
-
-```
-bash scripts/run_standalone_eval.sh GPU ./config/i3d_rgb.yaml ./i3d_rgb_kinetics400.ckpt data_path
-```
-
-The eval results can be viewed in `eval/eval.log`.
-
-# [Model Description](https://github.com/ZJUT-ERCISS/fairmot_mindspore#contents)
-
-## [Performance](https://github.com/ZJUT-ERCISS/fairmot_mindspore#contents)
-
-### I3D on Kinetics400 dataset with detector
-
-#### Benchmark with paper
+#### [Benchmark with paper](#contents)
 
 |               | MindSpore | original paper |
 | ------------- | --------- | ----- |
 | Top1 Accuracy | 67%       | 68%   |
 
-#### Performance parameters
+#### [Performance parameters](#contents)
 
 | Parameters          | GPU Standalone                | GPU Distributed               |
 | ------------------- | ----------------------------- | ----------------------------- |
@@ -213,12 +151,12 @@ The eval results can be viewed in `eval/eval.log`.
 | Optimizer           | SGD                           | SGD                           |
 | Loss Function       | SoftmaxCrossEntropyWithLogits | SoftmaxCrossEntropyWithLogits |
 
-#### Visual Result
+#### [Visual Result](#contents)
 
-![i3d_vis](https://gitee.com/yanlq46462828/zjut_mindvideo/raw/master/tutorials/classification/i3d/pics/result.gif)
+![i3d_vis](./pics/result.gif)
 
 
-# Citation
+# [Citation](#contents)
 
 If you find this project useful in your research, please consider citing:
 
@@ -237,5 +175,5 @@ If you find this project useful in your research, please consider citing:
 
 
 ```latex
-@misc{nonlocal_misdspore, author = {MindSpore Vision Contributors}, title = {MindVideo Models}, year = {2022}, publisher = {GitHub}, journal = {GitHub repository}, doi = {10.1109/CVPR.2017.502}, howpublished = {\url{https://github.com/ZJUT-ERCISS/i3d_mindspore}} } 
+@misc{nonlocal_misdspore, author = {MindSpore Vision Contributors}, title = {MindVideo Models}, year = {2022}, publisher = {GitHub}, journal = {GitHub repository}, doi = {10.1109/CVPR.2017.502}, howpublished = {\url{https://github.com/ZJUT-ERCISS/zjut_mindvideo}} } 
 ```

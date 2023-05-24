@@ -9,9 +9,7 @@
     - [Dataset Preparation](#dataset-preparation)
     - [Model Checkpoints](#model-checkpoints)
     - [Running](#running)
-  - [Script Description](#script-description)
-    - [Script and Sample Code](#script-and-sample-code)
-    - [Script Parameters](#script-parameters)
+  - [Script Parameters](#script-parameters)
   - [Training Process](#training-process)
   - [Evaluation Process](#evaluation-process)
   - [Performance](#performance)
@@ -28,7 +26,7 @@ The code of this warehouse is the implementation of R(2+1)D network based on the
 ## [Model Architecture](#contents)
 
 <div align=center>
-<img src=https://gitee.com/yanlq46462828/zjut_mindvideo/raw/master/tutorials/classification/r(2+1)d/pics/r2plus1d.png> 
+<img src=./pics/r2plus1d.png> 
 
 Figure1 3D vs (2+1)D convolution</div>
 
@@ -39,7 +37,7 @@ The figure above shows the difference between 3D convolution and (2+1)D convolut
 
 
 <div align=center>
-<img src=https://gitee.com/yanlq46462828/zjut_mindvideo/raw/master/tutorials/classification/r(2+1)d/pics/r3d_block.png> 
+<img src=./pics/r3d_block.png> 
 
 Table1 network architectures</div>
 
@@ -117,101 +115,21 @@ R(2+1)D model uses [Kinetics400](https://www.deepmind.com/open-source/kinetics) 
 The pretrain model is trained on the the kinetics400 dataset. It can be downloaded here: [r2plus1d18_kinetic400.ckpt](https://zjuteducn-my.sharepoint.com/:u:/g/personal/201906010313_zjut_edu_cn/EXT6cCmxV59Gp4U9VChcmuUB2Fmuhfg7SRkfuxGsOiyBUA?e=qJ9Wc1)
 
 ### [Running](#contents)
-To train or finetune the model, you can run the following script:
+```bash
+cd tools/classification
 
-```shell
+# run the following command for trainning
+python train.py -c ../../mindvideo/r2plus1d/r2plus1d18.yaml
 
-cd scripts/
+# run the following command for evaluation
+python eval.py -c ../../mindvideo/r2plus1d/r2plus1d18.yaml
 
-# run training example
-bash train_standalone.sh [PROJECT_PATH] [DATA_PATH]
-
-# run distributed training example
-bash train_distribute.sh [PROJECT_PATH] [DATA_PATH]
+# run the following command for inference
+python infer.py -c ../../mindvideo/r2plus1d/r2plus1d18.yaml
 ```
 
-To validate the model, you can run the following script:
-```shell
-cd scripts/
+## [Script Parameters](#contents)
 
-# run evaluation example
-bash eval_standalone.sh [PROJECT_PATH] [DATA_PATH]
-```
-
-## [Script Description](#contents)
-
-### [Script and Sample Code](#contents)
-```text
-.
-│  infer.py                                     // infer script
-│  README.md                                    // descriptions about R(2+1)D
-│  train.py                                     // training scrip
-└─src
-    ├─config
-    │      r2plus1d18.yaml                      // R(2+1)D parameter configuration
-    ├─data
-    │  │  builder.py                            // build data
-    │  │  download.py                           // download dataset
-    │  │  generator.py                          // generate video dataset
-    │  │  images.py                             // process image
-    │  │  kinetics400.py                        // kinetics400 dataset
-    |  |  kinetics600.py                        // kinetics600 dataset
-    │  │  meta.py                               // public API for dataset
-    │  │  path.py                               // IO path
-    │  │  video_dataset.py                      // video dataset
-    │  │
-    │  └─transforms
-    │          builder.py                       // build transforms
-    │          video_center_crop.py             // center crop
-    │          video_normalize.py               // normalize
-    │          video_random_crop.py             // random crop
-    │          video_random_horizontal_flip.py  // random horizontal flip
-    │          video_reorder.py                 // reorder
-    │          video_rescale.py                 // rescale
-    |          video_reshape.py                 // reshape
-    |          video_resize.py                  // resize
-    │          video_short_edge_resize.py       // short edge resize
-    |          video_to_tensor.py               // to tensor
-    │
-    ├─example
-    │      r2plus1d_kinetics400_eval.py         // eval r2plus1d model
-    │      r2plus1d_kinetics400_train.py        // train r2plus1d model
-    │
-    ├─loss
-    │      builder.py                           // build loss
-    │
-    ├─models
-    |  |  base.py                               // Generate recognizer
-    │  │  builder.py                            // build model
-    │  │  r2plus1d.py                           // r2plus1d model
-    │  │
-    │  └─layers
-    │          adaptiveavgpool3d.py             // adaptive average pooling 3D
-    |          avgpool3d.py                     // average pooling 3D
-    │          dropout_dense.py                 // dense head
-    │          inflate_conv3d.py                // inflate conv3d block
-    │          resnet3d.py                      // resnet backbone
-    │          unit3d.py                        // unit3d module
-    │
-    ├─optim
-    │      builder.py                           // build optimizer
-    │
-    ├─schedule
-    │      builder.py                           // build learning rate shcedule
-    │      lr_schedule.py                       // learning rate shcedule
-    │
-    └─utils
-            callbacks.py                        // eval loss monitor
-            check_param.py                      // check parameters
-            class_factory.py                    // class register
-            config.py                           // parameter configuration
-            init_weight.py                      // init weight
-            resized_mean.py                     // Calculate mean
-            six_padding.py                      // convert padding list into tuple
-
-```
-
-### [Script Parameters](#contents)
 Parameters for both training and evaluation can be set in r2plus1d18.yaml
 - config for R(2+1)D, Kinetics400 dataset
 
@@ -345,13 +263,7 @@ data_loader:
 ```  
 ## [Training Process](#contents)
 
-Run `scripts/train_standalone.sh` to train the model standalone. The usage of the script is:
-
-```text
-bash train_standalone.sh [PROJECT_PATH] [DATA_PATH]
-```
-
-You can view the results through the file `train_standalone.log`.
+train.log for Kinetics400
 
 ```text
 epoch: 1 step: 1, loss is 5.963528633117676
@@ -367,15 +279,8 @@ epoch: 1 step: 8, loss is 5.923609733581543
 
 ## [Evaluation Process](#contents)
 
-The evaluation dataset was [Kinetics400](https://www.deepmind.com/open-source/kinetics)
 
-Run `scripts/eval_standalone.sh` to evaluate the model. The usage of the script is:
-
-```text
-bash scripts/eval_standalone.sh [PROJECT_PATH] [DATA_PATH] [MODEL_PATH]
-```
-
-The eval results can be viewed in `eval_result.log`.
+eval.log for Kinetics400
 
 ```text
 step:[    1/ 1242], metrics:[], loss:[1.766/1.766], time:5113.836 ms, 
@@ -435,8 +340,8 @@ The original paper did not provide the performance of r2plus1d18 on the k400 dat
 
 The following graphics show the visualization results of model inference.
 <div align=center>
-<img src=https://gitee.com/yanlq46462828/zjut_mindvideo/raw/master/tutorials/classification/r(2+1)d/pics/result0.gif> 
-<img src=https://gitee.com/yanlq46462828/zjut_mindvideo/raw/master/tutorials/classification/r(2+1)d/pics/result1.gif> 
+<img src=./pics/result0.gif> 
+<img src=./pics/result1.gif> 
 </div>
 
 ## [Citation](#contents)
@@ -452,14 +357,6 @@ If you find this project useful in your research, please consider citing:
   year={2018},
   journal = {CVPR},
   doi={10.1109/cvpr.2018.00675},
-}
-```
-
-```BibTeX
-@misc{MindSpore Vision 2022, 
-  title={{MindSpore Vision}:MindSpore Vision Toolbox and Benchmark}, 
-  author={MindSpore Vision Contributors}, 
-  howpublished = {\url{https://gitee.com/mindspore/vision}}, 
-  year={2022} 
+  howpublished = {\url{https://github.com/ZJUT-ERCISS/zjut_mindvideo}}
 }
 ```

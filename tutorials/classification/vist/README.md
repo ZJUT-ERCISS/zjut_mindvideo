@@ -12,9 +12,7 @@
     - [Dataset Preparation](#dataset-preparation)
     - [Model Checkpoints](#model-checkpoints)
     - [Running](#running)
-  - [Script Description](#script-description)
-    - [Script and Sample Code](#script-and-sample-code)
-    - [Script Parameters](#script-parameters)
+  - [Script Parameters](#script-parameters)
   - [Performance](#performance)
     - [Evaluation Performance](#evaluation-performance)
   - [Benchmark](#benchmark)
@@ -30,12 +28,12 @@ This repository contains a Mindspore implementation of Video Swin Transformer ba
 ## [Model Architecture](#contents)
 The major component of Swin3D is the Video Swin Transformer block, which contains a 3D shifted window based MSA (Multi-head Self Attention).
 <div align=center>
-<img src=https://gitee.com/yanlq46462828/zjut_mindvideo/raw/master/tutorials/classification/vist/pics/swin3d_block.jpg> 
+<img src=./pics/swin3d_block.jpg> 
 
 Figure 1 An illustration of two successive Video Swin Transformer blocks </div>
 Figure 1 illustrates two successive Video Swin Transformer blocks. 3D W-MSA and 3D SW-MSA denote 3D window based multi-head self-attention using regular and shifted window partitioning configurations, respectively. Similar to [Swin2D](https://arxiv.org/abs/2103.14030), this 3D shifted window design introduces connections between neighboring non-overlapping 3D windows in the previous layer.
 <div align=center>
-<img src=https://gitee.com/yanlq46462828/zjut_mindvideo/raw/master/tutorials/classification/vist/pics/swin3d_tiny.png> 
+<img src=./pics/swin3d_tiny.png> 
 
 Figure 2 The architecture of swin3d tiny</div>
 Figure 2 shows the overall architecture of the tiny version (Swin3D-T) of Video Swin Transformer. For more information, please read the original [paper](https://arxiv.org/abs/2106.13230).
@@ -119,104 +117,20 @@ The pretrain model is trained on the the kinetics400 dataset. It can be download
 
 ### [Running](#contents)
 
-To train or finetune the model, you can run the following script:
+```bash
+cd tools/classification
 
-```shell
+# run the following command for trainning
+python train.py -c ../../mindvideo/config/vist/swin3d_t.yaml
 
-cd scripts/
+# run the following command for evaluation
+python eval.py -c ../../mindvideo/config/vist/swin3d_t.yaml
 
-# run training example
-bash train_standalone.sh [PROJECT_PATH] [DATA_PATH]
-
-# run distributed training example
-bash train_distribute.sh [PROJECT_PATH] [DATA_PATH]
-
-
-```
-To validate the model, you can run the following script:
-```shell
-cd scripts/
-
-# run evaluation example
-bash eval_standalone.sh [PROJECT_PATH] [DATA_PATH]
+# run the following command for inference
+python infer.py -c ../../mindvideo/config/vist/swin3d_t.yaml
 ```
 
-## [Script Description](#contents)
-
-### [Script and Sample Code](#contents)
-
-```text
-.
-│  infer.py                                     // infer script
-│  README.md                                    // descriptions about Swin3D
-│  train.py                                     // training scrip
-└─src
-    ├─config
-    │  └─swin3d                                 // swin3d parameter configuration
-    |     |  swin3d_t.yaml
-    |     |  swin3d_s.yaml
-    |     |  swin3d_b.yaml
-    ├─data
-    │  │  builder.py                            // build data
-    │  │  download.py                           // download dataset
-    │  │  generator.py                          // generate video dataset
-    │  │  images.py                             // process image
-    │  │  kinetics400.py                        // kinetics400 dataset
-    |  |  kinetics600.py                        // kinetics600 dataset
-    │  │  meta.py                               // public API for dataset
-    │  │  path.py                               // IO path
-    │  │  video_dataset.py                      // video dataset
-    │  │
-    │  └─transforms
-    │     |  builder.py                         // build transforms
-    │     |  video_center_crop.py               // center crop
-    │     |  video_normalize.py                 // normalize
-    │     |  video_random_crop.py               // random crop
-    │     |  video_random_horizontal_flip.py    // random horizontal flip
-    │     |  video_reorder.py                   // reorder
-    │     |  video_rescale.py                   // rescale
-    │     |  video_short_edge_resize.py         // short edge resize
-    │     |  video_three_crop.py                // three crop
-    |
-    ├─example
-    │  |  swin3d_kinetics400_eval.py            // eval swin3d model
-    │  |  swin3d_kinetics400_train.py           // train swin3d model
-    │
-    ├─loss
-    │  |  builder.py                            // build loss
-    │
-    ├─models
-    |  |  base.py                               // base
-    │  │  builder.py                            // build model
-    │  │  swin3d.py                             // swin3d model
-    │  │
-    │  └─layers
-    │     | avgpoll3d.py                        // average pooling 3D.
-    │     | dropout_dense.py                    // dense head
-    │     | drop_path.py                        // drop path
-    |     | feed_forward.py                     // feed forward layer
-    |     | identity.py                         // identity block
-    │     | roll3d.py                           // 3d roll operation
-    │
-    ├─optim
-    │  |  builder.py                           // build optimizer
-    │
-    ├─schedule
-    │  |  builder.py                           // build learning rate shcedule
-    │  |  lr_schedule.py                       // learning rate shcedule
-    │
-    └─utils
-       |  callbacks.py                        // eval loss monitor
-       |  check_param.py                      // check parameters
-       |  class_factory.py                    // class register
-       |  config.py                           // parameter configuration
-       |  mask.py                             // mask module for shifted windows based MSA
-       |  windows.py                          // window operations
-
-
-```
-
-### [Script Parameters](#contents)
+## [Script Parameters](#contents)
 
 Here shows the parameters configuration for both training and evaluation of Swin3D-Tiny model.
 - config for swin3d_t, Kinetics400 dataset
@@ -368,7 +282,7 @@ The Top-1 and Top-5 accuracy comparison between the original paper and Mindspore
 ## [Visualization Result](#contents)
 
 <div align=center>
-<img src=https://gitee.com/yanlq46462828/zjut_mindvideo/raw/master/tutorials/classification/vist/pics/vis_result.gif>
+<img src=./pics/vis_result.gif>
 
 Figure 3 Visualization Result of Swin3D-T</div>
 
@@ -392,6 +306,6 @@ Figure 3 Visualization Result of Swin3D-T</div>
     year={2022},
     publisher = {GitHub},
     journal = {GitHub repository},
-    howpublished = {\url{https://github.com/ZJUT-ERCISS/swin3d_mindspore}}
+    howpublished = {\url{https://github.com/ZJUT-ERCISS/zjut_mindvideo}}
 }
 ```

@@ -88,7 +88,8 @@ Within `mindvideo`, all data processing methods according to each dataset used c
 
 ### Running
 
-There are two approaches provided for training, evaluation and inference within `mindvideo` for each supported model. After installing MindSpore via the official website, one is to run the training or evaluation files under the `tutorials` folder, which is a independent module for training and evaluation specifically designed for starters, according to each model's name. And the other is to use the train and inference interfaces for all models under the `tools` folder of the repository when working with the `YAML` file containing the parameters needed for each model as we also support some parameter configurations for quick start. For this method, take I3D for example, just run following commands for training:
+Each of the models supported by `mindvideo` has a runnable module for beginners. After installing MindSpore and the dependencies required by this repository, under the `tutorials` folder, you can find folders corresponding to the names of each model. There are learning modules specially designed for beginners, and you can open the .ipynb file and run the code. We also support some parameter configurations for quick start. When processing the `YAML` file containing the parameters required for each model, you can use the training and inference interfaces of all models under the `tools` folder. For this method, I3D is used as For example, just run the following command to train:
+
 
 ```
 cd tools/classification

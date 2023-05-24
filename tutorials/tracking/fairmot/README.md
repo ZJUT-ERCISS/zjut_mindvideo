@@ -8,7 +8,7 @@ Paper: Zhang Y, Wang C, Wang X, et al. FairMOT: On the Fairness of Detection and
 
 The overall network architecture of FairMOT is shown below:
 
-![FairMOT_architecture](https://gitee.com/yanlq46462828/zjut_mindvideo/raw/master/tutorials/tracking/fairmot/pics/fairmot.png)
+![FairMOT_architecture](./pics/fairmot.png)
 
 
 #Dataset
@@ -73,7 +73,7 @@ Then put all training and evaluation data into one directory and then change "da
 "data_root": "/home/publicfile/dataset/tracking"
 ```
 
-#Model Checkpoints
+# Model Checkpoints
 The pretrain model (DLA-34 backbone) is trained on the the MIX dataset for 30 epochs. It can be downloaded here: 
 [fairmot_dla34-30_886.ckpt] (https://gitee.com/yanlq46462828/zjut_mindvideo/blob/master/tutorials/tracking/fairmot/README.md)
 
@@ -81,57 +81,20 @@ The pretrain model (DLA-34 backbone) is trained on the the MIX dataset for 30 ep
 Model Checkpoints
 The pretrain model (DLA-34 backbone) is trained on the the MIX dataset for 30 epochs. It can be downloaded here: fairmot_dla34-30_886.ckpt
 
-#Running
-Please run one of the following command in root directory fairmot_mindspore.
+# Running
 
-```
-# standalone training on GPU
-bash scripts/run_standalone_train_gpu.sh [DATA_JSON] [VISIBLE_DEVICES(0,1,2,3,4,5,6,7)]
-# distributed training on GPU
-bash scripts/run_standalone_train_gpu.sh [DATA_JSON] [NUM_DEVICES] [VISIBLE_DEVICES(0,1,2,3,4,5,6,7)]
-```
+```bash
+cd tools/tracking
 
-To validate the model, run the shell `script scripts/run_eval.sh` with the format below:
-```
-bash scripts/run_eval.sh [CKPT_PATH] [DATA_ROOT] [VISIBLE_DEVICES(0,1,2,3,4,5,6,7)]
-```
-To infer using the model, run the shell script `scripts/run_infer.sh` with the format below:
-```
-bash scripts/run_eval.sh [CKPT_PATH] [DATA_ROOT] [SAVE_VIDEO] [VISIBLE_DEVICES(0,1,2,3,4,5,6,7)]
-```
-The validate and infer programme will generate pictures with predict bbox, and infer programme can generate video if SAVE_VIDEO is True.
+# run the following command for trainning
+python train.py -c ../../mindvideo/config/fairmot/fairmot_dla34.yaml
 
-If you want to train or evaluate the model in other parameter settings, please refer to `fairmot_mix_train.py` or `fairmot_mix_eval.py` to change your input parameters in script.
+# run the following command for evaluation
+python eval.py -c ../../mindvideo/config/fairmot/fairmot_dla34.yaml
 
-#Examples
-##Training
+# run the following command for inference
+python infer.py -c ../../mindvideo/config/fairmot/fairmot_dla34.yaml
 ```
-bash scripts/run_standalone_train_gpu.sh datas/data.json 0
-```
-##Distributed Training
-```
-bash scripts/run_distribute_train_gpu.sh datas/data.json 0,1,2,3
-```
-The above shell script will run distribute training in the background.
-
-You can view the results through the file `./output/train.log`.
-
-The model checkpoint will be saved into `./output`.
-
-##Evaluation Process
-The evaluation data set was `MOT17`
-```
-bash scripts/run_eval.sh fairmot_dla34-30_886.ckpt /home/tracking/MOT17/images/train 0
-```
-The evaluation results can be viewed in `/output`.
-
-##Infer Process
-The infer data set was `MOT17`
-
-```
-bash scripts/run_eval.sh fairmot_dla34-30_886.ckpt /home/tracking/MOT17/images/test  True 0
-```
-The infer results can be viewed in `./output`.
 
 # [Model Description](https://github.com/ZJUT-ERCISS/fairmot_mindspore#contents)
 
@@ -166,11 +129,11 @@ results from original paper：
 
 Examples given below are the predictions this FairMOT model:
 
-![1](https://gitee.com/yanlq46462828/zjut_mindvideo/raw/master/tutorials/tracking/fairmot/pics/MOT17_04_SDP.gif)
-![2](https://gitee.com/yanlq46462828/zjut_mindvideo/raw/master/tutorials/tracking/fairmot/pics/MOT17_05_SDP.gif)
-![3](https://gitee.com/yanlq46462828/zjut_mindvideo/raw/master/tutorials/tracking/fairmot/pics/MOT17_09_SDP.gif)
-![4](https://gitee.com/yanlq46462828/zjut_mindvideo/raw/master/tutorials/tracking/fairmot/pics/MOT17_10_SDP.gif)
-![5](https://gitee.com/yanlq46462828/zjut_mindvideo/raw/master/tutorials/tracking/fairmot/pics/MOT17_13_SDP.gif)
+![1](./pics/MOT17_04_SDP.gif)
+![2](./pics/MOT17_05_SDP.gif)
+![3](./pics/MOT17_09_SDP.gif)
+![4](./pics/MOT17_10_SDP.gif)
+![5](./pics/MOT17_13_SDP.gif)
 
 # Citation
 
@@ -185,16 +148,5 @@ If you find this project useful in your research, please consider citing:
   pages={3069--3087},
   year={2021},
   publisher={Springer}
-}
-```
-
-
-
-```latex
-@misc{MindSpore Vision 2022,
-    title={{MindSpore Vision}:MindSpore Vision Toolbox and Benchmark},
-    author={MindSpore Vision Contributors},
-    howpublished = {\url{https://gitee.com/mindspore/vision}},
-    year={2022}
 }
 ```

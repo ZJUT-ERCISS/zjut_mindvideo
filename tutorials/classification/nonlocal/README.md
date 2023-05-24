@@ -9,9 +9,7 @@
     - [Dataset Preparation](#dataset-preparation)
     - [Model Checkpoints](#model-checkpoints)
     - [Running](#running)
-  - [Script Description](#script-description)
-    - [Script and Sample Code](#script-and-sample-code)
-    - [Script Parameters](#script-parameters)
+  - [Script Parameters](#script-parameters)
   - [Training Process](#training-process)
   - [Evaluation Process](#evaluation-process)
   - [Benchmark](#benchmark)
@@ -29,12 +27,12 @@ This code is a re-implementation of the video classification experiments in the 
 
 ## [Model Architecture](#contents)
 <div align=center>
-<img src=https://gitee.com/yanlq46462828/zjut_mindvideo/raw/master/tutorials/classification/nonlocal/pics/nonlocal_block.png> 
+<img src=./pics/nonlocal_block.png> 
 
 Figure 1 nonlocal_block </div>
 A non-local operation is a flexible building block and can be easily used together with convolutional/recurrent layers. It can be added into the earlier part of deep neural networks, unlike fc layers that are often used in the end. This allows us to build a richer hierarchy that combines both non-local and local information.
 <div align=center>
-<img src=https://gitee.com/yanlq46462828/zjut_mindvideo/raw/master/tutorials/classification/nonlocal/pics/baseline_ResNet50_C2D.png> 
+<img src=./pics/baseline_ResNet50_C2D.png> 
 
 Table 1 baseline_ResNet50_C2D</div>
 Table 1 shows our C2D baseline under a ResNet-50 backbone.In this repositories, we use the Inflated 3D ConvNet(I3D) under a ResNet-50 backbone. One can turn the C2D model in Table 1into a 3D convolutional counterpart by “inflating” the kernels. For example, a 2D k×k kernel can be inflated as a 3D t×k×k kernel that spans t frames. And we add 5 blocks (3 to res4 and 2 to res3, to every other residual block). For more information, please read the [paper](./src/example/1711.07971v1.pdf).
@@ -117,101 +115,20 @@ It can be downloaded here: [[nonlocal_kinetics400_mindspore.ckpt]](https://zjute
 
 ### [Running](#contents)
 
-To train or finetune the model, you can run the following script:
+```bash
+cd tools/classification
 
-```shell
+# run the following command for trainning
+python train.py -c ../../mindvideo/config/nonlocal/nonlocal.yaml
 
-cd scripts/
+# run the following command for evaluation
+python eval.py -c ../../mindvideo/config/nonlocal/nonlocal.yaml
 
-# run training example
-bash train_standalone.sh [PROJECT_PATH] [DATA_PATH]
-
-# run distributed training example
-bash train_distribute.sh [PROJECT_PATH] [DATA_PATH]
-
-
-```
-To validate the model, you can run the following script:
-```shell
-cd scripts/
-
-# run evaluation example
-bash eval_standalone.sh [PROJECT_PATH] [DATA_PATH]
+# run the following command for inference
+python infer.py -c ../../mindvideo/config/nonlocal/nonlocal.yaml
 ```
 
-## [Script Description](#contents)
-
-### [Script and Sample Code](#contents)
-
-```text
-.
-│  eval.py                                     // eval script
-│  README.md                                    // descriptions about Nonlocal
-│  train.py                                     // training script
-└─scripts
-    | eval_standalone.sh                        //eval standalone script
-    | train_distribute.sh                       //train distribute script
-    | train_standalone.sh                       //train standalone script
-└─src
-    ├─config
-    │      nonlocal.yaml                        // Nonlocal parameter configuration
-    ├─data
-    │  │  builder.py                            // build data
-    │  │  download.py                           // download dataset
-    │  │  generator.py                          // generate video dataset
-    │  │  images.py                             // process image
-    │  │  kinetics400.py                        // kinetics400 dataset
-    │  │  meta.py                               // public API for dataset
-    │  │  path.py                               // IO path
-    │  │  video_dataset.py                      // video dataset
-    │  │
-    │  └─transforms
-    │          builder.py                       // build transforms
-    │          video_center_crop.py             // center crop
-    │          video_normalize.py               // normalize
-    │          video_random_crop.py             // random crop
-    │          video_random_horizontal_flip.py  // random horizontal flip
-    │          video_reorder.py                 // reorder
-    │          video_rescale.py                 // rescale
-    │          video_short_edge_resize.py       // short edge resize
-    │
-    ├─example
-    │      nonlocal_kinetics400_eval.py         // eval nonlocal model
-    │      nonlocal_kinetics400_train.py        // train nonlocal model
-    │
-    ├─loss
-    │      builder.py                           // build loss
-    │
-    ├─models
-    │  │  builder.py                            // build model
-    │  │  nonlocal3d.py                                // nonlocal model
-    │  │
-    │  └─layers
-    │          adaptiveavgpool3d.py             // adaptive average pooling 3D.
-    │          dropout_dense.py                 // dense head
-    │          inflate_conv3d.py                // inflate conv3d block
-    |          maxpool3d.py                     // 3D max pooling
-    |          maxpool3dwithpad.py              // 3D max pooling with padding operation
-    │          resnet3d.py                      // resnet backbone
-    │          unit3d.py                        // unit3d module
-    │
-    ├─optim
-    │      builder.py                           // build optimizer
-    │
-    ├─schedule
-    │      builder.py                           // build learning rate shcedule
-    │      lr_schedule.py                       // learning rate shcedule
-    │
-    └─utils
-            callbacks.py                        // eval loss monitor
-            check_param.py                      // check parameters
-            class_factory.py                    // class register
-            config.py                           // parameter configuration
-            six_padding.py                      // convert padding list into tuple
-
-```
-
-### [Script Parameters](#contents)
+## [Script Parameters](#contents)
 
 Parameters for both training and evaluation can be set in nonlocal.yaml
 
@@ -418,14 +335,14 @@ Kinetics400 contains ∼246k training videos and 20k validation videos. It is a 
 
 Here is the accuracy of the model from source paper.
 <div align=center>
-<img src=https://gitee.com/yanlq46462828/zjut_mindvideo/raw/master/tutorials/classification/nonlocal/pics/accuracy.png> 
+<img src=./pics/accuracy.png> 
 
 Figure 2 Accuracy from source paper</div>
 
 ## [Visualization result](#contents)
 We have done some visualization of the classification results of the model. The following is a visual sample.
 <div align=center>
-<img src=https://gitee.com/yanlq46462828/zjut_mindvideo/raw/master/tutorials/classification/nonlocal/pics/result.gif> 
+<img src=./pics/result.gif> 
 
 Visualization sample</div>
 

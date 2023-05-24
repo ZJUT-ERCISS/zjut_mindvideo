@@ -9,9 +9,6 @@
   - [Dataset Preparation](#dataset-preparation)
   - [Model Checkpoints](#model-checkpoints)
   - [Running](#running)
-  - [Example](#example)
-    - [Training](#training)
-    - [infer](#infer)
 - [Model Desrcription](#model-desrcription)
   - [Perfermance](#perfermance)
     - [VisTR on YouTube-VIS dataset](#vistr-on-youtube-vis-dataset)
@@ -91,37 +88,18 @@ The pretrain model(vistr_r50) is trained on the youtubevos dataset for 18 epochs
 
 ## [Running](#contents)
 
-Please run one of the following command in root directory [vistr_mindspore](./).
+```bash
+cd tools/segmentation
 
-```shell
-# standalone training on GPU
-bash train_standalone.sh [PROJECT_PATH] [DATA_PATH]
+# run the following command for trainning
+python train.py -c ../../mindvideo/config/vistr/vistr.yaml
+
+# run the following command for evaluation
+python eval.py -c ../../mindvideo/config/vistr/vistr.yaml
+
+# run the following command for inference
+python infer.py -c ../../mindvideo/config/vistr/vistr.yaml
 ```
-
-To infer the model, run the shell script [scripts/run_infer.sh](scripts/run_infer.sh) with the format below:
-
-```shell
-bash scripts/infer_standalone.sh [PROJECT_PATH] [DATA_PATH] [MODEL_PATH]
-```
-
-If you want to train or evaluate the model in other parameter settings, please refer to [vistr_r50_train.py](src/example/vistr_r50_train.py) or [vistr)r50_infer.py](src/example/vistr_r50_infer.py) to change your input parameters in script.
-
-## [Example](#contents)
-
-### [Training](#contents)
-
-```shell
-bash train_standalone.sh /home/vistr /home/publicfile/VOS
-```
-
-The tranin log can be viewed in `./train_standalone.log`.
-
-### [infer](#contents)
-
-```shell
-bash infer_standalone.sh /home/vistr /home/publicfile/VOS vistr_r50.ckpt
-```
-The infer log can be viewed in `./eval_result.log`
 
 # [Model Desrcription](#contents)
 
@@ -164,7 +142,7 @@ The infer log can be viewed in `./eval_result.log`
 
 #### Segmentation Result
 
-![result](https://gitee.com/yanlq46462828/zjut_mindvideo/raw/master/tutorials/segmentation/vistr/pics/result.png)
+![result](./pics/result.png)
 
 # [Citation](#contents)
 ```
@@ -173,13 +151,5 @@ The infer log can be viewed in `./eval_result.log`
   author={Wang, Yuqing and Xu, Zhaoliang and Wang, Xinlong and Shen, Chunhua and Cheng, Baoshan and Shen, Hao and Xia, Huaxia},
   booktitle =  {Proc. IEEE Conf. Computer Vision and Pattern Recognition (CVPR)},
   year={2021}
-}
-```
-```BibTeX
-@misc{MindSpore Vision 2022,
-    title={{MindSpore Vision}:MindSpore Vision Toolbox and Benchmark},
-    author={MindSpore Vision Contributors},
-    howpublished = {\url{https://gitee.com/mindspore/vision}},
-    year={2022}
 }
 ```

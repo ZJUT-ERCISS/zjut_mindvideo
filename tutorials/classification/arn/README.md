@@ -7,7 +7,7 @@ ARN builds on a C3D encoder for spatio-temporal video blocks to capture short-ra
 
 # Model Architecture
 
-![ARN_architecture](https://gitee.com/yanlq46462828/zjut_mindvideo/raw/ed04288452c69fd205cb5f8000217e90b523cf6f/tutorials/classification/arn/pics/ARN_model.png)
+![ARN_architecture](./pics/ARN_model.png)
 
 The overall network architecture of ARN is shown below:
 
@@ -87,84 +87,22 @@ ARN model uses UCF101 dataset to train and validate in this repository.Please re
 
 ## Model Checkpoints
 
-The pretrain model is trained on the the UCF101 for 30 epochs. It can be downloaded here:
+The pretrain model is trained on the the UCF101 for 30 epochs. It can be downloaded here: [arn.ckpt](https://zjuteducn-my.sharepoint.com/:u:/g/personal/201906010313_zjut_edu_cn/ER55hujI22BOkyjL5UrBVt0BfKx8lmeW5DRctx46tfZRkA?e=hdIZIu)
 
 ## Running
 
-- Run on GPU
+```bash
+cd tools/classification
 
-```text
-cd scripts/
+# run the following command for trainning
+python train.py -c ../../mindvideo/config/arn/arn.yaml
 
-# run training example
-bash run_standalone_train.sh [PROJECT_PATH] [DATA_PATH]
+# run the following command for evaluation
+python eval.py -c ../../mindvideo/config/arn/arn.yaml
 
-# run distributed training example
-bash run_distribute_train.sh [PROJECT_PATH] [DATA_PATH]
-
-# run evaluation example
-bash run_standalone_eval.sh [PROJECT_PATH] [DATA_PATH]
+# run the following command for inference
+python infer.py -c ../../mindvideo/config/arn/arn.yaml
 ```
-
-# Script Description
-
-## Training Process
-
-### Training Alone
-
-Run `scripts/run_standalone_train.sh` to train the model standalone. The usage of the script is:
-
-#### Running on GPU
-
-```
-bash scripts/run_standalone_train.sh [config_file] [pretrained_model]
-```
-
-For example, you can run the shell command below to launch the training procedure:
-
-```
-bash scripts/run_standalone_train.sh ./arn.yaml ./ARN_ucf_MSE.ckpt
-```
-
-The model checkpoint will be saved into `./output`.
-
-### Distributed Training
-
-Run `scripts/run_distribute_train.sh` to train the model distributed. The usage of the script is:
-
-#### Running on GPU
-
-```
-bash scripts/run_distribute_train.sh [DEVICE_NUM] [VISIBLE_DEVICES(0,1,2,3,4,5,6,7)] [config_file] [pretrained_model]
-```
-
-For example, you can run the shell command below to launch the distributed training procedure:
-
-```
-bash scripts/run_distribute_train.sh 8 0,1,2,3,4,5,6,7 ./arn.yaml ./ARN_ucf_MSE.ckpt
-```
-
-The above shell script will run distribute training in the background. You can view the results through the file `train/tran.log`.
-
-The model checkpoint will be saved into `train/ckpt`.
-
-## Evaluation Process
-
-The evaluation data set was [UCF101](https://www.crcv.ucf.edu/data/UCF101.php)
-
-Run `scripts/run_eval.sh` to evaluate the model. The usage of the script is:
-
-```
-bash scripts/run_standalone_eval.sh [device] [config] [load_ckpt] [dataset_dir]
-```
-
-For example, you can run the shell command below to launch the validation procedure.
-
-```
-bash scripts/run_standalone_eval.sh GPU ./arn.yaml ./ARN_ucf_MSE.ckpt data_path
-```
-
-The eval results can be viewed in `eval/eval.log`.
 
 # [Model Description](https://github.com/ZJUT-ERCISS/arn_mindspore#contents)
 
@@ -201,11 +139,11 @@ Note that although our result on ucf101 under 5-way 1-shot setting is lower than
 
 Examples given below are the predictions this arn model makes under the settings of 5-way 1-shot and one query video each class.
 
-![1](https://gitee.com/yanlq46462828/zjut_mindvideo/raw/ed04288452c69fd205cb5f8000217e90b523cf6f/tutorials/classification/arn/pics/result-1.gif)
-![2](https://gitee.com/yanlq46462828/zjut_mindvideo/raw/master/tutorials/classification/arn/pics/result-2.gif)
-![3](https://gitee.com/yanlq46462828/zjut_mindvideo/raw/ed04288452c69fd205cb5f8000217e90b523cf6f/tutorials/classification/arn/pics/result-3.gif)
-![4](https://gitee.com/yanlq46462828/zjut_mindvideo/raw/ed04288452c69fd205cb5f8000217e90b523cf6f/tutorials/classification/arn/pics/result-4.gif)
-![5](https://gitee.com/yanlq46462828/zjut_mindvideo/raw/ed04288452c69fd205cb5f8000217e90b523cf6f/tutorials/classification/arn/pics/result-5.gif)
+![1](./pics/result-1.gif)
+![2](./pics/result-2.gif)
+![3](./pics/result-3.gif)
+![4](./pics/result-4.gif)
+![5](./pics/result-5.gif)
 
 # Citation
 
@@ -237,6 +175,6 @@ If you find this project useful in your research, please consider citing:
     publisher = {GitHub},
     journal = {GitHub repository},
     doi = {10.1007/978-3-030-58558-7_31},
-    howpublished = {\url{https://github.com/ZJUT-ERCISS/arn_misdspore}}
+    howpublished = {\url{https://github.com/ZJUT-ERCISS/zjut_mindvideo}}
 }
 ```

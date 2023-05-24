@@ -5,12 +5,8 @@
   - [Dataset](#dataset)
   - [Environment Requirements](#environment-requirements)
   - [Quick Start](#quick-start)
-  - [Script Description](#script-description)
-    - [Script and Sample Code](#script-and-sample-code)
-    - [Script Parameters](#script-parameters)
+  - [Script Parameters](#script-parameters)
   - [Training Process](#training-process)
-    - [Training](#training)
-    - [Distributed Training](#distributed-training)
   - [Evaluation Process](#evaluation-process)
   - [Model Description](#model-description)
   - [Benchmark with paper](#benchmark-with-paper)
@@ -19,7 +15,7 @@
 
 ## Description
 
-![x3d_concept](https://gitee.com/yanlq46462828/zjut_mindvideo/raw/master/tutorials/classification/x3d/pics/x3d_concept.png)
+![x3d_concept](./pics/x3d_concept.png)
 
 X3D network progressively expand a 2D network across the following axes: Temporal duration $\gamma_t$, frame rate $\gamma_{\tau}$ , spatial resolution $\gamma_s$, width $\gamma_w$, bottleneck width $\gamma_b$, and depth $\gamma_d$.
 
@@ -40,19 +36,19 @@ X3D network progressively expand a 2D network across the following axes: Tempora
 The architecture of x3d is as follows:
 
 <div align=center>
-<img src="https://gitee.com/yanlq46462828/zjut_mindvideo/raw/master/tutorials/classification/x3d/pics/x3d_architecture.png"/>
+<img src="./pics/x3d_architecture.png"/>
 </div>
 
 The dimensions of kernels are denoted by $\{{{T×S^2, C}}\}$ for temporal, spatial, and channel sizes. Strides are denoted as {temporal stride, spatial ${stride}^2$}. This network is expanded using factors $\{\gamma_t,\gamma_{\tau},\gamma_s,\gamma_w,\gamma_b,\gamma_d\}$ to form X3D. Without expansion (all factors equal to one), this model is referred to as X2D, having 20.67M FLOPS and 1.63M parameters.
 
 <div align=center>
-<img src="https://gitee.com/yanlq46462828/zjut_mindvideo/raw/master/tutorials/classification/x3d/pics/x3d_s.png"/>
+<img src="./pics/x3d_s.png"/>
 </div>
 
 X3D-S with 1.96G FLOPs, 3.76M param, and 72.9% top-1 accuracy using expansion of $\gamma_{\tau}=6$, $\gamma_t=13$, $\gamma_s=\sqrt{2}$, $\gamma_w=1$, $\gamma_b=2.25$, $\gamma_d=2.2$.
 
 <div align=center>
-<img src="https://gitee.com/yanlq46462828/zjut_mindvideo/raw/master/tutorials/classification/x3d/pics/x3d_m.png"/>
+<img src="./pics/x3d_m.png"/>
 </div>
 
 X3D-M with 4.73G FLOPs, 3.76M param, and 74.6% top-1 accuracy using expansion of $\gamma_{\tau}=5$, $\gamma_t=16$, $\gamma_s=2$, $\gamma_w=1$, $\gamma_b=2.25$, $\gamma_d=2.2$.
@@ -123,106 +119,20 @@ Python and dependencies
 
 ## Quick Start
 
-- Run on GPU
+```bash
+cd tools/classification
 
-```text
-cd scripts/
+# run the following command for trainning
+python train.py -c ../../mindvideo/config/x3d/x3d_m.yaml
 
-# run training example
-bash train_standalone.sh [PROJECT_PATH] [DATA_PATH]
+# run the following command for evaluation
+python eval.py -c ../../mindvideo/config/x3d/x3d_m.yaml
 
-# run distributed training example
-bash train_distribute.sh [PROJECT_PATH] [DATA_PATH]
-
-# run evaluation example
-bash eval_standalone.sh [PROJECT_PATH] [DATA_PATH]
+# run the following command for inference
+python infer.py -c ../../mindvideo/config/x3d/x3d_m.yaml
 ```
 
-## Script Description
-
-### Script and Sample Code
-
-```text
-.
-│  infer.py                                     // infer script
-│  README.md                                    // descriptions about X3D
-│  train.py                                     // training script
-│
-├─scripts
-│      eval_standalone.sh                       // shell script for testing on GPU
-│      train_distribute.sh                      // shell script for distributed training on GPU
-│      train_standalone.sh                      // shell script for training on GPU
-│
-└─src
-    │
-    ├─config
-    │      x3d_l.yaml                           // X3D-L parameter configuration
-    │      x3d_m.yaml                           // X3D-M parameter configuration
-    │      x3d_s.yaml                           // X3D-S parameter configuration
-    │      x3d_xs.yaml                          // X3D-XS parameter configuration
-    │
-    ├─data
-    │  │  builder.py                            // build data
-    │  │  download.py                           // download dataset
-    │  │  generator.py                          // generate video dataset
-    │  │  images.py                             // process image
-    │  │  kinetics400.py                        // kinetics400 dataset
-    │  │  kinetics600.py                        // kinetics600 dataset
-    │  │  meta.py                               // public API for dataset
-    │  │  path.py                               // IO path
-    │  │  ucf101.py                             // ucf101 dataset
-    │  │  video_dataset.py                      // video dataset
-    │  │
-    │  └─transforms
-    │          builder.py                       // build transforms
-    │          video_center_crop.py             // center crop
-    │          video_normalize.py               // normalize
-    │          video_random_crop.py             // random crop
-    │          video_random_horizontal_flip.py  // random horizontal flip
-    │          video_reorder.py                 // reorder
-    │          video_rescale.py                 // rescale
-    │          video_reshape.py                 // reshape
-    │          video_resize.py                  // resize
-    │          video_short_edge_resize.py       // short edge resize
-    │
-    ├─example
-    │      x3d_kinetics400_eval.py              // eval x3d model
-    │      x3d_kinetics400_train.py             // train x3d model
-    │
-    ├─loss
-    │      builder.py                           // build loss
-    │
-    ├─models
-    │  │  builder.py                            // build model
-    │  │  x3d.py                                // x3d model
-    │  │
-    │  └─layers
-    │          adaptiveavgpool3d.py             // adaptive average pooling 3D.
-    │          avgpool3d.py                     // average pooling 3D
-    │          dropout_dense.py                 // dense head
-    │          inflate_conv3d.py                // inflate conv3d block
-    │          resnet3d.py                      // resnet backbone
-    │          squeeze_excite3d.py              // squeeze and excitation
-    │          swish.py                         // swish activation function
-    │          unit3d.py                        // unit3d module
-    │
-    ├─optim
-    │      builder.py                           // build optimizer
-    │
-    ├─schedule
-    │      builder.py                           // build learning rate shcedule
-    │      lr_schedule.py                       // learning rate shcedule
-    │
-    └─utils
-            callbacks.py                        // eval loss monitor
-            check_param.py                      // check parameters
-            class_factory.py                    // class register
-            config.py                           // parameter configuration
-            six_padding.py                      // convert padding list into tuple
-
-```
-
-### Script Parameters
+## Script Parameters
 
 - config for x3d-m
   
@@ -342,15 +252,7 @@ data_loader:
 
 ## Training Process
 
-### Training
-
-Run `scripts/train_standalone.sh` to train the model(x3d_m) standalone. The usage of the script is:
-
-```text
-bash train_standalone.sh [PROJECT_PATH] [DATA_PATH]
-```
-
-You can view the results through the file `train_standalone.log`.
+train.log for Kinetics400
 
 ```text
 [Start training `x3d_kinetics400`]
@@ -365,50 +267,9 @@ epoch: 1 step: 7, loss is 5.987305641174316
 ...
 ```
 
-The model checkpoint will be saved into `./x3d`.
-
-### Distributed Training
-
-Run 'scripts/train_distribute.sh' to train the model distributed. The usage of the script is:
-
-```text
-bash train_distribute.sh [PROJECT_PATH] [DATA_PATH]
-```
-
-The above shell script will run distribute training in the background. You can view the results through the file `train_distributed.log`.
-
-```text
-[Start training `x3d_kinetics400`]
-================================================================================
-epoch: 1 step: 1, loss is 5.988784313201904
-epoch: 1 step: 1, loss is 5.9909162521362305
-epoch: 1 step: 2, loss is 5.995461463928223
-epoch: 1 step: 2, loss is 5.985698223114014
-epoch: 1 step: 3, loss is 5.979603290557861
-epoch: 1 step: 3, loss is 5.984967231750488
-epoch: 1 step: 4, loss is 5.994110584259033
-epoch: 1 step: 4, loss is 5.9942779541015625
-epoch: 1 step: 5, loss is 6.005364894866943
-epoch: 1 step: 5, loss is 5.98798942565918
-epoch: 1 step: 6, loss is 5.977146148681641
-epoch: 1 step: 6, loss is 6.000572204589844
-epoch: 1 step: 7, loss is 5.988678932189941
-epoch: 1 step: 7, loss is 5.995543003082275
-```
-
-The model checkpoint will be saved into `./x3dckpt`.
-
 ## Evaluation Process
 
-The evaluation dataset was [Kinetics400](https://www.deepmind.com/open-source/kinetics)
-
-Run `scripts/eval_standalone.sh` to evaluate the model(x3d_m). The usage of the script is:
-
-```text
-bash scripts/eval_standalone.sh [PROJECT_PATH] [DATA_PATH] [MODEL_PATH]
-```
-
-The eval results can be viewed in `eval_result.log`.
+eval.log for Kinetics400
 
 ```text
 [Start eval `x3d_kinetics400`]
@@ -477,6 +338,6 @@ If you find this project useful in your research, please consider citing:
     year={2022},
     publisher = {GitHub},
     journal = {GitHub repository},
-    howpublished = {\url{https://github.com/ZJUT-ERCISS/x3d_misdspore}}
+    howpublished = {\url{https://github.com/ZJUT-ERCISS/zjut_mindvideo}}
 }
 ```
