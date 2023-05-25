@@ -19,7 +19,7 @@
   - [Citation](#citation)
 
 ## [Description](#contents)
-  
+
 
 The code of this warehouse is the implementation of R(2+1)D network based on the mindspore framework. If you want to read the original paper, you can click the link below: [A Closer Look at Spatiotemporal Convolutions for Action Recognition](https://arxiv.org/abs/1711.11248)
 
@@ -42,7 +42,7 @@ The figure above shows the difference between 3D convolution and (2+1)D convolut
 Table1 network architectures</div>
 
 Table 1 shows the R3D network of layer 18 and layer 34. From R3D models the authors obtain architectures R(2+1)d  by replacing the 3D convolutions with (2+1)D convolutions. In this repository, we choose 18 layers of structure to build network.
- 
+
   
 
 ## [Dataset](#contents)
@@ -80,7 +80,7 @@ The directory structure of Kinetic-400 dataset looks like:
 
         ...
 ```
-  
+
   
 
 ## [Environment Requirements](#contents)
@@ -99,7 +99,7 @@ To run the python scripts in the repository, you need to prepare the environment
     - [MindSpore tutorials](https://www.mindspore.cn/tutorials/en/master/index.html)
     - [MindSpore Python API](https://www.mindspore.cn/docs/en/master/index.html)
 
-  
+
 ## [Quick Start](#contents)
 
 ### [Requirements Installation](#contents)
@@ -260,7 +260,7 @@ data_loader:
                   std: [0.22803, 0.22145, 0.216989]
             input_columns: ["video"]
     group_size: 1
-```  
+```
 ## [Training Process](#contents)
 
 train.log for Kinetics400
@@ -298,18 +298,18 @@ step:[    7/ 1242], metrics:['Loss: 2.4580', 'Top_1_Accuracy: 0.4792', 'Top_5_Ac
 
 - r(2+1)d for kinetic400
 
-| Parameters          | GPU                                                       |
-| -------------       |--------------------------------------  |
-| Model Version       | r                                                       |
-| Resource            | Nvidia 3090Ti                                             |
-| uploaded Date       | 09/06/2022 (month/day/year)                               |
-| MindSpore Version   | 1.6.1                                                     |
-| Dataset             | kinetic400                                                    |
-| Training Parameters | epoch = 30,  batch_size = 64                               |
-| Optimizer           | SGD                                                       |
-| Loss Function       | Max_SoftmaxCrossEntropyWithLogits                         |
-| Top_1               | 1pc:57.3%                                                 |
-| Top_5               | 1pc:79.6%                                                 |
+| Parameters          | GPU                               |
+| ------------------- | --------------------------------- |
+| Model Version       | r                                 |
+| Resource            | Nvidia 3090Ti                     |
+| uploaded Date       | 09/06/2022 (month/day/year)       |
+| MindSpore Version   | 1.8.1                             |
+| Dataset             | kinetic400                        |
+| Training Parameters | epoch = 30,  batch_size = 64      |
+| Optimizer           | SGD                               |
+| Loss Function       | Max_SoftmaxCrossEntropyWithLogits |
+| Top_1               | 1pc:57.3%                         |
+| Top_5               | 1pc:79.6%                         |
 
 ## [Benchmark](#contents)
 

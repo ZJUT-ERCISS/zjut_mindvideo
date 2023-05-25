@@ -48,7 +48,7 @@ Dataset used: [Kinetics400](https://www.deepmind.com/open-source/kinetics)
     | :------: | :----------: | 
     |Training set | 238797 |  
     |Validation set | 19877 | 
-Because of the expirations of some YouTube links, the sizes of kinetics dataset copies may be different.
+    Because of the expirations of some YouTube links, the sizes of kinetics dataset copies may be different.
 ```text
 The directory structure of Kinetic-400 dataset looks like:
 
@@ -258,7 +258,7 @@ data_loader:
 ## [Performance](#contents)
 ### [Evaluation Performance](#contents)
 
-- Mindspore version: 1.6.1
+- Mindspore version: 1.8.1
 
 | Models              | Swin3D-Tiny                   | Swin3D-Small                  | Swin3D-Base                   |
 | -------------       |-------------------------      |--------------                 |------------                   |

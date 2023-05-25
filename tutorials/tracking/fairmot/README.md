@@ -107,7 +107,7 @@ python infer.py -c ../../mindvideo/config/fairmot/fairmot_dla34.yaml
 | Model Version       | FairMotNet                  |
 | Resource            | 4x RTX 3090 24GB            |
 | Uploaded Date       | 21/09/2022 (day/month/year) |
-| MindSpore Version   | 1.6.1                       |
+| MindSpore Version   | 1.8.1                      |
 | Training Dataset    | MIX                         |
 | Evaluation Dataset  | **MOT17**                       |
 | Training Parameters | epoch=30, batch_size=2      |

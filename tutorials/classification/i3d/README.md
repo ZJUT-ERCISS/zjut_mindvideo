@@ -144,7 +144,7 @@ python infer.py -c ../../mindvideo/config/i3d/i3d_rgb.yaml
 | Model Version       | I3D                           | I3D                           |
 | Resource            | RTX 3090 24GB                 | 8x RTX 3090 24GB              |
 | Uploaded Date       | 25/06/2021 (day/month/year)   | 21/02/2021 (day/month/year)   |
-| MindSpore Version   | 1.2.0                         | 1.5.0                         |
+| MindSpore Version   | 1.8.1                         | 1.8.1                         |
 | Training Dataset    | Kinetics400                   | Kinetics400                   |
 | Evaluation Dataset  | Kinetics400                   | Kinetics400                   |
 | Training Parameters | epoch=30, batch_size=4        | epoch=30, batch_size=12       |

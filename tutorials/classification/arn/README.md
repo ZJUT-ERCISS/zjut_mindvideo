@@ -117,7 +117,7 @@ python infer.py -c ../../mindvideo/config/arn/arn.yaml
 | Model Version       | ARN                         | ARN                         |
 | Resource            | RTX 3090 24GB               | 8x RTX 3090 24GB            |
 | Uploaded Date       | 25/06/2021 (day/month/year) | 21/02/2021 (day/month/year) |
-| MindSpore Version   | 1.2.0                       | 1.5.0                       |
+| MindSpore Version   | 1.8.1                      | 1.8.1                      |
 | Training Dataset    | UCF101                      | UCF101                      |
 | Evaluation Dataset  | UCF101                      | UCF101                      |
 | Training Parameters | epoch=30, batch_size=4      | epoch=30, batch_size=12     |

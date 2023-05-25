@@ -293,11 +293,11 @@ eval result: top_1 80.412%
 - C3D for UCF101
 
 | Parameters          | Ascend                                                      | GPU                               |
-|---------------------|-------------------------------------------------------------|-----------------------------------|
+| ------------------- | ----------------------------------------------------------- | --------------------------------- |
 | Model Version       | C3D                                                         | C3D                               |
 | Resource            | Ascend 910; CPU 2.60GHz, 192cores; Memory 755G; OS Euler2.8 | V100                              |
 | uploaded Date       | 09/22/2021 (month/day/year)                                 | 11/06/2021 (month/day/year)       |
-| MindSpore Version   | 1.2.0                                                       | 1.5.0                             |
+| MindSpore Version   | 1.8.1                                                       | 1.8.1                             |
 | Dataset             | UCF101                                                      | UCF101                            |
 | Training Parameters | epoch = 30, batch_size = 16                                 | epoch = 150,  batch_size = 8      |
 | Optimizer           | SGD                                                         | SGD                               |
