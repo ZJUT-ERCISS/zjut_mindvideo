@@ -125,9 +125,18 @@ class DatasetGenerator:
             cnt = self.num_clips
             while cnt > 0:
                 cnt -= 1
-                sample = random.sample(list(range(num_frame)), self.seq)
-                sample.sort()
-                sample_list.append(sample)
+                if num_frame >= self.seq:
+                    sample = random.sample(list(range(num_frame)), self.seq)
+                    sample.sort()
+                    sample_list.append(sample)
+                else:
+                    sample = random.sample(list(range(num_frame)), 8)
+                    i=1
+                    while i< self.seq/8 :
+                        i += 1
+                        sample += random.sample(list(range(num_frame)), 8)
+                    sample.sort()
+                    sample_list.append(sample)
         if self.mode == "average":
             interval = num_frame // self.seq
             offset = random.sample(range(max(interval, self.num_clips)), self.num_clips)

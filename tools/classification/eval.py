@@ -60,7 +60,6 @@ def eval_classification(pargs):
     model = Model(network,
                   network_loss,
                   metrics=eval_metrics)
-
     # Begin to eval.
     result = model.eval(dataset_eval)
 

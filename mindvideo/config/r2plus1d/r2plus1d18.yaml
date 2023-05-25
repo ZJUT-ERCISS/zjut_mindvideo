@@ -8,7 +8,7 @@ context:      # 训练环境
     mode: 0 #0--Graph Mode; 1--Pynative Mode
     device_target: "GPU"
     save_graphs: False
-    device_id: 0
+    device_id: 1
 
 # model settings of every parts
 model:

@@ -23,6 +23,7 @@ dataset_sink_mode: False
 context:
     mode: 0 #0--Graph Mode; 1--Pynative Mode
     device_target: "GPU"
+    device_id: 2
 
 # Model settings.
 model:
@@ -53,7 +54,7 @@ loss:
 
 train:
     pre_trained: False
-    pretrained_model: ""
+    pretrained_model: "/home/publicfile/checkpoint/i3d/i3d_rgb_kinetics400.ckpt"
     ckpt_path: "./output/"
     epochs: 100
     save_checkpoint_epochs: 5
@@ -62,10 +63,10 @@ train:
     run_distribute: False
 
 eval:
-    pretrained_model: ""
+    pretrained_model: "/home/publicfile/checkpoint/i3d/i3d_rgb_kinetics400.ckpt"
 
 infer:
-    pretrained_model: ""
+    pretrained_model: "/home/publicfile/checkpoint/i3d/i3d_rgb_kinetics400.ckpt"
     batch_size: 16
     image_path: ""
     normalize: True
