@@ -265,8 +265,7 @@ def test_param_lr_01_filter_bias_and_bn_optimizer():
                     {'params': no_conv_params, 'lr': 0.1},
                     {'order_params': network.trainable_params()}]
     net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
-    net_opt = create_optimizer(group_params, 'momentum', lr=0.01, weight_decay=1e-5, momentum=0.9,
-                               nesterov=False, filter_bias_and_bn=False)
+
     net_opt = nn.Momentum(params=group_params,
                           learning_rate=0.01,
                           momentum=0.9,

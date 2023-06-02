@@ -51,8 +51,8 @@ class Kinetic400(VideoDataset):
         frame_interval (int): Frame interval of the sample strategy. Default: 1.
         num_clips (int): Number of clips sampled in one video. Default: 1.
     Examples:
-        >>> from mindvision.mindvideo.dataset.hmdb51 import HMDB51
-        >>> dataset = HMDB51("./data/","train")
+        >>> from mindvision.mindvideo.dataset.kinetics400 import Kinetic400
+        >>> dataset = Kinetic400("./data/","train")
         >>> dataset = dataset.run()
 
     The directory structure of Kinetic-400 dataset looks like:
@@ -134,8 +134,8 @@ class Kinetic400(VideoDataset):
         return mapping
 
     def download_dataset(self):
-        """Download the HMDB51 data if it doesn't exist already."""
-        raise ValueError("HMDB51 dataset download is not supported.")
+        """Download the Kinetic400 data if it doesn't exist already."""
+        raise ValueError("Kinetic400 dataset download is not supported.")
 
     def default_transform(self):
         """Set the default transform for UCF101 dataset."""
@@ -184,7 +184,7 @@ class ParseKinetic400(ParseDataset):
         return id2cls, cls2id
 
     def parse_dataset(self, *args):
-        """Traverse the HMDB51 dataset file to get the path and label."""
+        """Traverse the Kinetic400 dataset file to get the path and label."""
         parse_kinetic400 = ParseKinetic400(self.path)
         split = os.path.split(parse_kinetic400.path)[-1]
         video_label, video_path = [], []

@@ -1,4 +1,4 @@
-# arn_mindspore
+# ARN
 
 
 # Description
@@ -43,34 +43,6 @@ Dataset used: [UCF101](https://www.crcv.ucf.edu/data/UCF101.php)
   ...
 ```
 
-# Environment Requirements
-
-- Framework
-  - [MindSpore](https://www.mindspore.cn/install/en)
-
-- Requirements
-
-```text
-Python and dependencies
-    - python 3.7.5
-    - decord 0.6.0
-    - imageio 2.21.1
-    - imageio-ffmpeg 0.4.7
-    - mindspore-gpu 1.6.1
-    - ml-collections 0.1.1
-    - matplotlib 3.4.1
-    - numpy 1.21.5
-    - Pillow 9.0.1
-    - PyYAML 6.0
-    - scikit-learn 1.0.2
-    - scipy 1.7.3
-    - pycocotools 2.0
-```
-
-- For more information, please check the resources below：
-  - [MindSpore Tutorials](https://www.mindspore.cn/tutorials/en/master/index.html)
-  - [MindSpore Python API](https://www.mindspore.cn/docs/en/master/index.html)
-
 # Quick Start
 
 ## Requirements Installation
@@ -78,16 +50,6 @@ Python and dependencies
 ```text
 pip install -r requirements.txt
 ```
-
-## Dataset Preparation
-
-ARN model uses UCF101 dataset to train and validate in this repository.Please refer to their website ([UCF101](https://www.crcv.ucf.edu/data/UCF101.php))to download and prepare all the data.
-
-**Configure path to dataset root** in `data/data.json` file.
-
-## Model Checkpoints
-
-The pretrain model is trained on the the UCF101 for 30 epochs. It can be downloaded here: [arn.ckpt](https://zjuteducn-my.sharepoint.com/:u:/g/personal/201906010313_zjut_edu_cn/ER55hujI22BOkyjL5UrBVt0BfKx8lmeW5DRctx46tfZRkA?e=hdIZIu)
 
 ## Running
 
@@ -100,36 +62,16 @@ python train.py -c ../../mindvideo/config/arn/arn.yaml
 # run the following command for evaluation
 python eval.py -c ../../mindvideo/config/arn/arn.yaml
 
-# run the following command for inference
-python infer.py -c ../../mindvideo/config/arn/arn.yaml
-```
-
 # [Model Description](https://github.com/ZJUT-ERCISS/arn_mindspore#contents)
 
 ## [Performance](https://github.com/ZJUT-ERCISS/arn_mindspore#contents)
 
-### ARN on UCF101 dataset
 
-#### Performance and parameters
-
-| Parameters          | GPU Standalone              | GPU Distributed             |
-| ------------------- | --------------------------- | --------------------------- |
-| Model Version       | ARN                         | ARN                         |
-| Resource            | RTX 3090 24GB               | 8x RTX 3090 24GB            |
-| Uploaded Date       | 25/06/2021 (day/month/year) | 21/02/2021 (day/month/year) |
-| MindSpore Version   | 1.8.1                      | 1.8.1                      |
-| Training Dataset    | UCF101                      | UCF101                      |
-| Evaluation Dataset  | UCF101                      | UCF101                      |
-| Training Parameters | epoch=30, batch_size=4      | epoch=30, batch_size=12     |
-| Optimizer           | Adam                        | Adam                        |
-| Loss Function       | MSELoss                     | MSELoss                     |
-| Train Performance   | (1-shot)56.4%                      | /                            |
-
-#### Benchmark with paper
+#### Benchmark
 
 >  on ucf101 under 5-way 1-shot setting
 
-|          | MindSpore | original paper (PyTorch) |
+|          | MindSpore | third party re-produce |
 | -------- | --------- | ----- |
 | Accuracy | 56.4%       | 42.39%   |
 
@@ -163,7 +105,6 @@ If you find this project useful in your research, please consider citing:
   year      = {2020}
 }
 ```
-
 
 
 ```latex
